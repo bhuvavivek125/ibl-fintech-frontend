@@ -74,20 +74,6 @@ export default function Typography(fontFamily: FontFamily): TypographyVariantsOp
       width: '44px',
       height: '44px',
       fontSize: '1.5rem'
-    },
-    menuCaption: {
-      fontSize: '0.6875rem',
-      fontWeight: 500,
-      color: 'text.secondary',
-      padding: '6px',
-      textTransform: 'uppercase',
-      marginTop: '10px'
-    },
-    subMenuCaption: {
-      fontSize: '0.6875rem',
-      fontWeight: 500,
-      color: 'text.secondary',
-      textTransform: 'capitalize'
     }
   };
 }

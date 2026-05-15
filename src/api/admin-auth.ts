@@ -31,12 +31,22 @@ export interface AdminUser {
 }
 
 export interface AdminLogoutResponse {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: {
+    id: string;
+    name: string;
+    email: string;
+    logoutAt: string;
+  };
 }
 
 // Admin Login API
 export const adminLogin = async (payload: AdminLoginPayload): Promise<AdminLoginResponse> => {
   try {
-    return {} as any;
+    const response = await axios.post(API_ENDPOINTS.ADMIN_USERS.LOGIN, payload);
+    return response.data;
   } catch (error) {
     throw error;
   }
@@ -45,7 +55,8 @@ export const adminLogin = async (payload: AdminLoginPayload): Promise<AdminLogin
 // Admin Logout API
 export const adminLogout = async (): Promise<AdminLogoutResponse> => {
   try {
-    return {} as any;
+    const response = await axios.get(API_ENDPOINTS.ADMIN_USERS.LOGOUT);
+    return response.data;
   } catch (error) {
     throw error;
   }

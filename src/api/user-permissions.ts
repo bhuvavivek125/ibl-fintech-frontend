@@ -1,3 +1,6 @@
+import { API_ENDPOINTS } from 'constants/apiEndpoints';
+import axios from 'utils/axios';
+
 export interface Permission {
   menuId: string;
   menuName: string;
@@ -24,17 +27,17 @@ export interface UserPermissionsResponse {
 }
 
 export const fetchUserPermissions = async (userId: string): Promise<UserPermissionsResponse> => {
-  return {
-    success: true,
-    statusCode: 200,
-    message: 'Success',
-    designationId: '',
-    userId: userId,
-    userName: '',
-    effectivePermissions: []
-  };
+  try {
+    const response = await axios.get(API_ENDPOINTS.ADMIN_USERS.PERMISSIONS(userId));
+    return response.data;
+  } catch (error) {
+    console.error(`Failed to fetch permissions for user ${userId}:`, error);
+    throw error;
+  }
 };
 
 export const getAllowedModules = (permissions: Permission[]): string[] => {
-  return [];
+  return permissions
+    .filter((p) => p.permissions.view || p.permissions.add || p.permissions.edit || p.permissions.delete)
+    .map((p) => p.menuName);
 };

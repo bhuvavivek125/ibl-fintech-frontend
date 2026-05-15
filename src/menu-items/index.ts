@@ -1,10 +1,10 @@
 import { NavItemType } from 'types';
-import dashboard from './dashboard';
+import adminPanel from './adminPanel';
 
 // ==============================|| MENU ITEMS ||============================== //
 
 const menuItems: { items: NavItemType[] } = {
-  items: [dashboard]
+  items: [adminPanel]
 };
 
 export default menuItems;
