@@ -1,7 +1,7 @@
 // types
 import { ConfigStates } from 'types/config';
 
-export const DASHBOARD_PATH = '/plan';
+export const DASHBOARD_PATH = '/dashboard/default';
 export const HORIZONTAL_MAX_ITEM = 7;
 
 export const CSS_VAR_PREFIX = '';

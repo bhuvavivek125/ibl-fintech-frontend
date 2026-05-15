@@ -47,9 +47,11 @@ const container = document.getElementById('root');
 const root = createRoot(container!);
 root.render(
   <Provider store={store}>
-    <ConfigProvider>
-      <App />
-    </ConfigProvider>
+    <PersistGate loading={null} persistor={persister}>
+      <ConfigProvider>
+        <App />
+      </ConfigProvider>
+    </PersistGate>
   </Provider>
 );
 

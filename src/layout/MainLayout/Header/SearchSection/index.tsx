@@ -1,3 +1,5 @@
+import { ReactNode, useState } from 'react';
+
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import Avatar, { AvatarProps } from '@mui/material/Avatar';
@@ -15,8 +17,7 @@ import PopupState, { bindPopper, bindToggle } from 'material-ui-popup-state';
 import Transitions from 'ui-component/extended/Transitions';
 
 // assets
-import { IconSearch, IconX } from '@tabler/icons-react';
-import { ReactNode, useState } from 'react';
+import { IconAdjustmentsHorizontal, IconSearch, IconX } from '@tabler/icons-react';
 
 interface HeaderAvatarProps extends AvatarProps {
   children: ReactNode;
@@ -32,12 +33,21 @@ function HeaderAvatar({ children, ref, ...others }: HeaderAvatarProps) {
       sx={{
         ...theme.typography.commonAvatar,
         ...theme.typography.mediumAvatar,
-        color: theme.palette.secondary.dark,
-        background: theme.palette.secondary.light,
+        color: theme.vars.palette.secondary.dark,
+        background: theme.vars.palette.secondary.light,
         '&:hover': {
-          color: theme.palette.secondary.light,
-          background: theme.palette.secondary.dark
-        }
+          color: theme.vars.palette.secondary.light,
+          background: theme.vars.palette.secondary.dark
+        },
+
+        ...theme.applyStyles('dark', {
+          color: theme.vars.palette.secondary.main,
+          background: theme.vars.palette.dark.main,
+          '&:hover': {
+            color: theme.vars.palette.secondary.light,
+            background: theme.vars.palette.secondary.main
+          }
+        })
       }}
       {...others}
     >
@@ -51,6 +61,8 @@ interface Props {
   setValue: (value: string) => void;
   popupState: any;
 }
+
+// ==============================|| SEARCH INPUT - MOBILE||============================== //
 
 function MobileSearch({ value, setValue, popupState }: Props) {
   const theme = useTheme();
@@ -68,6 +80,9 @@ function MobileSearch({ value, setValue, popupState }: Props) {
       }
       endAdornment={
         <InputAdornment position="end">
+          <HeaderAvatar>
+            <IconAdjustmentsHorizontal stroke={1.5} size="20px" />
+          </HeaderAvatar>
           <Box sx={{ ml: 2 }}>
             <Avatar
               variant="rounded"
@@ -76,7 +91,9 @@ function MobileSearch({ value, setValue, popupState }: Props) {
                 ...theme.typography.mediumAvatar,
                 bgcolor: 'orange.light',
                 color: 'orange.dark',
-                '&:hover': { bgcolor: 'orange.dark', color: 'orange.light' }
+                '&:hover': { bgcolor: 'orange.dark', color: 'orange.light' },
+
+                ...theme.applyStyles('dark', { bgcolor: theme.vars.palette.dark.main })
               }}
               {...bindToggle(popupState)}
             >
@@ -91,6 +108,8 @@ function MobileSearch({ value, setValue, popupState }: Props) {
     />
   );
 }
+
+// ==============================|| SEARCH INPUT ||============================== //
 
 export default function SearchSection() {
   const [value, setValue] = useState('');
@@ -140,6 +159,13 @@ export default function SearchSection() {
           startAdornment={
             <InputAdornment position="start">
               <IconSearch stroke={1.5} size="16px" />
+            </InputAdornment>
+          }
+          endAdornment={
+            <InputAdornment position="end">
+              <HeaderAvatar>
+                <IconAdjustmentsHorizontal stroke={1.5} size="20px" />
+              </HeaderAvatar>
             </InputAdornment>
           }
           aria-describedby="search-helper-text"
