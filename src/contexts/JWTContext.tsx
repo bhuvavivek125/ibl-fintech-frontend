@@ -63,13 +63,13 @@ export function JWTProvider({ children }: { children: ReactElement }) {
         const serviceToken = window.localStorage.getItem('serviceToken');
         if (serviceToken && verifyToken(serviceToken)) {
           setSession(serviceToken);
-          // const response = await axios.get('/api/account/me');
-          // const { user } = response.data;
+          const response = await axios.get('/auth/me');
+          const { user } = response.data.data;
           dispatch({
             type: LOGIN,
             payload: {
               isLoggedIn: true,
-              // user
+              user
             }
           });
         } else {
@@ -89,54 +89,41 @@ export function JWTProvider({ children }: { children: ReactElement }) {
   }, []);
 
   const login = async (email: string, password: string) => {
-    // const response = await axios.post('/api/account/login', { email, password });
-    // const { serviceToken, user } = response.data;
-    // setSession(serviceToken);
+    const response = await axios.post('/auth/login', { email, password });
+    const { token, user } = response.data.data;
+    setSession(token);
     dispatch({
       type: LOGIN,
       payload: {
         isLoggedIn: true,
-        // user
+        user
       }
     });
   };
 
+
   const register = async (email: string, password: string, firstName: string, lastName: string) => {
-    // todo: this flow need to be recode as it not verified
-    const id = chance.bb_pin();
-    const response = await axios.post('/api/account/register', {
-      id,
+    await axios.post('/auth/register', {
       email,
       password,
-      firstName,
-      lastName
+      name: `${firstName} ${lastName}`,
+      role: 'user'
     });
-    let users = response.data;
-
-    if (window.localStorage.getItem('users') !== undefined && window.localStorage.getItem('users') !== null) {
-      const localUsers = window.localStorage.getItem('users');
-      users = [
-        ...JSON.parse(localUsers!),
-        {
-          id,
-          email,
-          password,
-          name: `${firstName} ${lastName}`
-        }
-      ];
-    }
-
-    window.localStorage.setItem('users', JSON.stringify(users));
   };
 
-  const logout = () => {
+  const logout = async () => {
+    try {
+      await axios.post('/auth/logout');
+    } catch (err) {
+      console.error('Logout error:', err);
+    }
     setSession(null);
     dispatch({ type: LOGOUT });
   };
 
-  const resetPassword = async (email: string) => {};
+  const resetPassword = async (email: string) => { };
 
-  const updateProfile = () => {};
+  const updateProfile = () => { };
 
   if (state.isInitialized !== undefined && !state.isInitialized) {
     return <Loader />;

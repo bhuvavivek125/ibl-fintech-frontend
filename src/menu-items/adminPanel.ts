@@ -1,29 +1,82 @@
 // assets
 import {
-  IconSettings
+  IconDashboard,
+  IconUsers,
+  IconUpload,
+  IconLock,
+  IconSettings,
+  IconHistory
 } from '@tabler/icons-react';
 
 // types
 import { NavItemType } from 'types';
 
 const icons = {
-  IconSettings: IconSettings
+  IconDashboard,
+  IconUsers,
+  IconUpload,
+  IconLock,
+  IconSettings,
+  IconHistory
 };
 
 // ==============================|| MENU ITEMS - Admin Panel ||============================== //
 
 const adminPanel: NavItemType = {
-  id: 'main',
+  id: 'admin-panel',
+  title: 'Admin Panel',
   type: 'group',
   children: [
     {
-      id: 'dashboard-analytics',
-      title: 'Dashboard Analytics',
+      id: 'admin-dashboard',
+      title: 'Admin Dashboard',
+      type: 'item',
+      icon: icons.IconDashboard,
+      url: '/dashboard/admin'
+    },
+    {
+      id: 'user-management',
+      title: 'User Management',
+      type: 'item',
+      icon: icons.IconUsers,
+      url: '/users',
+      permission: 'user.view'
+    },
+    {
+      id: 'role-management',
+      title: 'Role & Permission',
+      type: 'item',
+      icon: icons.IconLock,
+      url: '/roles',
+      permission: 'role.view',
+      roles: ['super_admin']
+    },
+    {
+      id: 'file-upload',
+      title: 'File Upload',
+      type: 'item',
+      icon: icons.IconUpload,
+      url: '/upload',
+      permission: 'file.upload'
+    },
+    {
+      id: 'settings',
+      title: 'Settings',
       type: 'item',
       icon: icons.IconSettings,
-      url: '/dashboard/analytics'
+      url: '/settings',
+      permission: 'settings.edit'
     },
+    {
+      id: 'activity-logs',
+      title: 'Activity Logs',
+      type: 'item',
+      icon: icons.IconHistory,
+      url: '/activity-logs',
+      permission: 'activity.view'
+    }
   ]
 };
 
 export default adminPanel;
+

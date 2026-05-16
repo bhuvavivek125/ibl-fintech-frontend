@@ -48,8 +48,8 @@ export interface GenericCardProps {
 
 export type OverrideIcon =
   | (OverridableComponent<SvgIconTypeMap<{}, 'svg'>> & {
-      muiName: string;
-    })
+    muiName: string;
+  })
   | React.ComponentClass<any>
   | FunctionComponent<any>
   | any;
@@ -91,6 +91,8 @@ export type NavItemType = {
   breadcrumbs?: boolean;
   disabled?: boolean;
   chip?: ChipProps;
+  permission?: string;
+  roles?: string[];
   children?: NavItemType[];
   elements?: NavItemType[];
   search?: string;

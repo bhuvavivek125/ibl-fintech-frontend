@@ -1,16 +1,26 @@
 import { lazy } from 'react';
+import { Navigate } from 'react-router-dom';
 
 // project imports
 import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
 
 
+import AuthGuard from 'utils/route-guard/AuthGuard';
+import GuestGuard from 'utils/route-guard/GuestGuard';
+import PermissionGuard from 'utils/route-guard/PermissionGuard';
+
 // dashboard routing
 const Login = Loadable(lazy(() => import('views/login')));
 const Register = Loadable(lazy(() => import('views/register')));
 
 
-const DashboardAnalytics = Loadable(lazy(() => import('views/dashboard/Analytics')));
+const AdminDashboard = Loadable(lazy(() => import('views/admin/dashboard')));
+const UserManagement = Loadable(lazy(() => import('views/admin/users/UserList')));
+const RoleManagement = Loadable(lazy(() => import('views/admin/roles/RoleManagement')));
+const FileUpload = Loadable(lazy(() => import('views/admin/upload/FileUpload')));
+const ActivityLogs = Loadable(lazy(() => import('views/admin/activity/ActivityLogs')));
+const AccessDenied = Loadable(lazy(() => import('views/AccessDeniedPage')));
 const Error = Loadable(lazy(() => import('views/Error')));
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -25,29 +35,78 @@ const MaintenanceErrorRoute = {
 const LoginRoutes = {
   path: '/login',
   element: (
-    <Login />
+    <GuestGuard>
+      <Login />
+    </GuestGuard>
   ),
 };
 
 const RegisterRoutes = {
   path: '/register',
   element: (
-    <Register />
+    <GuestGuard>
+      <Register />
+    </GuestGuard>
   ),
 };
 
 const MainRoutes = {
   path: '/',
   element: (
-    <MainLayout />
+    <AuthGuard>
+      <MainLayout />
+    </AuthGuard>
   ),
   children: [
     {
-      path: '/dashboard/analytics',
-      element: <DashboardAnalytics />
+      path: '/',
+      element: <Navigate to="/dashboard/admin" replace />
+    },
+    {
+      path: '/dashboard/admin',
+      element: <AdminDashboard />
+    },
+    {
+      path: '/users',
+      element: (
+        <PermissionGuard permission="user.view">
+          <UserManagement />
+        </PermissionGuard>
+      )
+    },
+    {
+      path: '/roles',
+      element: (
+        <PermissionGuard permission="role.view">
+          <RoleManagement />
+        </PermissionGuard>
+      )
+    },
+    {
+      path: '/upload',
+      element: (
+        <PermissionGuard permission="file.upload">
+          <FileUpload />
+        </PermissionGuard>
+      )
+    },
+    {
+      path: '/activity-logs',
+      element: (
+        <PermissionGuard permission="activity.view">
+          <ActivityLogs />
+        </PermissionGuard>
+      )
+    },
+    {
+      path: '/access-denied',
+      element: <AccessDenied />
     }
   ]
 };
+
+
+
 
 
 

@@ -5,6 +5,8 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 
 // project imports
 import LogoSection from '../LogoSection';
@@ -19,6 +21,7 @@ import NotificationSection from './NotificationSection';
 import { handlerDrawerOpen, useGetMenuMaster } from 'api/menu';
 import { MenuOrientation } from 'config';
 import useConfig from 'hooks/useConfig';
+import useAuth from 'hooks/useAuth';
 
 // assets
 import { IconMenu2 } from '@tabler/icons-react';
@@ -27,6 +30,7 @@ import { IconMenu2 } from '@tabler/icons-react';
 
 export default function Header() {
   const theme = useTheme();
+  const { user } = useAuth();
   const downMD = useMediaQuery(theme.breakpoints.down('md'));
 
   const {
@@ -96,8 +100,18 @@ export default function Header() {
         <FullScreenSection />
       </Box>
 
-      {/* profile */}
-      <ProfileSection />
+      {/* profile info & dropdown */}
+      <Stack direction="row" spacing={1.5} alignItems="center" sx={{ ml: 2 }}>
+        <Box sx={{ display: { xs: 'none', sm: 'block' }, textAlign: 'right' }}>
+          <Typography variant="subtitle1" sx={{ fontWeight: 800, lineHeight: 1 }}>
+            {user?.name || 'System User'}
+          </Typography>
+          <Typography variant="caption" color="text.secondary" sx={{ textTransform: 'uppercase', fontWeight: 700, fontSize: '0.65rem' }}>
+            {user?.role?.name || user?.role || 'Guest'}
+          </Typography>
+        </Box>
+        <ProfileSection />
+      </Stack>
 
       {/* mobile header */}
       <Box sx={{ display: { xs: 'block', sm: 'none' } }}>

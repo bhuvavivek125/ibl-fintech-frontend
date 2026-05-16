@@ -73,7 +73,7 @@ export default function AdminLogin() {
 
     try {
       await login(username, password);
-      navigate('/dashboard/default', { replace: true });
+      navigate('/dashboard', { replace: true });
     } catch (err: any) {
       console.error('Login failed:', err);
       setError(err?.message || 'Login failed. Please try again.');

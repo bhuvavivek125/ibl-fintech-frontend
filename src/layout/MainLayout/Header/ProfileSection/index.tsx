@@ -56,6 +56,7 @@ export default function ProfileSection() {
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const { logout: adminContextLogout, user: adminUser } = useAdminAuth();
+  const { logout: jwtLogout } = useAuth();
   const { canPerform } = useModuleAccess();
   const [open, setOpen] = useState(false);
 
@@ -65,10 +66,11 @@ export default function ProfileSection() {
   const handleLogout = async () => {
     setIsLoggingOut(true);
     try {
-      // Call the admin logout API
-      const response = await adminLogout();
+      // Call the JWT logout (which calls the backend /auth/logout)
+      await jwtLogout();
 
       // Clear all authentication-related data from localStorage
+      localStorage.removeItem('serviceToken');
       localStorage.removeItem('adminPermissions');
       localStorage.removeItem('adminAccessToken');
       localStorage.removeItem('adminUser');
@@ -79,26 +81,25 @@ export default function ProfileSection() {
       // Clear session storage if used
       sessionStorage.clear();
 
-      // Update the AdminAuthContext state
+      // Update the AdminAuthContext state if applicable
       adminContextLogout();
 
       // Close the menu
       setOpen(false);
 
       // Show success message
-      enqueueSnackbar(`Logged out successfully at ${new Date(response.data.logoutAt).toLocaleString()}`, {
+      enqueueSnackbar('Logged out successfully', {
         variant: 'success',
         autoHideDuration: 3000
       });
 
-      // Redirect to admin login page after a short delay
-      setTimeout(() => {
-        navigate('/admin/login', { replace: true });
-      }, 1000);
+      // Redirect to login page
+      navigate('/login', { replace: true });
     } catch (err: any) {
       console.error('Logout error:', err);
 
       // Still clear local data on error
+      localStorage.removeItem('serviceToken');
       localStorage.removeItem('adminPermissions');
       localStorage.removeItem('adminAccessToken');
       localStorage.removeItem('adminUser');
@@ -110,16 +111,13 @@ export default function ProfileSection() {
       // Still update context on error
       adminContextLogout();
 
-      const errorMessage = err?.response?.data?.message || 'Logout failed. Redirecting to login page.';
-      enqueueSnackbar(errorMessage, {
+      enqueueSnackbar('Logout completed with cleanup', {
         variant: 'warning',
         autoHideDuration: 3000
       });
 
-      // Still redirect even on error after a short delay
-      setTimeout(() => {
-        navigate('/admin/login', { replace: true });
-      }, 1000);
+      // Still redirect even on error
+      navigate('/login', { replace: true });
     } finally {
       setIsLoggingOut(false);
     }

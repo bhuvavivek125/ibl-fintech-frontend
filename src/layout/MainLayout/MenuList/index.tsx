@@ -14,8 +14,8 @@ import NavGroup from './NavGroup';
 import { MenuOrientation } from 'config';
 import menuItem from 'menu-items';
 import useConfig from 'hooks/useConfig';
-import AdminAuthContext from 'contexts/AdminAuthContext';
-import { filterMenuByPermissions, createAllowedModulesSet } from 'utils/filterMenuByPermissions';
+import useAuth from 'hooks/useAuth';
+import { filterMenuByPermissions, extractPermissionSlugs } from 'utils/filterMenuByPermissions';
 
 import { HORIZONTAL_MAX_ITEM } from 'config';
 
@@ -26,7 +26,7 @@ import { NavItemType } from 'types';
 
 function MenuList() {
   const downMD = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));
-  const adminAuthContext = useContext(AdminAuthContext);
+  const { user } = useAuth();
 
   const {
     state: { menuOrientation }
@@ -37,26 +37,13 @@ function MenuList() {
   const [selectedID, setSelectedID] = useState<string | undefined>('');
   const [menuItems, setMenuItems] = useState<{ items: NavItemType[] }>({ items: [] });
 
-  // let widgetMenu = Menu();
-
   useLayoutEffect(() => {
-    let finalMenuItems = [...menuItem.items];
+    const finalMenuItems = [...menuItem.items];
+    const userPermissions = extractPermissionSlugs(user);
 
-    // Apply permission-based filtering if permissions are available
-    const permissionsResponse = adminAuthContext?.permissions as any;
-    const effectivePermissions = permissionsResponse?.data?.effectivePermissions;
-
-    if (effectivePermissions && Array.isArray(effectivePermissions) && effectivePermissions.length > 0) {
-      const allowedModules = createAllowedModulesSet(effectivePermissions);
-
-      finalMenuItems = filterMenuByPermissions(finalMenuItems, allowedModules);
-    } else {
-      console.log('[MenuList] No permissions available');
-    }
-
-      setMenuItems({ items: finalMenuItems });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ adminAuthContext?.permissions]);
+    const filteredItems = filterMenuByPermissions(finalMenuItems, userPermissions);
+    setMenuItems({ items: filteredItems });
+  }, [user]);
 
   // last menu-item to show in horizontal menu bar
   const lastItem = isHorizontal ? HORIZONTAL_MAX_ITEM : null;
