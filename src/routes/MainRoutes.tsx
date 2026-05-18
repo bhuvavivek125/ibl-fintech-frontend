@@ -23,6 +23,7 @@ const UserManagement = Loadable(lazy(() => import('views/admin/users/UserList'))
 const RoleManagement = Loadable(lazy(() => import('views/admin/roles/RoleManagement')));
 const FileUpload = Loadable(lazy(() => import('views/admin/upload/FileUpload')));
 const ActivityLogs = Loadable(lazy(() => import('views/admin/activity/ActivityLogs')));
+const SettingsDashboard = Loadable(lazy(() => import('views/admin/settings/Settings')));
 const AccessDenied = Loadable(lazy(() => import('views/AccessDeniedPage')));
 const Error = Loadable(lazy(() => import('views/Error')));
 // ==============================|| MAIN ROUTING ||============================== //
@@ -103,6 +104,14 @@ const MainRoutes = {
       )
     },
     {
+      path: '/settings',
+      element: (
+        <PermissionGuard permission="settings.edit">
+          <SettingsDashboard />
+        </PermissionGuard>
+      )
+    },
+    {
       path: '/activity-logs',
       element: (
         <PermissionGuard permission="activity.view">
@@ -116,6 +125,7 @@ const MainRoutes = {
     }
   ]
 };
+
 
 
 

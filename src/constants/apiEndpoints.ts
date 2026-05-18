@@ -29,6 +29,9 @@ export const API_ENDPOINTS = {
   PERMISSIONS: {
     BASE: '/permissions'
   },
+  SETTINGS: {
+    BASE: '/settings'
+  },
   UPLOAD: {
     PROFILE_IMAGE: '/upload/profile-image',
     DOCUMENT: '/upload/document',
