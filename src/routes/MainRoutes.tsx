@@ -8,11 +8,14 @@ import Loadable from 'ui-component/Loadable';
 
 import AuthGuard from 'utils/route-guard/AuthGuard';
 import GuestGuard from 'utils/route-guard/GuestGuard';
+import AdminAuthGuard from 'utils/route-guard/AdminAuthGuard';
+import AdminGuestGuard from 'utils/route-guard/AdminGuestGuard';
 import PermissionGuard from 'utils/route-guard/PermissionGuard';
 
 // dashboard routing
 const Login = Loadable(lazy(() => import('views/login')));
 const Register = Loadable(lazy(() => import('views/register')));
+const AdminLogin = Loadable(lazy(() => import('views/AdminLogin')));
 
 
 const AdminDashboard = Loadable(lazy(() => import('views/admin/dashboard')));
@@ -47,6 +50,15 @@ const RegisterRoutes = {
     <GuestGuard>
       <Register />
     </GuestGuard>
+  ),
+};
+
+const AdminLoginRoutes = {
+  path: '/admin/login',
+  element: (
+    <AdminGuestGuard>
+      <AdminLogin />
+    </AdminGuestGuard>
   ),
 };
 
@@ -110,4 +122,5 @@ const MainRoutes = {
 
 
 
-export default [RegisterRoutes, LoginRoutes, MainRoutes, MaintenanceErrorRoute];
+export default [RegisterRoutes, LoginRoutes, AdminLoginRoutes, MainRoutes, MaintenanceErrorRoute];
+

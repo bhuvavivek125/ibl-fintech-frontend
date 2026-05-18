@@ -67,10 +67,17 @@ export const extractPermissionSlugs = (user: any): string[] => {
   const roleName = (typeof roleValue === 'string' ? roleValue : roleValue?.slug || roleValue?.name || '').toLowerCase();
 
   if (['super_admin', 'admin', 'administrator'].includes(roleName)) {
-    return ['dashboard.view', 'user.view', 'role.view', 'file.upload', 'settings.edit', 'user.create', 'user.edit', 'user.delete', 'activity.view'];
+    return ['dashboard.view', 'user.view', 'role.view', 'file.upload', 'settings.edit', 'user.create', 'user.edit', 'user.delete', 'activity.view', 'activity.logs'];
   }
 
-  const finalSlugs = slugs.filter(Boolean).map(s => s.trim().toLowerCase());
+  let finalSlugs = slugs.filter(Boolean).map(s => s.trim().toLowerCase());
+  if (finalSlugs.includes('activity.logs') && !finalSlugs.includes('activity.view')) {
+    finalSlugs.push('activity.view');
+  }
+  if (finalSlugs.includes('activity.view') && !finalSlugs.includes('activity.logs')) {
+    finalSlugs.push('activity.logs');
+  }
+
   console.log('[RBAC] Active Slugs:', finalSlugs);
   return finalSlugs;
 };

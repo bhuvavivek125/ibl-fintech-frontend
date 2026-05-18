@@ -183,4 +183,4 @@ export const API_ENDPOINTS = {
     UPDATE_RULE: (templateId: string, ruleId: string) => `/bre-template-rules/${templateId}/rules/${ruleId}`,
     GET_TEMPLATE_RULES: (templateId: string) => `/bre-template-rules/${templateId}/rules`
   }
-};
+};

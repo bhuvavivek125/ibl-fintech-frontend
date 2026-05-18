@@ -25,8 +25,7 @@ axiosServices.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      const isAdminPath = window.location.pathname.includes('/admin') || window.location.pathname.includes('/dashboard');
-      const loginPath = isAdminPath ? '/admin/login' : '/login';
+      const loginPath = '/login';
 
       if (!window.location.href.includes(loginPath)) {
         // Clear tokens

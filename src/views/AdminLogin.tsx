@@ -24,6 +24,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 // Project imports
 import Logo from 'ui-component/Logo';
 import useAdminAuth from 'hooks/useAdminAuth';
+import { DASHBOARD_PATH } from 'config';
 
 // ==============================|| ADMIN LOGIN PAGE ||============================== //
 
@@ -73,7 +74,7 @@ export default function AdminLogin() {
 
     try {
       await login(username, password);
-      navigate('/dashboard', { replace: true });
+      navigate(DASHBOARD_PATH, { replace: true });
     } catch (err: any) {
       console.error('Login failed:', err);
       setError(err?.message || 'Login failed. Please try again.');

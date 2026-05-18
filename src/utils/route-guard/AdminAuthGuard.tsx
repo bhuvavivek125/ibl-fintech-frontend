@@ -14,7 +14,7 @@ export default function AdminAuthGuard({ children }: GuardProps) {
 
   useEffect(() => {
     if (isInitialized && !isLoggedIn) {
-      navigate('/admin/login', { replace: true });
+      navigate('/login', { replace: true });
     }
   }, [isLoggedIn, isInitialized, navigate]);
 

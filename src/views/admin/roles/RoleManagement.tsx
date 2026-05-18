@@ -112,31 +112,55 @@ const RoleManagement: React.FC = () => {
     { id: 'name', label: 'Role Name', minWidth: 150, format: (val) => <Typography fontWeight={700}>{val}</Typography> },
     { id: 'slug', label: 'Key', minWidth: 150, format: (val) => <Chip label={val} size="small" variant="outlined" sx={{ borderRadius: '6px' }} /> },
     { id: 'description', label: 'Description', minWidth: 250 },
-    { id: 'permissions', label: 'Permissions', minWidth: 100, format: (val: any[]) => <Typography variant="body2">{val?.length || 0} active</Typography> },
+    { 
+      id: 'permissions', 
+      label: 'Permissions', 
+      minWidth: 100, 
+      format: (val: any[], row: any) => {
+        const isSuperAdmin = row?.slug === 'super_admin' || row?.slug === 'super-admin' || row?.name?.toLowerCase() === 'super admin';
+        if (isSuperAdmin) {
+          return <Chip label="All Permissions" size="small" color="primary" sx={{ fontWeight: 600, borderRadius: '6px' }} />;
+        }
+        return <Typography variant="body2">{val?.length || 0} active</Typography>;
+      } 
+    },
     {
       id: 'actions',
       label: 'Management',
       minWidth: 120,
       align: 'right',
-      format: (_, row: any) => (
-        <Stack direction="row" spacing={1} justifyContent="flex-end">
-          <IconButton 
-            onClick={() => { 
-              setSelectedItem(row); 
-              // Normalize permissions to string IDs
-              const normalizedPermissions = row.permissions?.map((p: any) => 
-                typeof p === 'object' ? p._id : p
-              ) || [];
-              setRoleFormData({ ...row, permissions: normalizedPermissions }); 
-              setIsRoleModalOpen(true); 
-            }} 
-            sx={{ color: 'primary.main', bgcolor: 'primary.light' }} 
-            size="small"
-          >
-            <EditIcon fontSize="small" />
-          </IconButton>
-        </Stack>
-      )
+      format: (_, row: any) => {
+        const isSuperAdmin = row?.slug === 'super_admin' || row?.slug === 'super-admin' || row?.name?.toLowerCase() === 'super admin';
+        return (
+          <Stack direction="row" spacing={1} justifyContent="flex-end">
+            <Tooltip title={isSuperAdmin ? "Super Admin has unrestricted access by default and cannot be modified" : "Modify Permissions"}>
+              <span>
+                <IconButton 
+                  onClick={() => { 
+                    if (isSuperAdmin) return;
+                    setSelectedItem(row); 
+                    // Normalize permissions to string IDs
+                    const normalizedPermissions = row.permissions?.map((p: any) => 
+                      typeof p === 'object' ? p._id : p
+                    ) || [];
+                    setRoleFormData({ ...row, permissions: normalizedPermissions }); 
+                    setIsRoleModalOpen(true); 
+                  }} 
+                  disabled={isSuperAdmin}
+                  sx={{ 
+                    color: 'primary.main', 
+                    bgcolor: 'primary.light',
+                    ...(isSuperAdmin && { opacity: 0.4, cursor: 'not-allowed' })
+                  }} 
+                  size="small"
+                >
+                  <EditIcon fontSize="small" />
+                </IconButton>
+              </span>
+            </Tooltip>
+          </Stack>
+        );
+      }
     }
   ];
 

@@ -1,10 +1,11 @@
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 // project imports
 import useAuth from 'hooks/useAuth';
+import Loader from 'ui-component/Loader';
 import { DASHBOARD_PATH } from 'config';
 import { GuardProps } from 'types';
-import { useEffect } from 'react';
 
 // ==============================|| GUEST GUARD ||============================== //
 
@@ -14,14 +15,23 @@ import { useEffect } from 'react';
  */
 
 export default function GuestGuard({ children }: GuardProps) {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, isInitialized } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isInitialized && isLoggedIn) {
       navigate(DASHBOARD_PATH, { replace: true });
     }
-  }, [isLoggedIn, navigate]);
+  }, [isLoggedIn, isInitialized, navigate]);
+
+  if (!isInitialized) {
+    return <Loader />;
+  }
+
+  if (isLoggedIn) {
+    return null;
+  }
 
   return children;
 }
+
