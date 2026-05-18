@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Box, Typography, Stack, Paper, IconButton, LinearProgress, List, ListItem, ListItemText, ListItemIcon, Grid, Card, Tab, Tabs } from '@mui/material';
-import { 
-  CloudUpload as CloudUploadIcon, 
-  InsertDriveFile as FileIcon, 
-  Delete as DeleteIcon, 
+import {
+  CloudUpload as CloudUploadIcon,
+  InsertDriveFile as FileIcon,
+  Delete as DeleteIcon,
   CheckCircle as CheckCircleIcon,
   AccountCircle as AccountCircleIcon,
   Assignment as AssignmentIcon,
@@ -13,6 +13,15 @@ import Button from 'components/Button';
 import uploadService from 'services/upload.service';
 import { useSnackbar } from 'notistack';
 
+const getFullFileUrl = (path?: string) => {
+  if (!path) return '#';
+  if (path.startsWith('http://') || path.startsWith('https://')) return path;
+  const apiUrl = import.meta.env.VITE_APP_API_URL || 'http://localhost:8080/api/v1/';
+  const baseUrl = apiUrl.replace(/\/api\/v1\/?$/, '');
+  const cleanPath = path.startsWith('/') ? path : `/${path}`;
+  return `${baseUrl}${cleanPath}`;
+};
+
 const FileUpload: React.FC = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [tabValue, setTabValue] = useState(0);
@@ -20,6 +29,7 @@ const FileUpload: React.FC = () => {
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [uploadedFiles, setUploadedFiles] = useState<any[]>([]);
+  const [selectedLogIndex, setSelectedLogIndex] = useState<number | null>(null);
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
@@ -51,7 +61,9 @@ const FileUpload: React.FC = () => {
       if (response.success) {
         setProgress(100);
         const newFiles = Array.isArray(response.data) ? response.data : [response.data];
+
         setUploadedFiles([...newFiles, ...uploadedFiles]);
+        setSelectedLogIndex(0); // Select newly uploaded file
         setSelectedFiles([]);
         enqueueSnackbar('Asset synchronized successfully!', { variant: 'success' });
       }
@@ -79,9 +91,9 @@ const FileUpload: React.FC = () => {
         </Box>
       </Stack>
 
-      <Card className="glass" sx={{ borderRadius: '24px', border: 'none', mb: 4, overflow: 'hidden' }}>
+      <Card className="glass" sx={{ borderRadius: '24px', border: 'none', mb: 4, overflow: 'hidden', boxShadow: '0 12px 36px rgba(0,0,0,0.06)' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider', px: 3, pt: 2 }}>
-          <Tabs value={tabValue} onChange={handleTabChange} sx={{ '& .MuiTab-root': { fontWeight: 700, minWidth: 160 } }}>
+          <Tabs value={tabValue} onChange={handleTabChange} sx={{ '& .MuiTab-root': { fontWeight: 700, minWidth: 160, py: 2.5 } }}>
             <Tab icon={<AccountCircleIcon sx={{ mr: 1 }} />} iconPosition="start" label="Identity Image" />
             <Tab icon={<AssignmentIcon sx={{ mr: 1 }} />} iconPosition="start" label="Credential Document" />
             <Tab icon={<FolderIcon sx={{ mr: 1 }} />} iconPosition="start" label="Bulk Repository" />
@@ -91,17 +103,17 @@ const FileUpload: React.FC = () => {
         <Box p={4}>
           <Grid container spacing={4}>
             <Grid item xs={12} md={7}>
-              <Box 
-                sx={{ 
-                  p: 6, 
-                  textAlign: 'center', 
+              <Box
+                sx={{
+                  p: 6,
+                  textAlign: 'center',
                   border: '2px dashed',
-                  borderColor: 'primary.light',
-                  borderRadius: '24px', 
-                  bgcolor: 'rgba(99, 102, 241, 0.02)',
+                  borderColor: 'rgba(33, 150, 243, 0.3)',
+                  borderRadius: '24px',
+                  bgcolor: 'rgba(33, 150, 243, 0.02)',
                   transition: 'all 0.3s ease',
                   '&:hover': {
-                    bgcolor: 'rgba(99, 102, 241, 0.05)',
+                    bgcolor: 'rgba(33, 150, 243, 0.05)',
                     borderColor: 'primary.main'
                   }
                 }}
@@ -115,41 +127,41 @@ const FileUpload: React.FC = () => {
                   id="file-upload-input"
                 />
                 <label htmlFor="file-upload-input">
-                  <IconButton component="span" sx={{ mb: 3, bgcolor: 'primary.light', color: 'primary.main', p: 3, borderRadius: '18px' }}>
-                    <CloudUploadIcon sx={{ fontSize: 40 }} />
+                  <IconButton component="span" sx={{ mb: 3, bgcolor: 'rgba(33, 150, 243, 0.1)', color: 'primary.main', p: 3.5, borderRadius: '22px', transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.05)', bgcolor: 'rgba(33, 150, 243, 0.18)' } }}>
+                    <CloudUploadIcon sx={{ fontSize: 42 }} />
                   </IconButton>
                 </label>
                 <Typography variant="h4" fontWeight={700} mb={1}>Deploy Digital Assets</Typography>
                 <Typography variant="body1" color="text.secondary" mb={4}>
                   {tabValue === 0 ? 'Upload professional identity headshot' : tabValue === 1 ? 'Upload official verification document' : 'Batch upload multiple repository assets'}
                 </Typography>
-                
+
                 {selectedFiles.length > 0 && (
                   <Box mb={4} textAlign="left">
                     <Typography variant="subtitle2" fontWeight={800} mb={2}>Selected for Provisioning ({selectedFiles.length})</Typography>
-                    <List sx={{ bgcolor: 'background.paper', borderRadius: '16px', border: '1px solid', borderColor: 'divider' }}>
+                    <List sx={{ bgcolor: 'background.paper', borderRadius: '16px', border: '1px solid', borderColor: 'divider', overflow: 'hidden' }}>
                       {selectedFiles.map((file, index) => (
                         <ListItem key={index} secondaryAction={
                           <IconButton edge="end" onClick={() => removeSelectedFile(index)} size="small" color="error">
                             <DeleteIcon fontSize="small" />
                           </IconButton>
-                        }>
+                        } sx={{ borderBottom: index < selectedFiles.length - 1 ? '1px solid' : 'none', borderColor: 'divider', py: 1.5 }}>
                           <ListItemIcon><FileIcon color="primary" /></ListItemIcon>
-                          <ListItemText primary={file.name} secondary={`${(file.size / 1024).toFixed(1)} KB`} />
+                          <ListItemText primary={<Typography fontWeight={600} variant="body2">{file.name}</Typography>} secondary={`${(file.size / 1024).toFixed(1)} KB`} />
                         </ListItem>
                       ))}
                     </List>
                   </Box>
                 )}
 
-                <Button 
-                  variant="contained" 
-                  fullWidth 
-                  size="large" 
+                <Button
+                  variant="contained"
+                  fullWidth
+                  size="large"
                   disabled={selectedFiles.length === 0 || uploading}
                   onClick={handleUpload}
                   loading={uploading}
-                  sx={{ borderRadius: '16px', py: 2, fontSize: '1rem', fontWeight: 700 }}
+                  sx={{ borderRadius: '16px', py: 2, fontSize: '1rem', fontWeight: 700, textTransform: 'none', boxShadow: '0 8px 24px rgba(33, 150, 243, 0.25)' }}
                 >
                   Execute Asset Provisioning
                 </Button>
@@ -168,24 +180,63 @@ const FileUpload: React.FC = () => {
 
             <Grid item xs={12} md={5}>
               <Typography variant="h5" fontWeight={800} mb={3}>Deployment Log</Typography>
-              <Box sx={{ maxHeight: 500, overflowY: 'auto', pr: 1 }}>
+              <Box 
+                sx={{ 
+                  maxHeight: 500, 
+                  overflowY: 'auto', 
+                  pr: 1.5,
+                  '&::-webkit-scrollbar': { width: '6px' },
+                  '&::-webkit-scrollbar-track': { bgcolor: 'rgba(0,0,0,0.03)', borderRadius: '10px' },
+                  '&::-webkit-scrollbar-thumb': { bgcolor: 'rgba(0,0,0,0.2)', borderRadius: '10px', '&:hover': { bgcolor: 'rgba(0,0,0,0.3)' } }
+                }}
+              >
                 {uploadedFiles.length > 0 ? (
                   <Stack spacing={2}>
-                    {uploadedFiles.map((file, index) => (
-                      <Card key={index} variant="outlined" sx={{ p: 2, borderRadius: '16px', '&:hover': { borderColor: 'primary.main', bgcolor: 'rgba(99, 102, 241, 0.02)' } }}>
-                        <Stack direction="row" spacing={2} alignItems="center">
-                          <CheckCircleIcon color="success" />
-                          <Box sx={{ flexGrow: 1 }}>
-                            <Typography variant="subtitle2" fontWeight={700} noWrap>{file.originalName}</Typography>
-                            <Typography variant="caption" color="text.secondary">Provisioned {new Date().toLocaleDateString()}</Typography>
-                          </Box>
-                          <Button size="small" variant="text" href={file.fileUrl || file.url} target="_blank" sx={{ minWidth: 'auto', fontWeight: 800 }}>View</Button>
-                        </Stack>
-                      </Card>
-                    ))}
+                    {uploadedFiles.map((file, index) => {
+                      const isSelected = selectedLogIndex === index;
+                      return (
+                        <Card 
+                          key={index} 
+                          variant="outlined" 
+                          onClick={() => setSelectedLogIndex(index)}
+                          sx={{ 
+                            p: 2, 
+                            borderRadius: '16px', 
+                            cursor: 'pointer',
+                            borderColor: isSelected ? 'primary.main' : 'divider',
+                            bgcolor: isSelected ? 'rgba(33, 150, 243, 0.05)' : 'background.paper',
+                            boxShadow: isSelected ? '0 4px 12px rgba(33, 150, 243, 0.15)' : 'none',
+                            transition: 'all 0.2s ease-in-out',
+                            '&:hover': { 
+                              borderColor: 'primary.main', 
+                              bgcolor: isSelected ? 'rgba(33, 150, 243, 0.08)' : 'rgba(33, 150, 243, 0.02)',
+                              transform: 'translateY(-1px)'
+                            } 
+                          }}
+                        >
+                          <Stack direction="row" spacing={2} alignItems="center">
+                            <CheckCircleIcon color="success" />
+                            <Box sx={{ flexGrow: 1, minWidth: 0 }}>
+                              <Typography variant="subtitle2" fontWeight={700} noWrap>{file.originalName || file.fileName || file.name || `Asset-${index + 1}`}</Typography>
+                              <Typography variant="caption" color="text.secondary">Provisioned {new Date().toLocaleDateString()}</Typography>
+                            </Box>
+                            <Button 
+                              size="small" 
+                              variant={isSelected ? "contained" : "text"} 
+                              href={getFullFileUrl(file.fileUrl || file.url)} 
+                              target="_blank" 
+                              onClick={(e) => e.stopPropagation()}
+                              sx={{ minWidth: 'auto', fontWeight: 800, borderRadius: '8px', px: isSelected ? 2 : 1.5, py: 0.8 }}
+                            >
+                              View
+                            </Button>
+                          </Stack>
+                        </Card>
+                      );
+                    })}
                   </Stack>
                 ) : (
-                  <Box p={8} textAlign="center" sx={{ border: '2px dashed', borderColor: 'divider', borderRadius: '24px' }}>
+                  <Box p={8} textAlign="center" sx={{ border: '2px dashed', borderColor: 'divider', borderRadius: '24px', bgcolor: 'rgba(0,0,0,0.01)' }}>
                     <Typography color="text.secondary" fontWeight={500}>Vault history is currently empty</Typography>
                   </Box>
                 )}

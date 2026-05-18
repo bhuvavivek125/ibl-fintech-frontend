@@ -249,23 +249,49 @@ const RoleManagement: React.FC = () => {
           <Input label="Role Slug" value={roleFormData.slug} onChange={(e) => setRoleFormData({ ...roleFormData, slug: e.target.value })} />
           <Input label="Description" multiline rows={3} value={roleFormData.description} onChange={(e) => setRoleFormData({ ...roleFormData, description: e.target.value })} />
           
-          <Typography variant="subtitle2" fontWeight={700}>Assign Permissions</Typography>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-            {permissions.map((p) => (
-              <Chip
-                key={p._id}
-                label={p.name}
-                onClick={() => {
-                  const perms = roleFormData.permissions.includes(p._id)
-                    ? roleFormData.permissions.filter(id => id !== p._id)
-                    : [...roleFormData.permissions, p._id];
-                  setRoleFormData({ ...roleFormData, permissions: perms });
-                }}
-                color={roleFormData.permissions.includes(p._id) ? 'primary' : 'default'}
-                variant={roleFormData.permissions.includes(p._id) ? 'filled' : 'outlined'}
-                sx={{ borderRadius: '8px' }}
-              />
-            ))}
+          <Box 
+            sx={{ 
+              border: (theme) => `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : 'rgba(0, 0, 0, 0.23)'}`, 
+              borderRadius: '8px', 
+              p: 2.5 
+            }}
+          >
+            <Typography variant="subtitle2" color="text.secondary" fontWeight={600} mb={2}>
+              Assign Permissions
+            </Typography>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1.5 }}>
+              {permissions.map((p) => {
+                const isSelected = roleFormData.permissions.includes(p._id);
+                return (
+                  <Chip
+                    key={p._id}
+                    label={p.name}
+                    onClick={() => {
+                      const perms = isSelected
+                        ? roleFormData.permissions.filter(id => id !== p._id)
+                        : [...roleFormData.permissions, p._id];
+                      setRoleFormData({ ...roleFormData, permissions: perms });
+                    }}
+                    color={isSelected ? 'primary' : 'default'}
+                    variant={isSelected ? 'filled' : 'outlined'}
+                    sx={{ 
+                      borderRadius: '8px',
+                      height: '36px',
+                      '& .MuiChip-label': {
+                        px: 1.5,
+                        fontSize: '0.875rem',
+                        fontWeight: isSelected ? 600 : 500,
+                      },
+                      transition: 'all 0.2s ease-in-out',
+                      '&:hover': {
+                        transform: 'translateY(-1px)',
+                        boxShadow: isSelected ? '0 4px 12px rgba(33, 150, 243, 0.3)' : '0 2px 8px rgba(0,0,0,0.08)'
+                      }
+                    }}
+                  />
+                );
+              })}
+            </Box>
           </Box>
         </Stack>
       </Modal>
