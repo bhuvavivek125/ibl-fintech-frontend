@@ -35,7 +35,13 @@ const userService = {
   deactivateUser: async (id: string) => {
     const response = await axios.patch(API_ENDPOINTS.USERS.DEACTIVATE(id));
     return response.data;
+  },
+
+  updateUserPermissions: async (id: string, permissions: string[]) => {
+    const response = await axios.patch(`/users/${id}/permissions`, { permissions });
+    return response.data;
   }
 };
 
 export default userService;
+

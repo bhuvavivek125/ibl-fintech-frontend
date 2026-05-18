@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, Stack, Tab, Tabs, Chip, IconButton, Tooltip, Card, Grid, FormControl, InputLabel, Select, MenuItem, TextField } from '@mui/material';
+import { Box, Typography, Stack, Tab, Tabs, Chip, IconButton, Tooltip, Card, Grid, FormControl, InputLabel, Select, MenuItem, TextField, TableContainer, Table as MuiTable, TableHead, TableRow, TableCell, TableBody, Checkbox, Paper } from '@mui/material';
 import { Edit as EditIcon, Delete as DeleteIcon, Add as AddIcon, Refresh as RefreshIcon, Security as SecurityIcon, Menu as MenuIcon } from '@mui/icons-material';
 import Table, { Column } from 'components/Table';
 import Button from 'components/Button';
@@ -171,6 +171,48 @@ const RoleManagement: React.FC = () => {
     { id: 'description', label: 'Description', minWidth: 250 },
   ];
 
+  const groupedPermissions = permissions.reduce((acc: any, curr: any) => {
+    const mod = curr.module ? curr.module.trim() : 'General';
+    if (!acc[mod]) acc[mod] = [];
+    acc[mod].push(curr);
+    return acc;
+  }, {});
+
+  const getModuleActionPerms = (perms: any[]) => {
+    let view = perms.find(p => /view|read|get|list|overview|history|logs/i.test(p.slug) || /view|read|list|overview|history|logs/i.test(p.name));
+    let add = perms.find(p => /create|add|upload|post|insert|new/i.test(p.slug) || /create|add|upload|insert|new/i.test(p.name));
+    let edit = perms.find(p => /update|edit|modify|put|patch|setting|config/i.test(p.slug) || /update|edit|modify|setting|config/i.test(p.name));
+    let del = perms.find(p => /delete|remove|destroy|drop|cancel/i.test(p.slug) || /delete|remove|destroy/i.test(p.name));
+
+    const assignedIds = new Set([view?._id, add?._id, edit?._id, del?._id].filter(Boolean));
+    const remaining = perms.filter(p => !assignedIds.has(p._id));
+
+    if (!view && remaining.length > 0) view = remaining.shift();
+    if (!add && remaining.length > 0) add = remaining.shift();
+    if (!edit && remaining.length > 0) edit = remaining.shift();
+    if (!del && remaining.length > 0) del = remaining.shift();
+
+    return { view, add, edit, del };
+  };
+
+  const renderCheckbox = (permId: string) => {
+    const isChecked = roleFormData.permissions.includes(permId);
+    return (
+      <Checkbox
+        checked={isChecked}
+        onChange={() => {
+          const newPerms = isChecked
+            ? roleFormData.permissions.filter(id => id !== permId)
+            : [...roleFormData.permissions, permId];
+          setRoleFormData({ ...roleFormData, permissions: newPerms });
+        }}
+        color="primary"
+        size="small"
+        sx={{ borderRadius: 1 }}
+      />
+    );
+  };
+
   return (
     <Box p={4}>
       <Stack direction="row" justifyContent="space-between" alignItems="center" mb={4}>
@@ -236,63 +278,66 @@ const RoleManagement: React.FC = () => {
       <Modal
         open={isRoleModalOpen}
         onClose={() => setIsRoleModalOpen(false)}
-        title={selectedItem ? 'Update Governance Role' : 'Create New Governance Role'}
+        title={selectedItem ? `Permissions — ${selectedItem.name}` : 'Create Governance Role'}
         actions={
           <Stack direction="row" spacing={2} justifyContent="flex-end">
             <Button onClick={() => setIsRoleModalOpen(false)} variant="text" color="inherit">Cancel</Button>
-            <Button variant="contained" onClick={handleCreateUpdateRole} loading={loading}>Save Role</Button>
+            <Button variant="contained" onClick={handleCreateUpdateRole} loading={loading}>Save Permissions</Button>
           </Stack>
         }
+        maxWidth="md"
       >
         <Stack spacing={3} sx={{ mt: 1 }}>
-          <Input label="Role Name" value={roleFormData.name} onChange={(e) => setRoleFormData({ ...roleFormData, name: e.target.value })} />
-          <Input label="Role Slug" value={roleFormData.slug} onChange={(e) => setRoleFormData({ ...roleFormData, slug: e.target.value })} />
-          <Input label="Description" multiline rows={3} value={roleFormData.description} onChange={(e) => setRoleFormData({ ...roleFormData, description: e.target.value })} />
+          <Typography variant="caption" color="text.secondary" sx={{ mt: -2, mb: 1, display: 'block', fontSize: '0.85rem' }}>
+            Changes apply to all users under this role immediately.
+          </Typography>
+
+          <Stack direction="row" spacing={2}>
+            <Input label="Role Name" value={roleFormData.name} onChange={(e) => setRoleFormData({ ...roleFormData, name: e.target.value })} />
+            <Input label="Role Slug" value={roleFormData.slug} onChange={(e) => setRoleFormData({ ...roleFormData, slug: e.target.value })} />
+          </Stack>
+          <Input label="Description" multiline rows={2} value={roleFormData.description} onChange={(e) => setRoleFormData({ ...roleFormData, description: e.target.value })} />
           
-          <Box 
-            sx={{ 
-              border: (theme) => `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : 'rgba(0, 0, 0, 0.23)'}`, 
-              borderRadius: '8px', 
-              p: 2.5 
-            }}
-          >
-            <Typography variant="subtitle2" color="text.secondary" fontWeight={600} mb={2}>
-              Assign Permissions
-            </Typography>
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1.5 }}>
-              {permissions.map((p) => {
-                const isSelected = roleFormData.permissions.includes(p._id);
-                return (
-                  <Chip
-                    key={p._id}
-                    label={p.name}
-                    onClick={() => {
-                      const perms = isSelected
-                        ? roleFormData.permissions.filter(id => id !== p._id)
-                        : [...roleFormData.permissions, p._id];
-                      setRoleFormData({ ...roleFormData, permissions: perms });
-                    }}
-                    color={isSelected ? 'primary' : 'default'}
-                    variant={isSelected ? 'filled' : 'outlined'}
-                    sx={{ 
-                      borderRadius: '8px',
-                      height: '36px',
-                      '& .MuiChip-label': {
-                        px: 1.5,
-                        fontSize: '0.875rem',
-                        fontWeight: isSelected ? 600 : 500,
-                      },
-                      transition: 'all 0.2s ease-in-out',
-                      '&:hover': {
-                        transform: 'translateY(-1px)',
-                        boxShadow: isSelected ? '0 4px 12px rgba(33, 150, 243, 0.3)' : '0 2px 8px rgba(0,0,0,0.08)'
-                      }
-                    }}
-                  />
-                );
-              })}
-            </Box>
-          </Box>
+          <TableContainer component={Paper} variant="outlined" sx={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid', borderColor: 'divider', maxHeight: 420 }}>
+            <MuiTable size="small" stickyHeader>
+              <TableHead>
+                <TableRow>
+                  <TableCell sx={{ py: 1.8, px: 3, fontWeight: 700, width: '40%', bgcolor: 'rgba(0,0,0,0.02)' }}>Menu / Sub-Menu</TableCell>
+                  <TableCell align="center" sx={{ py: 1.8, fontWeight: 700, width: '15%', bgcolor: 'rgba(0,0,0,0.02)' }}>View</TableCell>
+                  <TableCell align="center" sx={{ py: 1.8, fontWeight: 700, width: '15%', bgcolor: 'rgba(0,0,0,0.02)' }}>Add</TableCell>
+                  <TableCell align="center" sx={{ py: 1.8, fontWeight: 700, width: '15%', bgcolor: 'rgba(0,0,0,0.02)' }}>Edit</TableCell>
+                  <TableCell align="center" sx={{ py: 1.8, fontWeight: 700, width: '15%', bgcolor: 'rgba(0,0,0,0.02)' }}>Delete</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {Object.entries(groupedPermissions).map(([moduleName, modulePerms]: [string, any[]]) => {
+                  const { view, add, edit, del } = getModuleActionPerms(modulePerms);
+                  return (
+                    <TableRow key={moduleName} hover sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                      <TableCell component="th" scope="row" sx={{ py: 1.5, px: 3, fontWeight: 600, color: 'text.secondary' }}>
+                        <Stack direction="row" spacing={1} alignItems="center">
+                          <Typography variant="body2" color="text.disabled">└</Typography>
+                          <Typography variant="body2" fontWeight={600} color="text.primary">{moduleName}</Typography>
+                        </Stack>
+                      </TableCell>
+                      <TableCell align="center" sx={{ py: 1 }}>
+                        {view ? renderCheckbox(view._id) : <Typography color="text.disabled" sx={{ fontWeight: 700 }}>—</Typography>}
+                      </TableCell>
+                      <TableCell align="center" sx={{ py: 1 }}>
+                        {add ? renderCheckbox(add._id) : <Typography color="text.disabled" sx={{ fontWeight: 700 }}>—</Typography>}
+                      </TableCell>
+                      <TableCell align="center" sx={{ py: 1 }}>
+                        {edit ? renderCheckbox(edit._id) : <Typography color="text.disabled" sx={{ fontWeight: 700 }}>—</Typography>}
+                      </TableCell>
+                      <TableCell align="center" sx={{ py: 1 }}>
+                        {del ? renderCheckbox(del._id) : <Typography color="text.disabled" sx={{ fontWeight: 700 }}>—</Typography>}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </MuiTable>
+          </TableContainer>
         </Stack>
       </Modal>
 

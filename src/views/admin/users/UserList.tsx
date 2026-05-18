@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, Stack, Chip, IconButton, Tooltip, Card, Grid, FormControl, InputLabel, Select, MenuItem, TextField } from '@mui/material';
-import { Edit as EditIcon, Delete as DeleteIcon, Add as AddIcon, Refresh as RefreshIcon, Search as SearchIcon } from '@mui/icons-material';
+import { Box, Typography, Stack, Chip, IconButton, Tooltip, Card, Grid, FormControl, InputLabel, Select, MenuItem, TextField, TableContainer, Table as MuiTable, TableHead, TableRow, TableCell, TableBody, Checkbox, Paper } from '@mui/material';
+import { Edit as EditIcon, Delete as DeleteIcon, Add as AddIcon, Refresh as RefreshIcon, Search as SearchIcon, Security as SecurityIcon } from '@mui/icons-material';
 import Table, { Column } from 'components/Table';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import Modal from 'components/Modal';
 import userService from 'services/user.service';
+import roleService from 'services/role.service';
 import { useSnackbar } from 'notistack';
 
 const UserList: React.FC = () => {
@@ -21,6 +22,12 @@ const UserList: React.FC = () => {
   const [filterRole, setFilterRole] = useState('');
   const [filterStatus, setFilterStatus] = useState('');
   const [sortBy, setSortBy] = useState('desc');
+
+  // User Permissions state
+  const [isPermissionModalOpen, setIsPermissionModalOpen] = useState(false);
+  const [permissions, setPermissions] = useState<any[]>([]);
+  const [selectedUserPermissions, setSelectedUserPermissions] = useState<string[]>([]);
+
 
   const fetchUsers = async () => {
     setLoading(true);
@@ -153,6 +160,87 @@ const UserList: React.FC = () => {
     }
   };
 
+  const handleOpenPermissionModal = async (row: any) => {
+    if (row.role === 'super_admin') {
+      enqueueSnackbar('Security Protocol: Super Admin has unrestricted access across all modules.', { variant: 'info' });
+      return;
+    }
+    setSelectedUser(row);
+    if (permissions.length === 0) {
+      try {
+        const permsRes = await roleService.getPermissions();
+        setPermissions(permsRes.data?.results || []);
+      } catch (err) {
+        console.error('Error fetching permissions:', err);
+      }
+    }
+    let currentPerms: string[] = [];
+    if (Array.isArray(row.permissions) && row.permissions.length > 0) {
+      currentPerms = row.permissions.map((p: any) => typeof p === 'object' ? p._id : p);
+    } else if (row.roleId && Array.isArray(row.roleId.permissions)) {
+      currentPerms = row.roleId.permissions.map((p: any) => typeof p === 'object' ? p._id : p);
+    }
+    setSelectedUserPermissions(currentPerms);
+    setIsPermissionModalOpen(true);
+  };
+
+  const handleSaveUserPermissions = async () => {
+    if (!selectedUser) return;
+    setLoading(true);
+    try {
+      await userService.updateUserPermissions(selectedUser._id, selectedUserPermissions);
+      enqueueSnackbar("User permissions configured successfully!", { variant: 'success' });
+      setIsPermissionModalOpen(false);
+      fetchUsers();
+    } catch (error: any) {
+      enqueueSnackbar(error.message || "Failed to update user permissions", { variant: 'error' });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const groupedPermissions = permissions.reduce((acc: any, curr: any) => {
+    const mod = curr.module ? curr.module.trim() : 'General';
+    if (!acc[mod]) acc[mod] = [];
+    acc[mod].push(curr);
+    return acc;
+  }, {});
+
+  const getModuleActionPerms = (perms: any[]) => {
+    let view = perms.find(p => /view|read|get|list|overview|history|logs/i.test(p.slug) || /view|read|list|overview|history|logs/i.test(p.name));
+    let add = perms.find(p => /create|add|upload|post|insert|new/i.test(p.slug) || /create|add|upload|insert|new/i.test(p.name));
+    let edit = perms.find(p => /update|edit|modify|put|patch|setting|config/i.test(p.slug) || /update|edit|modify|setting|config/i.test(p.name));
+    let del = perms.find(p => /delete|remove|destroy|drop|cancel/i.test(p.slug) || /delete|remove|destroy/i.test(p.name));
+
+    const assignedIds = new Set([view?._id, add?._id, edit?._id, del?._id].filter(Boolean));
+    const remaining = perms.filter(p => !assignedIds.has(p._id));
+
+    if (!view && remaining.length > 0) view = remaining.shift();
+    if (!add && remaining.length > 0) add = remaining.shift();
+    if (!edit && remaining.length > 0) edit = remaining.shift();
+    if (!del && remaining.length > 0) del = remaining.shift();
+
+    return { view, add, edit, del };
+  };
+
+  const renderCheckbox = (permId: string) => {
+    const isChecked = selectedUserPermissions.includes(permId);
+    return (
+      <Checkbox
+        checked={isChecked}
+        onChange={() => {
+          const newPerms = isChecked
+            ? selectedUserPermissions.filter(id => id !== permId)
+            : [...selectedUserPermissions, permId];
+          setSelectedUserPermissions(newPerms);
+        }}
+        color="primary"
+        size="small"
+        sx={{ borderRadius: 1 }}
+      />
+    );
+  };
+
   const columns: Column[] = [
     {
       id: 'name', label: 'User Identity', minWidth: 200, format: (value: string, row: any) => (
@@ -199,6 +287,23 @@ const UserList: React.FC = () => {
       align: 'right',
       format: (_, row: any) => (
         <Stack direction="row" spacing={1} justifyContent="flex-end">
+          <Tooltip title={row.role === 'super_admin' ? "Super Admin permissions cannot be modified" : "Configure Custom Permissions"}>
+            <span>
+              <IconButton 
+                onClick={() => handleOpenPermissionModal(row)} 
+                disabled={row.role === 'super_admin'}
+                sx={{ 
+                  color: 'warning.main', 
+                  bgcolor: 'warning.light', 
+                  borderRadius: '10px',
+                  ...(row.role === 'super_admin' && { opacity: 0.4, cursor: 'not-allowed' })
+                }} 
+                size="small"
+              >
+                <SecurityIcon fontSize="small" />
+              </IconButton>
+            </span>
+          </Tooltip>
           <Tooltip title="Modify Access">
             <IconButton onClick={() => { setSelectedUser(row); setIsModalOpen(true); }} sx={{ color: 'primary.main', bgcolor: 'primary.light', borderRadius: '10px' }} size="small">
               <EditIcon fontSize="small" />
@@ -213,6 +318,7 @@ const UserList: React.FC = () => {
       )
     }
   ];
+
 
   return (
     <Box p={4}>
@@ -382,8 +488,70 @@ const UserList: React.FC = () => {
           </TextField>
         </Stack>
       </Modal>
+
+      {/* User Permissions Modal */}
+      <Modal
+        open={isPermissionModalOpen}
+        onClose={() => setIsPermissionModalOpen(false)}
+        title={selectedUser ? `Custom Permissions — ${selectedUser.name}` : 'Configure User Permissions'}
+        actions={
+          <Stack direction="row" spacing={2} justifyContent="flex-end">
+            <Button onClick={() => setIsPermissionModalOpen(false)} variant="text" color="inherit">Cancel</Button>
+            <Button variant="contained" onClick={handleSaveUserPermissions} loading={loading}>Save Permissions</Button>
+          </Stack>
+        }
+        maxWidth="md"
+      >
+        <Stack spacing={3} sx={{ mt: 1 }}>
+          <Typography variant="caption" color="text.secondary" sx={{ mt: -2, mb: 1, display: 'block', fontSize: '0.85rem' }}>
+            By default, this user inherits standard permissions from their assigned role ({selectedUser?.role?.toUpperCase() || 'USER'}). Check any boxes below to override with custom user-specific privileges.
+          </Typography>
+
+          <TableContainer component={Paper} variant="outlined" sx={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid', borderColor: 'divider', maxHeight: 420 }}>
+            <MuiTable size="small" stickyHeader>
+              <TableHead>
+                <TableRow>
+                  <TableCell sx={{ py: 1.8, px: 3, fontWeight: 700, width: '40%', bgcolor: 'rgba(0,0,0,0.02)' }}>Menu / Sub-Menu</TableCell>
+                  <TableCell align="center" sx={{ py: 1.8, fontWeight: 700, width: '15%', bgcolor: 'rgba(0,0,0,0.02)' }}>View</TableCell>
+                  <TableCell align="center" sx={{ py: 1.8, fontWeight: 700, width: '15%', bgcolor: 'rgba(0,0,0,0.02)' }}>Add</TableCell>
+                  <TableCell align="center" sx={{ py: 1.8, fontWeight: 700, width: '15%', bgcolor: 'rgba(0,0,0,0.02)' }}>Edit</TableCell>
+                  <TableCell align="center" sx={{ py: 1.8, fontWeight: 700, width: '15%', bgcolor: 'rgba(0,0,0,0.02)' }}>Delete</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {Object.entries(groupedPermissions).map(([moduleName, modulePerms]: [string, any[]]) => {
+                  const { view, add, edit, del } = getModuleActionPerms(modulePerms);
+                  return (
+                    <TableRow key={moduleName} hover sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                      <TableCell component="th" scope="row" sx={{ py: 1.5, px: 3, fontWeight: 600, color: 'text.secondary' }}>
+                        <Stack direction="row" spacing={1} alignItems="center">
+                          <Typography variant="body2" color="text.disabled">└</Typography>
+                          <Typography variant="body2" fontWeight={600} color="text.primary">{moduleName}</Typography>
+                        </Stack>
+                      </TableCell>
+                      <TableCell align="center" sx={{ py: 1 }}>
+                        {view ? renderCheckbox(view._id) : <Typography color="text.disabled" sx={{ fontWeight: 700 }}>—</Typography>}
+                      </TableCell>
+                      <TableCell align="center" sx={{ py: 1 }}>
+                        {add ? renderCheckbox(add._id) : <Typography color="text.disabled" sx={{ fontWeight: 700 }}>—</Typography>}
+                      </TableCell>
+                      <TableCell align="center" sx={{ py: 1 }}>
+                        {edit ? renderCheckbox(edit._id) : <Typography color="text.disabled" sx={{ fontWeight: 700 }}>—</Typography>}
+                      </TableCell>
+                      <TableCell align="center" sx={{ py: 1 }}>
+                        {del ? renderCheckbox(del._id) : <Typography color="text.disabled" sx={{ fontWeight: 700 }}>—</Typography>}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </MuiTable>
+          </TableContainer>
+        </Stack>
+      </Modal>
     </Box>
   );
 };
 
 export default UserList;
+
