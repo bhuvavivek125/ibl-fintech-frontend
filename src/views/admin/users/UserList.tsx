@@ -519,8 +519,8 @@ const UserList: React.FC = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {Object.entries(groupedPermissions).map(([moduleName, modulePerms]: [string, any[]]) => {
-                  const { view, add, edit, del } = getModuleActionPerms(modulePerms);
+                {Object.entries(groupedPermissions).map(([moduleName, modulePerms]: [string, any]) => {
+                  const { view, add, edit, del } = getModuleActionPerms(modulePerms as any[]);
                   return (
                     <TableRow key={moduleName} hover sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                       <TableCell component="th" scope="row" sx={{ py: 1.5, px: 3, fontWeight: 600, color: 'text.secondary' }}>

@@ -102,7 +102,7 @@ const FileUpload: React.FC = () => {
 
         <Box p={4}>
           <Grid container spacing={4}>
-            <Grid item xs={12} md={7}>
+            <Grid size={{ xs: 12, md: 7 }}>
               <Box
                 sx={{
                   p: 6,
@@ -178,7 +178,7 @@ const FileUpload: React.FC = () => {
               </Box>
             </Grid>
 
-            <Grid item xs={12} md={5}>
+            <Grid size={{ xs: 12, md: 5 }}>
               <Typography variant="h5" fontWeight={800} mb={3}>Deployment Log</Typography>
               <Box 
                 sx={{ 
@@ -223,9 +223,10 @@ const FileUpload: React.FC = () => {
                             <Button 
                               size="small" 
                               variant={isSelected ? "contained" : "text"} 
-                              href={getFullFileUrl(file.fileUrl || file.url)} 
-                              target="_blank" 
-                              onClick={(e) => e.stopPropagation()}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                window.open(getFullFileUrl(file.fileUrl || file.url), '_blank');
+                              }}
                               sx={{ minWidth: 'auto', fontWeight: 800, borderRadius: '8px', px: isSelected ? 2 : 1.5, py: 0.8 }}
                             >
                               View

@@ -107,7 +107,7 @@ export default function Header() {
             {user?.name || 'System User'}
           </Typography>
           <Typography variant="caption" color="text.secondary" sx={{ textTransform: 'uppercase', fontWeight: 700, fontSize: '0.65rem' }}>
-            {user?.role?.name || user?.role || 'Guest'}
+            {(user?.role as any)?.name || (typeof user?.role === 'string' ? user?.role : 'Guest')}
           </Typography>
         </Box>
         <ProfileSection />

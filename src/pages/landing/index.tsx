@@ -24,13 +24,10 @@ import AppBar from 'ui-component/extended/AppBar';
 const prefetchRoutes = () => {
   // Use dynamic imports to trigger Vite's prefetching
   // These will be prefetched when the landing page loads
-  import('views/dashboard');
-  import('views/dashboard/Analytics');
-  import('views/pages/authentication/Login');
-  import('views/pages/authentication/Register');
-  import('views/application/e-commerce/Products');
-  import('views/application/crm/LeadManagement/Overview');
-  import('views/application/invoice/Dashboard');
+  import('views/admin/dashboard');
+  import('views/login');
+  import('views/register');
+  import('views/AdminLogin');
 };
 
 // =============================|| LANDING MAIN ||============================= //

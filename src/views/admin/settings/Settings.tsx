@@ -183,7 +183,7 @@ const SettingsDashboard: React.FC = () => {
         <Card className="glass" sx={{ p: 4, borderRadius: '24px', border: 'none' }}>
           <Typography variant="h5" fontWeight={700} mb={4} color="primary.main">Platform Information</Typography>
           <Grid container spacing={4}>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <TextField
                 fullWidth
                 label="Platform Brand Name"
@@ -192,7 +192,7 @@ const SettingsDashboard: React.FC = () => {
                 sx={{ '& .MuiOutlinedInput-root': { borderRadius: '14px' } }}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <TextField
                 fullWidth
                 label="System Timezone"
@@ -201,7 +201,7 @@ const SettingsDashboard: React.FC = () => {
                 sx={{ '& .MuiOutlinedInput-root': { borderRadius: '14px' } }}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <TextField
                 fullWidth
                 label="Customer Support Email"
@@ -211,7 +211,7 @@ const SettingsDashboard: React.FC = () => {
                 sx={{ '& .MuiOutlinedInput-root': { borderRadius: '14px' } }}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <TextField
                 fullWidth
                 label="Customer Support Helpline"
@@ -220,7 +220,7 @@ const SettingsDashboard: React.FC = () => {
                 sx={{ '& .MuiOutlinedInput-root': { borderRadius: '14px' } }}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <TextField
                 fullWidth
                 label="Default Currency Symbol"
@@ -229,7 +229,7 @@ const SettingsDashboard: React.FC = () => {
                 sx={{ '& .MuiOutlinedInput-root': { borderRadius: '14px' } }}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <Divider sx={{ my: 2 }} />
               <Box sx={{ p: 3, bgcolor: 'error.light', color: 'error.dark', borderRadius: '16px' }}>
                 <Stack direction="row" justifyContent="space-between" alignItems="center">
@@ -254,7 +254,7 @@ const SettingsDashboard: React.FC = () => {
         <Card className="glass" sx={{ p: 4, borderRadius: '24px', border: 'none' }}>
           <Typography variant="h5" fontWeight={700} mb={4} color="primary.main">Security Compliance Policies</Typography>
           <Grid container spacing={4}>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <TextField
                 fullWidth
                 label="Session Idle Timeout"
@@ -265,7 +265,7 @@ const SettingsDashboard: React.FC = () => {
                 sx={{ '& .MuiOutlinedInput-root': { borderRadius: '14px' } }}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <TextField
                 fullWidth
                 label="Password Mandatory Rotation"
@@ -276,7 +276,7 @@ const SettingsDashboard: React.FC = () => {
                 sx={{ '& .MuiOutlinedInput-root': { borderRadius: '14px' } }}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <TextField
                 fullWidth
                 label="Max Failed Attempts (Account Lockout)"
@@ -287,7 +287,7 @@ const SettingsDashboard: React.FC = () => {
                 sx={{ '& .MuiOutlinedInput-root': { borderRadius: '14px' } }}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Stack spacing={2}>
                 <Box sx={{ p: 2, bgcolor: 'background.paper', borderRadius: '14px', border: '1px solid', borderColor: 'divider' }}>
                   <FormControlLabel
@@ -312,7 +312,7 @@ const SettingsDashboard: React.FC = () => {
         <Card className="glass" sx={{ p: 4, borderRadius: '24px', border: 'none' }}>
           <Typography variant="h5" fontWeight={700} mb={4} color="primary.main">Lending & Credit Scoring Parameters</Typography>
           <Grid container spacing={4}>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <TextField
                 fullWidth
                 label="Default Processing Fee"
@@ -324,7 +324,7 @@ const SettingsDashboard: React.FC = () => {
                 sx={{ '& .MuiOutlinedInput-root': { borderRadius: '14px' } }}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <TextField
                 fullWidth
                 label="Maximum Allowable APR"
@@ -336,7 +336,7 @@ const SettingsDashboard: React.FC = () => {
                 sx={{ '& .MuiOutlinedInput-root': { borderRadius: '14px' } }}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <TextField
                 fullWidth
                 label="Minimum CIBIL Score Threshold"
@@ -347,7 +347,7 @@ const SettingsDashboard: React.FC = () => {
                 sx={{ '& .MuiOutlinedInput-root': { borderRadius: '14px' } }}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <TextField
                 fullWidth
                 label="Late Payment Daily Penalty Rate"
@@ -368,7 +368,7 @@ const SettingsDashboard: React.FC = () => {
         <Card className="glass" sx={{ p: 4, borderRadius: '24px', border: 'none' }}>
           <Typography variant="h5" fontWeight={700} mb={4} color="primary.main">Communication & Webhook Gateways</Typography>
           <Grid container spacing={4}>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <TextField
                 select
                 fullWidth
@@ -382,7 +382,7 @@ const SettingsDashboard: React.FC = () => {
                 <MenuItem value="AWS SNS">AWS Simple Notification Service</MenuItem>
               </TextField>
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <TextField
                 fullWidth
                 label="Email SMTP Gateway Host"
@@ -391,7 +391,7 @@ const SettingsDashboard: React.FC = () => {
                 sx={{ '& .MuiOutlinedInput-root': { borderRadius: '14px' } }}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <TextField
                 fullWidth
                 label="Email SMTP Port"
@@ -401,7 +401,7 @@ const SettingsDashboard: React.FC = () => {
                 sx={{ '& .MuiOutlinedInput-root': { borderRadius: '14px' } }}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <TextField
                 fullWidth
                 label="Core Banking Webhook Secret Key"
@@ -410,7 +410,7 @@ const SettingsDashboard: React.FC = () => {
                 sx={{ '& .MuiOutlinedInput-root': { borderRadius: '14px' } }}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <Box sx={{ p: 2.5, bgcolor: 'background.paper', borderRadius: '16px', border: '1px solid', borderColor: 'divider' }}>
                 <FormControlLabel
                   control={<Switch checked={settings.broadcastDailyLedger} onChange={e => handleChange('broadcastDailyLedger', e.target.checked)} color="primary" />}

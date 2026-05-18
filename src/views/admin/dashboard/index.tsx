@@ -24,11 +24,11 @@ import dashboardService from 'services/dashboard.service';
 import { gridSpacing } from 'store/constant';
 
 // assets
-import { 
-  IconUsers, 
-  IconUserCheck, 
-  IconUserExclamation, 
-  IconActivity, 
+import {
+  IconUsers,
+  IconUserCheck,
+  IconUserExclamation,
+  IconActivity,
   IconTrendingUp,
   IconClock
 } from '@tabler/icons-react';
@@ -95,7 +95,7 @@ const AdminDashboard: React.FC = () => {
 
   const growthChartOptions: any = {
     chart: { id: 'growth-chart', type: 'area', toolbar: { show: false }, animations: { enabled: true } },
-    xaxis: { 
+    xaxis: {
       categories: Array.isArray(chartData?.userGrowth) ? chartData.userGrowth.map((item: any) => item.month) : [],
       axisBorder: { show: false },
       axisTicks: { show: false },
@@ -157,7 +157,7 @@ const AdminDashboard: React.FC = () => {
       <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
         <Stack direction="row" justifyContent="space-between" alignItems="center" mb={6}>
           <Box>
-            <Typography variant="h1" fontWeight={900} letterSpacing="-1px" sx={{ 
+            <Typography variant="h1" fontWeight={900} letterSpacing="-1px" sx={{
               background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
@@ -169,16 +169,16 @@ const AdminDashboard: React.FC = () => {
               Strategic Intelligence Hub • Real-time Monitoring
             </Typography>
           </Box>
-          <Chip 
-            label="SYSTEM: OPTIMAL" 
-            sx={{ 
-              bgcolor: 'rgba(16, 185, 129, 0.1)', 
-              color: theme.palette.success.main, 
-              fontWeight: 800, 
+          <Chip
+            label="SYSTEM: OPTIMAL"
+            sx={{
+              bgcolor: 'rgba(16, 185, 129, 0.1)',
+              color: theme.palette.success.main,
+              fontWeight: 800,
               borderRadius: '10px',
               border: `1px solid ${theme.palette.success.light}`,
               px: 1
-            }} 
+            }}
           />
         </Stack>
       </motion.div>
@@ -190,10 +190,10 @@ const AdminDashboard: React.FC = () => {
           { title: 'Security Actions', value: stats?.inactiveUsers, icon: IconUserExclamation, color: theme.palette.warning.main, trend: '2 Pending' },
           { title: 'Growth Velocity', value: '98.4%', icon: IconTrendingUp, color: theme.palette.secondary.main, trend: '+2.4%' }
         ].map((item, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }} 
-              animate={{ opacity: 1, scale: 1 }} 
+          <Grid size={{ xs: 12, sm: 6, md: 3 }} key={index}>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.1 }}
             >
               <GlassCard>
@@ -214,7 +214,7 @@ const AdminDashboard: React.FC = () => {
       </Grid>
 
       <Grid container spacing={4}>
-        <Grid item xs={12} md={8}>
+        <Grid size={{ xs: 12, md: 8 }}>
           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>
             <GlassCard sx={{ height: '100%', p: 0, overflow: 'hidden' }}>
               <Box p={3}>
@@ -227,15 +227,15 @@ const AdminDashboard: React.FC = () => {
             </GlassCard>
           </motion.div>
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>
             <GlassCard sx={{ height: '100%' }}>
               <Typography variant="h4" fontWeight={800} mb={4}>Asset Ecosystem</Typography>
-              <Chart 
-                options={ecosystemOptions} 
-                series={[stats?.activeUsers || 0, stats?.inactiveUsers || 0, 2]} 
-                type="donut" 
-                height={280} 
+              <Chart
+                options={ecosystemOptions}
+                series={[stats?.activeUsers || 0, stats?.inactiveUsers || 0, 2]}
+                type="donut"
+                height={280}
               />
               <Stack spacing={2} mt={4}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -273,7 +273,7 @@ const AdminDashboard: React.FC = () => {
                       <IconActivity size={20} />
                     </IconWrapper>
                   </ListItemIcon>
-                  <ListItemText 
+                  <ListItemText
                     primary={<Typography variant="subtitle1" fontWeight={800}>{activity.details}</Typography>}
                     secondary={
                       <Stack direction="row" spacing={2} mt={0.5}>
@@ -283,10 +283,10 @@ const AdminDashboard: React.FC = () => {
                       </Stack>
                     }
                   />
-                  <Chip 
-                    label={activity.action} 
-                    size="small" 
-                    sx={{ borderRadius: '8px', fontWeight: 800, fontSize: '0.6rem', bgcolor: 'rgba(0,0,0,0.03)', color: 'text.secondary' }} 
+                  <Chip
+                    label={activity.action}
+                    size="small"
+                    sx={{ borderRadius: '8px', fontWeight: 800, fontSize: '0.6rem', bgcolor: 'rgba(0,0,0,0.03)', color: 'text.secondary' }}
                   />
                 </ListItem>
               ))}
