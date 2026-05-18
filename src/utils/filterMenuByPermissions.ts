@@ -31,7 +31,7 @@ export const filterMenuByPermissions = (items: NavItemType[], userPermissions: s
 
         // Partial match (e.g. if user has 'user' permission, they should see 'user.view')
         const basePermission = requiredPermission.split('.')[0];
-        const hasBaseAccess = userPermissions.some(up => up.trim().toLowerCase() === basePermission);
+        const hasBaseAccess = userPermissions.some(up => up.trim().toLowerCase().startsWith(basePermission));
 
         return hasBaseAccess;
       }
@@ -75,11 +75,31 @@ export const extractPermissionSlugs = (user: any): string[] => {
   }
 
   let finalSlugs = slugs.filter(Boolean).map(s => s.trim().toLowerCase());
-  if (finalSlugs.includes('activity.logs') && !finalSlugs.includes('activity.view')) {
-    finalSlugs.push('activity.view');
+
+  // Normalize permissions so View access grants route/menu visibility
+  const hasSetting = finalSlugs.some(s => s.includes('setting'));
+  if (hasSetting) {
+    finalSlugs.push('settings.view', 'settings.edit');
   }
-  if (finalSlugs.includes('activity.view') && !finalSlugs.includes('activity.logs')) {
-    finalSlugs.push('activity.logs');
+
+  const hasUpload = finalSlugs.some(s => s.includes('file') || s.includes('upload'));
+  if (hasUpload) {
+    finalSlugs.push('file.upload', 'file.view', 'upload.view');
+  }
+
+  const hasUser = finalSlugs.some(s => s.includes('user'));
+  if (hasUser) {
+    finalSlugs.push('user.view');
+  }
+
+  const hasRole = finalSlugs.some(s => s.includes('role'));
+  if (hasRole) {
+    finalSlugs.push('role.view');
+  }
+
+  const hasActivity = finalSlugs.some(s => s.includes('activity'));
+  if (hasActivity) {
+    finalSlugs.push('activity.view', 'activity.logs');
   }
 
   console.log('[RBAC] Active Slugs:', finalSlugs);

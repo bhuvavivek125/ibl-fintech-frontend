@@ -32,7 +32,8 @@ const adminPanel: NavItemType = {
       title: 'Admin Dashboard',
       type: 'item',
       icon: icons.IconDashboard,
-      url: '/dashboard/admin'
+      url: '/dashboard/admin',
+      permission: 'dashboard.view'
     },
     {
       id: 'user-management',
@@ -48,8 +49,7 @@ const adminPanel: NavItemType = {
       type: 'item',
       icon: icons.IconLock,
       url: '/roles',
-      permission: 'role.view',
-      roles: ['super_admin']
+      permission: 'role.view'
     },
     {
       id: 'file-upload',

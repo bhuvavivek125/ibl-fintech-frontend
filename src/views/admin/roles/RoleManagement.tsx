@@ -171,26 +171,62 @@ const RoleManagement: React.FC = () => {
     { id: 'description', label: 'Description', minWidth: 250 },
   ];
 
+  const ALLOWED_MODULES = [
+    'Admin Dashboard',
+    'User Management',
+    'Role & Permission',
+    'File Upload',
+    'Settings',
+    'Activity Logs'
+  ];
+
   const groupedPermissions = permissions.reduce((acc: any, curr: any) => {
-    const mod = curr.module ? curr.module.trim() : 'General';
-    if (!acc[mod]) acc[mod] = [];
-    acc[mod].push(curr);
+    if (!curr || !curr.slug) return acc;
+    const slug = curr.slug.toLowerCase();
+
+    let modName = '';
+    if (slug.startsWith('dashboard')) modName = 'Admin Dashboard';
+    else if (slug.startsWith('user')) modName = 'User Management';
+    else if (slug.startsWith('role')) modName = 'Role & Permission';
+    else if (slug.startsWith('file') || (slug.startsWith('upload') && !slug.includes('history'))) modName = 'File Upload';
+    else if (slug.startsWith('setting')) modName = 'Settings';
+    else if (slug.startsWith('activity')) modName = 'Activity Logs';
+
+    if (modName && ALLOWED_MODULES.includes(modName)) {
+      if (!acc[modName]) acc[modName] = [];
+      acc[modName].push({ ...curr, module: modName });
+    }
     return acc;
-  }, {});
+  }, {
+    'Admin Dashboard': [],
+    'User Management': [],
+    'Role & Permission': [],
+    'File Upload': [],
+    'Settings': [],
+    'Activity Logs': []
+  });
 
   const getModuleActionPerms = (perms: any[]) => {
-    let view = perms.find(p => /view|read|get|list|overview|history|logs/i.test(p.slug) || /view|read|list|overview|history|logs/i.test(p.name));
-    let add = perms.find(p => /create|add|upload|post|insert|new/i.test(p.slug) || /create|add|upload|insert|new/i.test(p.name));
-    let edit = perms.find(p => /update|edit|modify|put|patch|setting|config/i.test(p.slug) || /update|edit|modify|setting|config/i.test(p.name));
-    let del = perms.find(p => /delete|remove|destroy|drop|cancel/i.test(p.slug) || /delete|remove|destroy/i.test(p.name));
+    const assignedIds = new Set<string>();
 
-    const assignedIds = new Set([view?._id, add?._id, edit?._id, del?._id].filter(Boolean));
+    let view = perms.find(p => !assignedIds.has(p._id) && (/view|read|get|list|overview|history|logs/i.test(p.slug) || /view|read|list|overview|history|logs/i.test(p.name)));
+    if (view) assignedIds.add(view._id);
+
+    let add = perms.find(p => !assignedIds.has(p._id) && (/create|add|upload|post|insert|new/i.test(p.slug) || /create|add|upload|insert|new/i.test(p.name)));
+    if (add) assignedIds.add(add._id);
+
+    let edit = perms.find(p => !assignedIds.has(p._id) && (/update|edit|modify|put|patch|setting|config/i.test(p.slug) || /update|edit|modify|setting|config/i.test(p.name)));
+    if (edit) assignedIds.add(edit._id);
+
+    let del = perms.find(p => !assignedIds.has(p._id) && (/delete|remove|destroy|drop|cancel/i.test(p.slug) || /delete|remove|destroy/i.test(p.name)));
+    if (del) assignedIds.add(del._id);
+
     const remaining = perms.filter(p => !assignedIds.has(p._id));
 
-    if (!view && remaining.length > 0) view = remaining.shift();
-    if (!add && remaining.length > 0) add = remaining.shift();
-    if (!edit && remaining.length > 0) edit = remaining.shift();
-    if (!del && remaining.length > 0) del = remaining.shift();
+    if (!view && remaining.length > 0) { view = remaining.shift(); if (view) assignedIds.add(view._id); }
+    if (!add && remaining.length > 0) { add = remaining.shift(); if (add) assignedIds.add(add._id); }
+    if (!edit && remaining.length > 0) { edit = remaining.shift(); if (edit) assignedIds.add(edit._id); }
+    if (!del && remaining.length > 0) { del = remaining.shift(); if (del) assignedIds.add(del._id); }
 
     return { view, add, edit, del };
   };
