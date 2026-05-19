@@ -59,14 +59,14 @@ const MainContentStyled = styled('main', {
     marginRight: 20,
     padding: 16,
     marginTop: 88,
-    width: '100%'
+    width: 'calc(100% - 40px)'
   },
   [theme.breakpoints.down('sm')]: {
     marginLeft: 10,
     marginRight: 10,
     padding: 16,
     marginTop: 88,
-    width: '100%'
+    width: 'calc(100% - 20px)'
   }
 }));
 

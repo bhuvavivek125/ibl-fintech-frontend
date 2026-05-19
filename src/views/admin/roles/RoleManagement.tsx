@@ -18,8 +18,8 @@ interface TabPanelProps {
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
   return (
-    <div role="tabpanel" hidden={value !== index} {...other}>
-      {value === index && <Box sx={{ py: 3 }}>{children}</Box>}
+    <div role="tabpanel" hidden={value !== index} {...other} style={{ width: '100%', minWidth: 0, maxWidth: '100%' }}>
+      {value === index && <Box sx={{ py: 3, width: '100%', minWidth: 0, maxWidth: '100%', overflowX: 'auto' }}>{children}</Box>}
     </div>
   );
 }
@@ -215,7 +215,7 @@ const RoleManagement: React.FC = () => {
   ];
 
   return (
-    <Box p={{ xs: 2, sm: 4 }}>
+    <Box p={{ xs: 2, sm: 4 }} sx={{ width: '100%', minWidth: 0, maxWidth: '100%', overflow: 'hidden' }}>
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="space-between" alignItems={{ xs: 'flex-start', sm: 'center' }} mb={{ xs: 3, sm: 4 }}>
         <Box>
           <Typography variant="h2" fontWeight={800} className="gradient-text">Role & Permission Engine</Typography>
@@ -242,7 +242,7 @@ const RoleManagement: React.FC = () => {
         )}
       </Stack>
 
-      <Card className="glass" sx={{ borderRadius: '24px', border: 'none', overflow: 'hidden' }}>
+      <Card className="glass" sx={{ borderRadius: '24px', border: 'none', overflow: 'hidden', maxWidth: '100%', minWidth: 0 }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider', px: 3, pt: 2 }}>
           <Tabs value={tabValue} onChange={handleTabChange} sx={{ '& .MuiTab-root': { fontWeight: 700, fontSize: '1rem', py: 2 } }}>
             <Tab label="Access Roles" />

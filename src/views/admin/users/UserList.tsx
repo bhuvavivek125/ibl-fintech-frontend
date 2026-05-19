@@ -442,7 +442,7 @@ const UserList: React.FC = () => {
   ];
 
   return (
-    <Box p={{ xs: 2, sm: 4 }}>
+    <Box p={{ xs: 2, sm: 4 }} sx={{ width: '100%', minWidth: 0, maxWidth: '100%', overflow: 'hidden' }}>
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="space-between" alignItems={{ xs: 'flex-start', sm: 'center' }} mb={{ xs: 3, sm: 5 }}>
         <Box>
           <Typography variant="h2" fontWeight={800} className="gradient-text" sx={{ letterSpacing: '-0.5px', mb: 0.5 }}>
@@ -475,7 +475,7 @@ const UserList: React.FC = () => {
         )}
       </Stack>
 
-      <Card className="premium-card" sx={{ p: { xs: 2, sm: 3 }, mb: 4, border: 'none' }}>
+      <Card className="premium-card" sx={{ p: { xs: 2, sm: 3 }, mb: 4, border: 'none', maxWidth: '100%', overflow: 'hidden' }}>
         <Stack spacing={3}>
           {/* Top Row: Search */}
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems={{ xs: 'stretch', sm: 'center' }}>
@@ -574,7 +574,7 @@ const UserList: React.FC = () => {
         </Stack>
       </Card>
 
-      <Box className="premium-card" sx={{ overflow: 'hidden', border: 'none' }}>
+      <Box className="premium-card" sx={{ width: '100%', minWidth: 0, maxWidth: '100%', overflowX: 'auto', border: 'none' }}>
         <Table
           columns={columns}
           data={users}

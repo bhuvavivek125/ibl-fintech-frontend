@@ -77,7 +77,7 @@ const ActivityLogs: React.FC = () => {
   const headingText = isSuperAdmin ? 'System Activity Logs' : 'My Activity Logs';
 
   return (
-    <MainCard title={headingText}>
+    <MainCard title={headingText} sx={{ width: '100%', minWidth: 0, maxWidth: '100%', overflow: 'hidden' }}>
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
         <Box mb={3}>
           <Typography variant="body2" color="text.secondary">
@@ -87,7 +87,7 @@ const ActivityLogs: React.FC = () => {
           </Typography>
         </Box>
         
-        <Card sx={{ p: 0, overflow: 'hidden', border: '1px solid', borderColor: theme.palette.divider }}>
+        <Card sx={{ p: 0, overflow: 'hidden', border: '1px solid', borderColor: theme.palette.divider, maxWidth: '100%' }}>
           <List disablePadding>
             {activities.length > 0 ? (
               activities.map((activity, index) => (
@@ -96,44 +96,50 @@ const ActivityLogs: React.FC = () => {
                   divider={index !== activities.length - 1}
                   sx={{
                     py: 2.5,
-                    px: 3,
+                    px: { xs: 2, sm: 3 },
+                    flexDirection: { xs: 'column', sm: 'row' },
+                    alignItems: { xs: 'flex-start', sm: 'center' },
+                    gap: { xs: 1.5, sm: 2 },
                     transition: 'all 0.2s',
                     '&:hover': { bgcolor: 'rgba(99, 102, 241, 0.02)' }
                   }}
                 >
-                  <ListItemIcon>
-                    <IconWrapper
-                      color={activity.action.includes('LOGIN') ? theme.palette.success.main : theme.palette.primary.main}
-                    >
-                      <IconActivity size={20} />
-                    </IconWrapper>
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={activity.details}
-                    primaryTypographyProps={{
-                      variant: 'subtitle1',
-                      fontWeight: 700
-                    }}
-                    secondary={
-                      <Stack direction="row" spacing={2} mt={0.5} alignItems="center">
-                        <Typography variant="caption" color="text.secondary" fontWeight={600}>
-                          IP: {activity.ipAddress}
-                        </Typography>
-                        <Typography variant="caption" color="text.secondary">
-                          •
-                        </Typography>
-                        <Stack direction="row" spacing={0.5} alignItems="center">
-                          <IconClock size={12} />
+                  <Stack direction="row" spacing={2} alignItems="flex-start" sx={{ width: '100%', minWidth: 0, flexGrow: 1 }}>
+                    <ListItemIcon sx={{ minWidth: 'auto', mt: 0.5 }}>
+                      <IconWrapper
+                        color={activity.action.includes('LOGIN') ? theme.palette.success.main : theme.palette.primary.main}
+                      >
+                        <IconActivity size={20} />
+                      </IconWrapper>
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={activity.details}
+                      primaryTypographyProps={{
+                        variant: 'subtitle1',
+                        fontWeight: 700,
+                        sx: { wordBreak: 'break-word' }
+                      }}
+                      secondary={
+                        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 0.5, sm: 2 }} mt={0.5} alignItems={{ xs: 'flex-start', sm: 'center' }}>
                           <Typography variant="caption" color="text.secondary" fontWeight={600}>
-                            {new Date(activity.createdAt).toLocaleString()}
+                            IP: {activity.ipAddress}
                           </Typography>
+                          <Typography variant="caption" color="text.secondary" sx={{ display: { xs: 'none', sm: 'block' } }}>
+                            •
+                          </Typography>
+                          <Stack direction="row" spacing={0.5} alignItems="center">
+                            <IconClock size={12} />
+                            <Typography variant="caption" color="text.secondary" fontWeight={600}>
+                              {new Date(activity.createdAt).toLocaleString()}
+                            </Typography>
+                          </Stack>
                         </Stack>
-                      </Stack>
-                    }
-                    secondaryTypographyProps={{
-                      component: 'div'
-                    }}
-                  />
+                      }
+                      secondaryTypographyProps={{
+                        component: 'div'
+                      }}
+                    />
+                  </Stack>
                   <Chip
                     label={activity.action}
                     size="small"
@@ -142,7 +148,9 @@ const ActivityLogs: React.FC = () => {
                       fontWeight: 800,
                       fontSize: '0.65rem',
                       bgcolor: 'rgba(0,0,0,0.03)',
-                      color: 'text.secondary'
+                      color: 'text.secondary',
+                      alignSelf: { xs: 'flex-start', sm: 'center' },
+                      ml: { xs: 0, sm: 'auto' }
                     }}
                   />
                 </ListItem>

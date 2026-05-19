@@ -101,7 +101,24 @@ const AdminDashboard: React.FC = () => {
       axisTicks: { show: false },
     },
     yaxis: { show: false },
-    grid: { show: false },
+    grid: {
+      show: true,
+      borderColor: 'transparent',
+      xaxis: {
+        lines: {
+          show: false
+        }
+      },
+      yaxis: {
+        lines: {
+          show: false
+        }
+      },
+      padding: {
+        left: 35,
+        right: 25
+      }
+    },
     colors: [theme.palette.primary.main],
     stroke: { curve: 'smooth', width: 3 },
     fill: {
@@ -153,7 +170,7 @@ const AdminDashboard: React.FC = () => {
   };
 
   return (
-    <Box p={{ xs: 2, sm: 4 }}>
+    <Box p={{ xs: 2, sm: 4 }} sx={{ width: '100%', minWidth: 0, maxWidth: '100%', overflow: 'hidden' }}>
       <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="space-between" alignItems={{ xs: 'flex-start', sm: 'center' }} mb={6}>
           <Box>
@@ -183,7 +200,7 @@ const AdminDashboard: React.FC = () => {
         </Stack>
       </motion.div>
 
-      <Grid container spacing={4} mb={6}>
+      <Grid container spacing={{ xs: 2, sm: 4 }} mb={6}>
         {[
           { title: 'Identity Registry', value: stats?.totalUsers, icon: IconUsers, color: theme.palette.primary.main, trend: '+12%' },
           { title: 'Verified Assets', value: stats?.activeUsers, icon: IconUserCheck, color: theme.palette.success.main, trend: 'Optimal' },
@@ -213,7 +230,7 @@ const AdminDashboard: React.FC = () => {
         ))}
       </Grid>
 
-      <Grid container spacing={4}>
+      <Grid container spacing={{ xs: 2, sm: 4 }}>
         <Grid size={{ xs: 12, md: 8 }}>
           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>
             <GlassCard sx={{ height: '100%', p: 0, overflow: 'hidden' }}>
@@ -221,7 +238,7 @@ const AdminDashboard: React.FC = () => {
                 <Typography variant="h4" fontWeight={800}>Provisioning Velocity</Typography>
                 <Typography variant="caption" color="text.secondary">Identity flow metrics for the current cycle</Typography>
               </Box>
-              <Box sx={{ mt: -2 }}>
+              <Box sx={{ mt: -2, px: 2 }}>
                 <Chart options={growthChartOptions} series={growthChartSeries} type="area" height={320} />
               </Box>
             </GlassCard>
@@ -267,27 +284,49 @@ const AdminDashboard: React.FC = () => {
           <GlassCard sx={{ p: 0, overflow: 'hidden' }}>
             <List disablePadding>
               {stats?.recentActivities?.slice(0, 5).map((activity: any, index: number) => (
-                <ListItem key={activity._id} divider={index !== 4} sx={{ py: 3, px: 4, transition: 'all 0.2s', '&:hover': { bgcolor: 'rgba(99, 102, 241, 0.02)' } }}>
-                  <ListItemIcon>
-                    <IconWrapper color={activity.action.includes('LOGIN') ? theme.palette.success.main : theme.palette.primary.main}>
-                      <IconActivity size={20} />
-                    </IconWrapper>
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={<Typography variant="subtitle1" fontWeight={800}>{activity.details}</Typography>}
-                    secondary={
-                      <Stack direction="row" spacing={2} mt={0.5}>
-                        <Typography variant="caption" color="text.secondary" fontWeight={600}>{activity.ipAddress}</Typography>
-                        <Typography variant="caption" color="text.secondary">•</Typography>
-                        <Typography variant="caption" color="text.secondary" fontWeight={600}>{new Date(activity.createdAt).toLocaleTimeString()}</Typography>
-                      </Stack>
-                    }
-                    secondaryTypographyProps={{ component: 'div' }}
-                  />
+                <ListItem
+                  key={activity._id}
+                  divider={index !== 4}
+                  sx={{
+                    py: 3,
+                    px: { xs: 2, sm: 4 },
+                    flexDirection: { xs: 'column', sm: 'row' },
+                    alignItems: { xs: 'flex-start', sm: 'center' },
+                    gap: { xs: 1.5, sm: 2 },
+                    transition: 'all 0.2s',
+                    '&:hover': { bgcolor: 'rgba(99, 102, 241, 0.02)' }
+                  }}
+                >
+                  <Stack direction="row" spacing={2} alignItems="flex-start" sx={{ width: '100%', minWidth: 0, flexGrow: 1 }}>
+                    <ListItemIcon sx={{ minWidth: 'auto', mt: 0.5 }}>
+                      <IconWrapper color={activity.action.includes('LOGIN') ? theme.palette.success.main : theme.palette.primary.main}>
+                        <IconActivity size={20} />
+                      </IconWrapper>
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={<Typography variant="subtitle1" fontWeight={800} sx={{ wordBreak: 'break-word' }}>{activity.details}</Typography>}
+                      secondary={
+                        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 0.5, sm: 2 }} mt={0.5} alignItems={{ xs: 'flex-start', sm: 'center' }}>
+                          <Typography variant="caption" color="text.secondary" fontWeight={600}>{activity.ipAddress}</Typography>
+                          <Typography variant="caption" color="text.secondary" sx={{ display: { xs: 'none', sm: 'block' } }}>•</Typography>
+                          <Typography variant="caption" color="text.secondary" fontWeight={600}>{new Date(activity.createdAt).toLocaleTimeString()}</Typography>
+                        </Stack>
+                      }
+                      secondaryTypographyProps={{ component: 'div' }}
+                    />
+                  </Stack>
                   <Chip
                     label={activity.action}
                     size="small"
-                    sx={{ borderRadius: '8px', fontWeight: 800, fontSize: '0.6rem', bgcolor: 'rgba(0,0,0,0.03)', color: 'text.secondary' }}
+                    sx={{
+                      borderRadius: '8px',
+                      fontWeight: 800,
+                      fontSize: '0.6rem',
+                      bgcolor: 'rgba(0,0,0,0.03)',
+                      color: 'text.secondary',
+                      alignSelf: { xs: 'flex-start', sm: 'center' },
+                      ml: { xs: 0, sm: 'auto' }
+                    }}
                   />
                 </ListItem>
               ))}

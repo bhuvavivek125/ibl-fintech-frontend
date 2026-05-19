@@ -83,7 +83,7 @@ const FileUpload: React.FC = () => {
   };
 
   return (
-    <Box p={{ xs: 2, sm: 4 }}>
+    <Box p={{ xs: 2, sm: 4 }} sx={{ width: '100%', minWidth: 0, maxWidth: '100%', overflow: 'hidden' }}>
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="space-between" alignItems={{ xs: 'flex-start', sm: 'center' }} mb={{ xs: 3, sm: 5 }}>
         <Box>
           <Typography variant="h2" fontWeight={800} className="gradient-text">Digital Asset Vault</Typography>
@@ -91,7 +91,7 @@ const FileUpload: React.FC = () => {
         </Box>
       </Stack>
 
-      <Card className="glass" sx={{ borderRadius: '24px', border: 'none', mb: 4, overflow: 'hidden', boxShadow: '0 12px 36px rgba(0,0,0,0.06)' }}>
+      <Card className="glass" sx={{ borderRadius: '24px', border: 'none', mb: 4, overflow: 'hidden', boxShadow: '0 12px 36px rgba(0,0,0,0.06)', maxWidth: '100%', minWidth: 0 }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider', px: 3, pt: 2 }}>
           <Tabs
             value={tabValue}

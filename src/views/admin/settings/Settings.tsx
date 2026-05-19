@@ -41,9 +41,9 @@ const TabPanel: React.FC<TabPanelProps> = ({ children, value, index, ...other })
 
 // Premium Skeleton structure mimicking the form layout to preserve spatial integrity during loads
 const SettingsSkeleton: React.FC = () => (
-  <Card className="premium-card" sx={{ p: 4, border: 'none' }}>
+  <Card className="premium-card" sx={{ p: { xs: 2, sm: 4 }, border: 'none' }}>
     <Skeleton variant="text" width="30%" height={32} sx={{ mb: 4, bgcolor: 'action.hover' }} />
-    <Grid container spacing={4}>
+    <Grid container spacing={{ xs: 2, sm: 4 }}>
       {[1, 2, 3, 4, 5, 6].map((item) => (
         <Grid key={item} size={{ xs: 12, md: 6 }}>
           <Skeleton variant="rectangular" height={56} sx={{ borderRadius: '14px', bgcolor: 'action.hover' }} />
@@ -190,20 +190,20 @@ const SettingsDashboard: React.FC = () => {
   }
 
   return (
-    <Box p={{ xs: 2, sm: 4 }} sx={{ maxWidth: 1200, mx: 'auto' }}>
+    <Box p={{ xs: 2, sm: 4 }} sx={{ width: '100%', minWidth: 0, maxWidth: 1200, mx: 'auto' }}>
       {/* Header */}
-      <Stack direction={{ xs: 'column', md: 'row' }} justifyContent="space-between" alignItems={{ xs: 'flex-start', md: 'center' }} spacing={2} mb={{ xs: 3, sm: 5 }}>
+      <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ xs: 'flex-start', sm: 'center' }} spacing={2} mb={{ xs: 3, sm: 5 }}>
         <Box>
           <Typography variant="h2" fontWeight={800} className="gradient-text">Enterprise Global Settings</Typography>
           <Typography variant="h6" color="text.secondary" fontWeight={500}>Configure platform operations, compliance rules, and fintech parameters</Typography>
         </Box>
-        <Stack direction="row" spacing={2} sx={{ width: { xs: '100%', md: 'auto' } }}>
+        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ width: { xs: '100%', sm: 'auto' } }}>
           <Button
             variant="outlined"
             color="inherit"
             startIcon={<ResetIcon />}
             onClick={handleResetDefaults}
-            sx={{ borderRadius: '12px', px: 3, py: 1.2, fontWeight: 600, flexGrow: { xs: 1, md: 0 } }}
+            sx={{ borderRadius: '12px', px: 3, py: 1.2, fontWeight: 600, flexGrow: { xs: 1, sm: 0 } }}
           >
             Reset Defaults
           </Button>
@@ -213,7 +213,7 @@ const SettingsDashboard: React.FC = () => {
             startIcon={<SaveIcon />}
             onClick={handleSave}
             loading={saving}
-            sx={{ borderRadius: '12px', px: 4, py: 1.2, fontWeight: 700, boxShadow: '0 8px 16px rgba(99, 102, 241, 0.3)', flexGrow: { xs: 1, md: 0 } }}
+            sx={{ borderRadius: '12px', px: 4, py: 1.2, fontWeight: 700, boxShadow: '0 8px 16px rgba(99, 102, 241, 0.3)', flexGrow: { xs: 1, sm: 0 } }}
           >
             Save Changes
           </Button>
@@ -221,7 +221,7 @@ const SettingsDashboard: React.FC = () => {
       </Stack>
 
       {/* Tabs Bar */}
-      <Card className="glass" sx={{ px: 2, pt: 1, borderRadius: '20px', border: 'none', mb: 4 }}>
+      <Card className="glass" sx={{ px: 2, pt: 1, borderRadius: '20px', border: 'none', mb: 4, maxWidth: '100%', overflow: 'hidden' }}>
         <Tabs
           value={activeTab}
           onChange={(_, newValue) => setActiveTab(newValue)}
@@ -244,9 +244,9 @@ const SettingsDashboard: React.FC = () => {
       <Box sx={{ minHeight: 520, width: '100%' }}>
         {/* Tab 1: General & Brand */}
         <TabPanel value={activeTab} index={0}>
-          <Card className="glass" sx={{ p: 4, borderRadius: '24px', border: 'none', minHeight: 500, width: '100%', display: 'flex', flexDirection: 'column' }}>
+          <Card className="glass" sx={{ p: { xs: 2, sm: 4 }, borderRadius: '24px', border: 'none', minHeight: 500, width: '100%', display: 'flex', flexDirection: 'column', maxWidth: '100%', overflow: 'hidden' }}>
             <Typography variant="h5" fontWeight={700} mb={4} color="primary.main">Platform Information</Typography>
-            <Grid container spacing={4}>
+            <Grid container spacing={{ xs: 2, sm: 4 }}>
               <Grid size={{ xs: 12, md: 6 }}>
                 <TextField
                   fullWidth
@@ -296,7 +296,7 @@ const SettingsDashboard: React.FC = () => {
               <Grid size={12}>
                 <Divider sx={{ my: 2 }} />
                 <Box sx={{ p: 3, bgcolor: 'error.light', color: 'error.dark', borderRadius: '16px' }}>
-                  <Stack direction="row" justifyContent="space-between" alignItems="center">
+                  <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="space-between" alignItems={{ xs: 'flex-start', sm: 'center' }}>
                     <Box>
                       <Typography variant="subtitle1" fontWeight={700}>System Maintenance Mode</Typography>
                       <Typography variant="body2" sx={{ opacity: 0.9 }}>When enabled, standard users will be redirected to the maintenance downtime screen.</Typography>
@@ -315,9 +315,9 @@ const SettingsDashboard: React.FC = () => {
 
         {/* Tab 2: Security & Governance */}
         <TabPanel value={activeTab} index={1}>
-          <Card className="glass" sx={{ p: 4, borderRadius: '24px', border: 'none', minHeight: 500, width: '100%', display: 'flex', flexDirection: 'column' }}>
+          <Card className="glass" sx={{ p: { xs: 2, sm: 4 }, borderRadius: '24px', border: 'none', minHeight: 500, width: '100%', display: 'flex', flexDirection: 'column', maxWidth: '100%', overflow: 'hidden' }}>
             <Typography variant="h5" fontWeight={700} mb={4} color="primary.main">Security Compliance Policies</Typography>
-            <Grid container spacing={4}>
+            <Grid container spacing={{ xs: 2, sm: 4 }}>
               <Grid size={{ xs: 12, md: 6 }}>
                 <TextField
                   fullWidth
@@ -373,9 +373,9 @@ const SettingsDashboard: React.FC = () => {
 
         {/* Tab 3: Fintech & Loan Rules */}
         <TabPanel value={activeTab} index={2}>
-          <Card className="glass" sx={{ p: 4, borderRadius: '24px', border: 'none', minHeight: 500, width: '100%', display: 'flex', flexDirection: 'column' }}>
+          <Card className="glass" sx={{ p: { xs: 2, sm: 4 }, borderRadius: '24px', border: 'none', minHeight: 500, width: '100%', display: 'flex', flexDirection: 'column', maxWidth: '100%', overflow: 'hidden' }}>
             <Typography variant="h5" fontWeight={700} mb={4} color="primary.main">Lending & Credit Scoring Parameters</Typography>
-            <Grid container spacing={4}>
+            <Grid container spacing={{ xs: 2, sm: 4 }}>
               <Grid size={{ xs: 12, md: 6 }}>
                 <TextField
                   fullWidth
@@ -429,9 +429,9 @@ const SettingsDashboard: React.FC = () => {
 
         {/* Tab 4: Notifications & Gateways */}
         <TabPanel value={activeTab} index={3}>
-          <Card className="glass" sx={{ p: 4, borderRadius: '24px', border: 'none', minHeight: 500, width: '100%', display: 'flex', flexDirection: 'column' }}>
+          <Card className="glass" sx={{ p: { xs: 2, sm: 4 }, borderRadius: '24px', border: 'none', minHeight: 500, width: '100%', display: 'flex', flexDirection: 'column', maxWidth: '100%', overflow: 'hidden' }}>
             <Typography variant="h5" fontWeight={700} mb={4} color="primary.main">Communication & Webhook Gateways</Typography>
-            <Grid container spacing={4}>
+            <Grid container spacing={{ xs: 2, sm: 4 }}>
               <Grid size={{ xs: 12, md: 6 }}>
                 <TextField
                   select
