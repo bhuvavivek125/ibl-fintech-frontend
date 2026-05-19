@@ -18,8 +18,15 @@ export default function PermissionGuard({ children, permission }: PermissionGuar
   const { user, isLoggedIn } = useAuth();
   const navigate = useNavigate();
   
+  const roleValue = user?.role as any;
+  const isSuperAdmin = (
+    roleValue === 'super_admin' ||
+    roleValue?.key === 'super_admin' ||
+    roleValue?.slug === 'super_admin'
+  );
+
   const userPermissions = extractPermissionSlugs(user);
-  const hasPermission = userPermissions.includes(permission.toLowerCase());
+  const hasPermission = isSuperAdmin || userPermissions.includes(permission.toLowerCase());
 
   useEffect(() => {
     if (isLoggedIn && !hasPermission) {

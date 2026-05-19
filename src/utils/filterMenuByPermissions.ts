@@ -1,15 +1,136 @@
 import { NavItemType } from 'types';
 
 /**
- * Filter menu items based on user permission slugs
+ * Normalizes user permissions to a structured matrix object format:
+ * permissions: { adminDashboard: { view: true, create: false... }, ... }
  */
-export const filterMenuByPermissions = (items: NavItemType[], userPermissions: string[]): NavItemType[] => {
+export const getNormalizedPermissions = (user: any): any => {
+  const defaultMatrix = {
+    adminDashboard: { view: false, create: false, edit: false, delete: false },
+    userManagement: { view: false, create: false, edit: false, delete: false },
+    rolePermission: { view: false, create: false, edit: false, delete: false },
+    fileUpload: { view: false, create: false, edit: false, delete: false },
+    settings: { view: false, create: false, edit: false, delete: false },
+    activityLogs: { view: false, create: false, edit: false, delete: false }
+  };
+
+  if (!user) return defaultMatrix;
+
+  // If user is actually already a normalized matrix object passed in directly
+  if (user.adminDashboard && typeof user.adminDashboard === 'object') {
+    return { ...defaultMatrix, ...user };
+  }
+
+  const roleValue = user.role;
+  const roleName = (typeof roleValue === 'string' ? roleValue : roleValue?.key || roleValue?.slug || roleValue?.name || '').toLowerCase();
+
+  // Super admin has full permissions by default
+  if (['super_admin', 'super-admin'].includes(roleName)) {
+    return {
+      adminDashboard: { view: true, create: true, edit: true, delete: true },
+      userManagement: { view: true, create: true, edit: true, delete: true },
+      rolePermission: { view: true, create: true, edit: true, delete: true },
+      fileUpload: { view: true, create: true, edit: true, delete: true },
+      settings: { view: true, create: true, edit: true, delete: true },
+      activityLogs: { view: true, create: true, edit: true, delete: true }
+    };
+  }
+
+  // 1. Check if user.permissions is already a structured matrix object
+  if (user.permissions && typeof user.permissions === 'object' && !Array.isArray(user.permissions)) {
+    return { ...defaultMatrix, ...user.permissions };
+  }
+
+  // 2. Check if user.rolePermissions is already a structured matrix object
+  if (user.rolePermissions && typeof user.rolePermissions === 'object' && !Array.isArray(user.rolePermissions)) {
+    return { ...defaultMatrix, ...user.rolePermissions };
+  }
+
+  // 3. Fallback for array permissions (legacy or overrides)
+  let slugs: string[] = [];
+  if (Array.isArray(user.permissions)) {
+    slugs = user.permissions.map((p: any) => (typeof p === 'string' ? p : p.slug));
+  } else if (user.role && typeof user.role === 'object' && Array.isArray(user.role.permissions)) {
+    slugs = user.role.permissions.map((p: any) => (typeof p === 'string' ? p : p.slug));
+  } else if (user.rolePermissions && Array.isArray(user.rolePermissions)) {
+    slugs = user.rolePermissions.map((p: any) => (typeof p === 'string' ? p : p.slug));
+  }
+
+  if (slugs.length > 0) {
+    const cleanSlugs = slugs.filter(Boolean).map((s) => s.trim().toLowerCase());
+    const matrix = { ...defaultMatrix };
+
+    // Admin Dashboard
+    if (cleanSlugs.includes('dashboard.view')) matrix.adminDashboard.view = true;
+
+    // User Management
+    if (cleanSlugs.includes('user.view')) matrix.userManagement.view = true;
+    if (cleanSlugs.includes('user.create')) matrix.userManagement.create = true;
+    if (cleanSlugs.includes('user.edit')) matrix.userManagement.edit = true;
+    if (cleanSlugs.includes('user.delete')) matrix.userManagement.delete = true;
+
+    // Role & Permission
+    if (cleanSlugs.includes('role.view')) matrix.rolePermission.view = true;
+    if (cleanSlugs.includes('role.create')) matrix.rolePermission.create = true;
+    if (cleanSlugs.includes('role.edit')) matrix.rolePermission.edit = true;
+    if (cleanSlugs.includes('role.delete')) matrix.rolePermission.delete = true;
+
+    // File Upload
+    if (cleanSlugs.includes('file.view') || cleanSlugs.includes('upload.view')) matrix.fileUpload.view = true;
+    if (cleanSlugs.includes('file.upload') || cleanSlugs.includes('file.create')) matrix.fileUpload.create = true;
+    if (cleanSlugs.includes('file.edit')) matrix.fileUpload.edit = true;
+    if (cleanSlugs.includes('file.delete')) matrix.fileUpload.delete = true;
+
+    // Settings
+    if (cleanSlugs.includes('settings.view')) matrix.settings.view = true;
+    if (cleanSlugs.includes('settings.create')) matrix.settings.create = true;
+    if (cleanSlugs.includes('settings.edit')) matrix.settings.edit = true;
+    if (cleanSlugs.includes('settings.delete')) matrix.settings.delete = true;
+
+    // Activity Logs
+    if (cleanSlugs.includes('activity.view')) matrix.activityLogs.view = true;
+    if (cleanSlugs.includes('activity.create')) matrix.activityLogs.create = true;
+    if (cleanSlugs.includes('activity.edit')) matrix.activityLogs.edit = true;
+    if (cleanSlugs.includes('activity.delete')) matrix.activityLogs.delete = true;
+
+    return matrix;
+  }
+
+  // Admin fallback
+  if (['admin', 'administrator'].includes(roleName)) {
+    return {
+      adminDashboard: { view: true, create: true, edit: true, delete: false },
+      userManagement: { view: true, create: true, edit: true, delete: false },
+      rolePermission: { view: true, create: true, edit: true, delete: false },
+      fileUpload: { view: true, create: true, edit: true, delete: false },
+      settings: { view: true, create: true, edit: true, delete: false },
+      activityLogs: { view: true, create: true, edit: true, delete: false }
+    };
+  }
+
+  return defaultMatrix;
+};
+
+/**
+ * Filter menu items based on user permissions matrix object or slugs array
+ */
+export const filterMenuByPermissions = (items: NavItemType[], permissionsArg: any): NavItemType[] => {
+  // Gracefully normalize permissionsArg to the matrix object
+  let userPermissionsMatrix = permissionsArg;
+  if (Array.isArray(permissionsArg)) {
+    // If it's a flat list of slugs, convert it using our mock user wrapper
+    userPermissionsMatrix = getNormalizedPermissions({ permissions: permissionsArg });
+  } else if (!permissionsArg || typeof permissionsArg !== 'object' || (!permissionsArg.adminDashboard && !permissionsArg.userManagement)) {
+    // If it's a user object instead of a permissions object, resolve its permissions!
+    userPermissionsMatrix = getNormalizedPermissions(permissionsArg);
+  }
+
   return items
     .map((item) => {
       if (item.children) {
         return {
           ...item,
-          children: filterMenuByPermissions(item.children, userPermissions)
+          children: filterMenuByPermissions(item.children, userPermissionsMatrix)
         };
       }
       return item;
@@ -24,86 +145,47 @@ export const filterMenuByPermissions = (items: NavItemType[], userPermissions: s
       // 2. If it's an item and has a permission requirement, check if user has it
       if (item.type === 'item' && item.permission) {
         const requiredPermission = item.permission.trim().toLowerCase();
+        
+        let moduleKey = '';
+        if (requiredPermission.startsWith('dashboard')) moduleKey = 'adminDashboard';
+        else if (requiredPermission.startsWith('user')) moduleKey = 'userManagement';
+        else if (requiredPermission.startsWith('role')) moduleKey = 'rolePermission';
+        else if (requiredPermission.startsWith('file')) moduleKey = 'fileUpload';
+        else if (requiredPermission.startsWith('settings')) moduleKey = 'settings';
+        else if (requiredPermission.startsWith('activity')) moduleKey = 'activityLogs';
 
-        // Direct match
-        const hasDirectAccess = userPermissions.some(up => up.trim().toLowerCase() === requiredPermission);
-        if (hasDirectAccess) return true;
-
-        // Partial match (e.g. if user has 'user' permission, they should see 'user.view')
-        const basePermission = requiredPermission.split('.')[0];
-        const hasBaseAccess = userPermissions.some(up => up.trim().toLowerCase().startsWith(basePermission));
-
-        return hasBaseAccess;
+        if (moduleKey) {
+          const state = userPermissionsMatrix[moduleKey];
+          return state ? state.view === true : false;
+        }
       }
 
-      // 3. Otherwise show it (e.g. items without explicit permission required)
+      // 3. Otherwise show it
       return true;
     });
 };
 
 /**
- * Extract permission slugs from user object (handles populated role)
+ * Legacy support: Extract permission slugs as flat string array
  */
 export const extractPermissionSlugs = (user: any): string[] => {
-  if (!user) return [];
+  const matrix = getNormalizedPermissions(user);
+  const slugs: string[] = [];
 
-  let slugs: string[] = [];
+  Object.entries(matrix).forEach(([moduleKey, state]: [string, any]) => {
+    let moduleName = moduleKey;
+    if (moduleKey === 'adminDashboard') moduleName = 'dashboard';
+    if (moduleKey === 'rolePermission') moduleName = 'role';
+    if (moduleKey === 'fileUpload') moduleName = 'file';
+    if (moduleKey === 'activityLogs') moduleName = 'activity';
 
-  // 1. Check direct permissions array on user
-  if (Array.isArray(user.permissions)) {
-    slugs = user.permissions.map((p: any) => (typeof p === 'string' ? p : p.slug));
-  }
-  // 2. Check permissions inside the role object
-  else if (user.role && typeof user.role === 'object' && Array.isArray(user.role.permissions)) {
-    slugs = user.role.permissions.map((p: any) => (typeof p === 'string' ? p : p.slug));
-  }
-  // 3. Check for flattened permissions
-  else if (user.rolePermissions && Array.isArray(user.rolePermissions)) {
-    slugs = user.rolePermissions.map((p: any) => (typeof p === 'string' ? p : p.slug));
-  }
+    if (state.view) slugs.push(`${moduleName}.view`);
+    if (state.create) slugs.push(moduleName === 'file' ? 'file.upload' : `${moduleName}.create`);
+    if (state.edit) slugs.push(`${moduleName}.edit`);
+    if (state.delete) slugs.push(`${moduleName}.delete`);
+  });
 
-  // Fallback for admin roles
-  const roleValue = user.role;
-  const roleName = (typeof roleValue === 'string' ? roleValue : roleValue?.slug || roleValue?.name || '').toLowerCase();
-
-  if (['super_admin'].includes(roleName)) {
-    return ['dashboard.view', 'user.view', 'role.view', 'file.upload', 'settings.edit', 'user.create', 'user.edit', 'user.delete', 'activity.view', 'activity.logs'];
-  }
-
-  if (slugs.length === 0 && ['admin', 'administrator'].includes(roleName)) {
-    return ['dashboard.view', 'user.view', 'role.view', 'file.upload', 'settings.edit', 'user.create', 'user.edit', 'user.delete', 'activity.view', 'activity.logs'];
-  }
-
-  let finalSlugs = slugs.filter(Boolean).map(s => s.trim().toLowerCase());
-
-  // Normalize permissions so View access grants route/menu visibility
-  const hasSetting = finalSlugs.some(s => s.includes('setting'));
-  if (hasSetting) {
-    finalSlugs.push('settings.view', 'settings.edit');
-  }
-
-  const hasUpload = finalSlugs.some(s => s.includes('file') || s.includes('upload'));
-  if (hasUpload) {
-    finalSlugs.push('file.upload', 'file.view', 'upload.view');
-  }
-
-  const hasUser = finalSlugs.some(s => s.includes('user'));
-  if (hasUser) {
-    finalSlugs.push('user.view');
-  }
-
-  const hasRole = finalSlugs.some(s => s.includes('role'));
-  if (hasRole) {
-    finalSlugs.push('role.view');
-  }
-
-  const hasActivity = finalSlugs.some(s => s.includes('activity'));
-  if (hasActivity) {
-    finalSlugs.push('activity.view', 'activity.logs');
-  }
-
-  console.log('[RBAC] Active Slugs:', finalSlugs);
-  return finalSlugs;
+  return slugs;
 };
 
 /**

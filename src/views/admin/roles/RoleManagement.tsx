@@ -7,6 +7,7 @@ import Input from 'components/Input';
 import Modal from 'components/Modal';
 import roleService from 'services/role.service';
 import { useSnackbar } from 'notistack';
+import useRBAC from 'hooks/useRBAC';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -23,8 +24,27 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
+const MODULE_KEYS = {
+  adminDashboard: 'Admin Dashboard',
+  userManagement: 'User Management',
+  rolePermission: 'Role & Permission',
+  fileUpload: 'File Upload',
+  settings: 'Settings',
+  activityLogs: 'Activity Logs'
+};
+
+const getEmptyPermissionsObject = () => ({
+  adminDashboard: { view: false, create: false, edit: false, delete: false },
+  userManagement: { view: false, create: false, edit: false, delete: false },
+  rolePermission: { view: false, create: false, edit: false, delete: false },
+  fileUpload: { view: false, create: false, edit: false, delete: false },
+  settings: { view: false, create: false, edit: false, delete: false },
+  activityLogs: { view: false, create: false, edit: false, delete: false }
+});
+
 const RoleManagement: React.FC = () => {
   const { enqueueSnackbar } = useSnackbar();
+  const { canCreate, canEdit } = useRBAC();
   const [tabValue, setTabValue] = useState(0);
   const [roles, setRoles] = useState<any[]>([]);
   const [permissions, setPermissions] = useState<any[]>([]);
@@ -46,7 +66,7 @@ const RoleManagement: React.FC = () => {
     name: '',
     slug: '',
     description: '',
-    permissions: [] as string[],
+    permissions: getEmptyPermissionsObject(),
     allowedMenus: [] as any[]
   });
 
@@ -94,11 +114,16 @@ const RoleManagement: React.FC = () => {
 
   const handleCreateUpdateRole = async () => {
     try {
+      const payload = {
+        ...roleFormData,
+        permissions: roleFormData.permissions
+      };
+
       if (selectedItem) {
-        await roleService.updateRole(selectedItem._id, roleFormData);
+        await roleService.updateRole(selectedItem._id, payload);
         enqueueSnackbar('Role updated successfully!', { variant: 'success' });
       } else {
-        await roleService.createRole(roleFormData);
+        await roleService.createRole(payload);
         enqueueSnackbar('Role created successfully!', { variant: 'success' });
       }
       setIsRoleModalOpen(false);
@@ -116,12 +141,22 @@ const RoleManagement: React.FC = () => {
       id: 'permissions', 
       label: 'Permissions', 
       minWidth: 100, 
-      format: (val: any[], row: any) => {
+      format: (val: any, row: any) => {
         const isSuperAdmin = row?.slug === 'super_admin' || row?.slug === 'super-admin' || row?.name?.toLowerCase() === 'super admin';
         if (isSuperAdmin) {
           return <Chip label="All Permissions" size="small" color="primary" sx={{ fontWeight: 600, borderRadius: '6px' }} />;
         }
-        return <Typography variant="body2">{val?.length || 0} active</Typography>;
+        let activeCount = 0;
+        if (val && typeof val === 'object') {
+          Object.values(val).forEach((moduleObj: any) => {
+            if (moduleObj && typeof moduleObj === 'object') {
+              Object.values(moduleObj).forEach((actionBool) => {
+                if (actionBool === true) activeCount++;
+              });
+            }
+          });
+        }
+        return <Typography variant="body2">{activeCount} active</Typography>;
       } 
     },
     {
@@ -133,31 +168,39 @@ const RoleManagement: React.FC = () => {
         const isSuperAdmin = row?.slug === 'super_admin' || row?.slug === 'super-admin' || row?.name?.toLowerCase() === 'super admin';
         return (
           <Stack direction="row" spacing={1} justifyContent="flex-end">
-            <Tooltip title={isSuperAdmin ? "Super Admin has unrestricted access by default and cannot be modified" : "Modify Permissions"}>
-              <span>
-                <IconButton 
-                  onClick={() => { 
-                    if (isSuperAdmin) return;
-                    setSelectedItem(row); 
-                    // Normalize permissions to string IDs
-                    const normalizedPermissions = row.permissions?.map((p: any) => 
-                      typeof p === 'object' ? p._id : p
-                    ) || [];
-                    setRoleFormData({ ...row, permissions: normalizedPermissions }); 
-                    setIsRoleModalOpen(true); 
-                  }} 
-                  disabled={isSuperAdmin}
-                  sx={{ 
-                    color: 'primary.main', 
-                    bgcolor: 'primary.light',
-                    ...(isSuperAdmin && { opacity: 0.4, cursor: 'not-allowed' })
-                  }} 
-                  size="small"
-                >
-                  <EditIcon fontSize="small" />
-                </IconButton>
-              </span>
-            </Tooltip>
+            {canEdit('role') && (
+              <Tooltip title={isSuperAdmin ? "Super Admin has unrestricted access by default and cannot be modified" : "Modify Permissions"}>
+                <span>
+                  <IconButton 
+                    onClick={() => { 
+                      if (isSuperAdmin) return;
+                      setSelectedItem(row); 
+                      const initialPermsObj = {
+                        ...getEmptyPermissionsObject(),
+                        ...(row.permissions || {})
+                      };
+                      setRoleFormData({ 
+                        name: row.name || '', 
+                        slug: row.slug || '', 
+                        description: row.description || '', 
+                        permissions: initialPermsObj, 
+                        allowedMenus: row.allowedMenus || [] 
+                      }); 
+                      setIsRoleModalOpen(true); 
+                    }} 
+                    disabled={isSuperAdmin}
+                    sx={{ 
+                      color: 'primary.main', 
+                      bgcolor: 'primary.light',
+                      ...(isSuperAdmin && { opacity: 0.4, cursor: 'not-allowed' })
+                    }} 
+                    size="small"
+                  >
+                    <EditIcon fontSize="small" />
+                  </IconButton>
+                </span>
+              </Tooltip>
+            )}
           </Stack>
         );
       }
@@ -171,84 +214,6 @@ const RoleManagement: React.FC = () => {
     { id: 'description', label: 'Description', minWidth: 250 },
   ];
 
-  const ALLOWED_MODULES = [
-    'Admin Dashboard',
-    'User Management',
-    'Role & Permission',
-    'File Upload',
-    'Settings',
-    'Activity Logs'
-  ];
-
-  const groupedPermissions = permissions.reduce((acc: any, curr: any) => {
-    if (!curr || !curr.slug) return acc;
-    const slug = curr.slug.toLowerCase();
-
-    let modName = '';
-    if (slug.startsWith('dashboard')) modName = 'Admin Dashboard';
-    else if (slug.startsWith('user')) modName = 'User Management';
-    else if (slug.startsWith('role')) modName = 'Role & Permission';
-    else if (slug.startsWith('file') || (slug.startsWith('upload') && !slug.includes('history'))) modName = 'File Upload';
-    else if (slug.startsWith('setting')) modName = 'Settings';
-    else if (slug.startsWith('activity')) modName = 'Activity Logs';
-
-    if (modName && ALLOWED_MODULES.includes(modName)) {
-      if (!acc[modName]) acc[modName] = [];
-      acc[modName].push({ ...curr, module: modName });
-    }
-    return acc;
-  }, {
-    'Admin Dashboard': [],
-    'User Management': [],
-    'Role & Permission': [],
-    'File Upload': [],
-    'Settings': [],
-    'Activity Logs': []
-  });
-
-  const getModuleActionPerms = (perms: any[]) => {
-    const assignedIds = new Set<string>();
-
-    let view = perms.find(p => !assignedIds.has(p._id) && (/view|read|get|list|overview|history|logs/i.test(p.slug) || /view|read|list|overview|history|logs/i.test(p.name)));
-    if (view) assignedIds.add(view._id);
-
-    let add = perms.find(p => !assignedIds.has(p._id) && (/create|add|upload|post|insert|new/i.test(p.slug) || /create|add|upload|insert|new/i.test(p.name)));
-    if (add) assignedIds.add(add._id);
-
-    let edit = perms.find(p => !assignedIds.has(p._id) && (/update|edit|modify|put|patch|setting|config/i.test(p.slug) || /update|edit|modify|setting|config/i.test(p.name)));
-    if (edit) assignedIds.add(edit._id);
-
-    let del = perms.find(p => !assignedIds.has(p._id) && (/delete|remove|destroy|drop|cancel/i.test(p.slug) || /delete|remove|destroy/i.test(p.name)));
-    if (del) assignedIds.add(del._id);
-
-    const remaining = perms.filter(p => !assignedIds.has(p._id));
-
-    if (!view && remaining.length > 0) { view = remaining.shift(); if (view) assignedIds.add(view._id); }
-    if (!add && remaining.length > 0) { add = remaining.shift(); if (add) assignedIds.add(add._id); }
-    if (!edit && remaining.length > 0) { edit = remaining.shift(); if (edit) assignedIds.add(edit._id); }
-    if (!del && remaining.length > 0) { del = remaining.shift(); if (del) assignedIds.add(del._id); }
-
-    return { view, add, edit, del };
-  };
-
-  const renderCheckbox = (permId: string) => {
-    const isChecked = roleFormData.permissions.includes(permId);
-    return (
-      <Checkbox
-        checked={isChecked}
-        onChange={() => {
-          const newPerms = isChecked
-            ? roleFormData.permissions.filter(id => id !== permId)
-            : [...roleFormData.permissions, permId];
-          setRoleFormData({ ...roleFormData, permissions: newPerms });
-        }}
-        color="primary"
-        size="small"
-        sx={{ borderRadius: 1 }}
-      />
-    );
-  };
-
   return (
     <Box p={4}>
       <Stack direction="row" justifyContent="space-between" alignItems="center" mb={4}>
@@ -256,23 +221,25 @@ const RoleManagement: React.FC = () => {
           <Typography variant="h2" fontWeight={800} className="gradient-text">Role & Permission Engine</Typography>
           <Typography variant="h6" color="text.secondary" fontWeight={500}>Configure granular access control and menu visibility</Typography>
         </Box>
-        <Button 
-          variant="contained" 
-          startIcon={tabValue === 0 ? <SecurityIcon /> : <AddIcon />} 
-          onClick={() => {
-            setSelectedItem(null);
-            if (tabValue === 0) {
-              setRoleFormData({ name: '', slug: '', description: '', permissions: [], allowedMenus: [] });
-              setIsRoleModalOpen(true);
-            } else {
-              setPermissionFormData({ name: '', slug: '', module: '', description: '' });
-              setIsPermissionModalOpen(true);
-            }
-          }}
-          sx={{ borderRadius: '12px', px: 4 }}
-        >
-          {tabValue === 0 ? 'Create New Role' : 'Define Permission'}
-        </Button>
+        {canCreate('role') && (
+          <Button 
+            variant="contained" 
+            startIcon={tabValue === 0 ? <SecurityIcon /> : <AddIcon />} 
+            onClick={() => {
+              setSelectedItem(null);
+              if (tabValue === 0) {
+                setRoleFormData({ name: '', slug: '', description: '', permissions: getEmptyPermissionsObject(), allowedMenus: [] });
+                setIsRoleModalOpen(true);
+              } else {
+                setPermissionFormData({ name: '', slug: '', module: '', description: '' });
+                setIsPermissionModalOpen(true);
+              }
+            }}
+            sx={{ borderRadius: '12px', px: 4 }}
+          >
+            {tabValue === 0 ? 'Create New Role' : 'Define Permission'}
+          </Button>
+        )}
       </Stack>
 
       <Card className="glass" sx={{ borderRadius: '24px', border: 'none', overflow: 'hidden' }}>
@@ -340,16 +307,28 @@ const RoleManagement: React.FC = () => {
                 <TableRow>
                   <TableCell sx={{ py: 1.8, px: 3, fontWeight: 700, width: '40%', bgcolor: 'rgba(0,0,0,0.02)' }}>Menu / Sub-Menu</TableCell>
                   <TableCell align="center" sx={{ py: 1.8, fontWeight: 700, width: '15%', bgcolor: 'rgba(0,0,0,0.02)' }}>View</TableCell>
-                  <TableCell align="center" sx={{ py: 1.8, fontWeight: 700, width: '15%', bgcolor: 'rgba(0,0,0,0.02)' }}>Add</TableCell>
+                  <TableCell align="center" sx={{ py: 1.8, fontWeight: 700, width: '15%', bgcolor: 'rgba(0,0,0,0.02)' }}>Create</TableCell>
                   <TableCell align="center" sx={{ py: 1.8, fontWeight: 700, width: '15%', bgcolor: 'rgba(0,0,0,0.02)' }}>Edit</TableCell>
                   <TableCell align="center" sx={{ py: 1.8, fontWeight: 700, width: '15%', bgcolor: 'rgba(0,0,0,0.02)' }}>Delete</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {Object.entries(groupedPermissions).map(([moduleName, modulePerms]: [string, any]) => {
-                  const { view, add, edit, del } = getModuleActionPerms(modulePerms as any[]);
+                {Object.entries(MODULE_KEYS).map(([moduleKey, moduleName]) => {
+                  const state = roleFormData.permissions[moduleKey as keyof typeof MODULE_KEYS] || { view: false, create: false, edit: false, delete: false };
+                  
+                  const handleCheckboxChange = (action: 'view' | 'create' | 'edit' | 'delete') => {
+                    const newPermissions = {
+                      ...roleFormData.permissions,
+                      [moduleKey]: {
+                        ...roleFormData.permissions[moduleKey as keyof typeof MODULE_KEYS],
+                        [action]: !state[action]
+                      }
+                    };
+                    setRoleFormData({ ...roleFormData, permissions: newPermissions });
+                  };
+
                   return (
-                    <TableRow key={moduleName} hover sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                    <TableRow key={moduleKey} hover sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                       <TableCell component="th" scope="row" sx={{ py: 1.5, px: 3, fontWeight: 600, color: 'text.secondary' }}>
                         <Stack direction="row" spacing={1} alignItems="center">
                           <Typography variant="body2" color="text.disabled">└</Typography>
@@ -357,16 +336,40 @@ const RoleManagement: React.FC = () => {
                         </Stack>
                       </TableCell>
                       <TableCell align="center" sx={{ py: 1 }}>
-                        {view ? renderCheckbox(view._id) : <Typography color="text.disabled" sx={{ fontWeight: 700 }}>—</Typography>}
+                        <Checkbox
+                          checked={state.view}
+                          onChange={() => handleCheckboxChange('view')}
+                          color="primary"
+                          size="small"
+                          sx={{ borderRadius: 1 }}
+                        />
                       </TableCell>
                       <TableCell align="center" sx={{ py: 1 }}>
-                        {add ? renderCheckbox(add._id) : <Typography color="text.disabled" sx={{ fontWeight: 700 }}>—</Typography>}
+                        <Checkbox
+                          checked={state.create}
+                          onChange={() => handleCheckboxChange('create')}
+                          color="primary"
+                          size="small"
+                          sx={{ borderRadius: 1 }}
+                        />
                       </TableCell>
                       <TableCell align="center" sx={{ py: 1 }}>
-                        {edit ? renderCheckbox(edit._id) : <Typography color="text.disabled" sx={{ fontWeight: 700 }}>—</Typography>}
+                        <Checkbox
+                          checked={state.edit}
+                          onChange={() => handleCheckboxChange('edit')}
+                          color="primary"
+                          size="small"
+                          sx={{ borderRadius: 1 }}
+                        />
                       </TableCell>
                       <TableCell align="center" sx={{ py: 1 }}>
-                        {del ? renderCheckbox(del._id) : <Typography color="text.disabled" sx={{ fontWeight: 700 }}>—</Typography>}
+                        <Checkbox
+                          checked={state.delete}
+                          onChange={() => handleCheckboxChange('delete')}
+                          color="primary"
+                          size="small"
+                          sx={{ borderRadius: 1 }}
+                        />
                       </TableCell>
                     </TableRow>
                   );

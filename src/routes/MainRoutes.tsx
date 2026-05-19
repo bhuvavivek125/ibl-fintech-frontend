@@ -98,7 +98,7 @@ const MainRoutes = {
     {
       path: '/upload',
       element: (
-        <PermissionGuard permission="file.upload">
+        <PermissionGuard permission="file.view">
           <FileUpload />
         </PermissionGuard>
       )
@@ -106,7 +106,7 @@ const MainRoutes = {
     {
       path: '/settings',
       element: (
-        <PermissionGuard permission="settings.edit">
+        <PermissionGuard permission="settings.view">
           <SettingsDashboard />
         </PermissionGuard>
       )

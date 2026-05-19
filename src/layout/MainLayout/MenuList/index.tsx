@@ -39,9 +39,24 @@ function MenuList() {
 
   useLayoutEffect(() => {
     const finalMenuItems = [...menuItem.items];
-    const userPermissions = extractPermissionSlugs(user);
+    
+    // Identify logged-in user's role slug or key (e.g., user.role.key or user.role.slug)
+    const roleValue = user?.role as any;
+    const isSuperAdmin = (
+      roleValue === 'super_admin' ||
+      roleValue?.key === 'super_admin' ||
+      roleValue?.slug === 'super_admin'
+    );
 
-    const filteredItems = filterMenuByPermissions(finalMenuItems, userPermissions);
+    let filteredItems;
+    if (isSuperAdmin) {
+      // Super Admin bypasses all permission checks and sees the full menu automatically
+      filteredItems = finalMenuItems;
+    } else {
+      const userPermissions = extractPermissionSlugs(user);
+      filteredItems = filterMenuByPermissions(finalMenuItems, userPermissions);
+    }
+
     setMenuItems({ items: filteredItems });
   }, [user]);
 

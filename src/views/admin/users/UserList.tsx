@@ -8,10 +8,74 @@ import Modal from 'components/Modal';
 import userService from 'services/user.service';
 import roleService from 'services/role.service';
 import { useSnackbar } from 'notistack';
+import useRBAC from 'hooks/useRBAC';
+
+const MODULE_KEYS = {
+  adminDashboard: 'Admin Dashboard',
+  userManagement: 'User Management',
+  rolePermission: 'Role & Permission',
+  fileUpload: 'File Upload',
+  settings: 'Settings',
+  activityLogs: 'Activity Logs'
+};
+
+const getEmptyPermissionsObject = () => ({
+  adminDashboard: { view: false, create: false, edit: false, delete: false },
+  userManagement: { view: false, create: false, edit: false, delete: false },
+  rolePermission: { view: false, create: false, edit: false, delete: false },
+  fileUpload: { view: false, create: false, edit: false, delete: false },
+  settings: { view: false, create: false, edit: false, delete: false },
+  activityLogs: { view: false, create: false, edit: false, delete: false }
+});
+
+const convertPermissionsArrayToObject = (permissionIds: string[], allPermissions: any[]) => {
+  const permsObj = getEmptyPermissionsObject();
+  
+  Object.keys(MODULE_KEYS).forEach((moduleKey) => {
+    const backendModuleName = MODULE_KEYS[moduleKey as keyof typeof MODULE_KEYS];
+    const modulePerms = allPermissions.filter(p => p.module === backendModuleName);
+    
+    const viewPerm = modulePerms.find(p => /view|read|get|list|overview|history/i.test(p.slug));
+    const createPerm = modulePerms.find(p => /create|add|upload|post|insert|new/i.test(p.slug));
+    const editPerm = modulePerms.find(p => /update|edit|modify|put|patch|setting|config/i.test(p.slug));
+    const deletePerm = modulePerms.find(p => /delete|remove|destroy|drop|cancel/i.test(p.slug));
+
+    if (viewPerm && permissionIds.includes(viewPerm._id)) permsObj[moduleKey as keyof typeof MODULE_KEYS].view = true;
+    if (createPerm && permissionIds.includes(createPerm._id)) permsObj[moduleKey as keyof typeof MODULE_KEYS].create = true;
+    if (editPerm && permissionIds.includes(editPerm._id)) permsObj[moduleKey as keyof typeof MODULE_KEYS].edit = true;
+    if (deletePerm && permissionIds.includes(deletePerm._id)) permsObj[moduleKey as keyof typeof MODULE_KEYS].delete = true;
+  });
+
+  return permsObj;
+};
+
+const convertPermissionsObjectToArray = (permsObj: any, allPermissions: any[]) => {
+  const permissionIds: string[] = [];
+
+  Object.keys(MODULE_KEYS).forEach((moduleKey) => {
+    const backendModuleName = MODULE_KEYS[moduleKey as keyof typeof MODULE_KEYS];
+    const modulePerms = allPermissions.filter(p => p.module === backendModuleName);
+
+    const viewPerm = modulePerms.find(p => /view|read|get|list|overview|history/i.test(p.slug));
+    const createPerm = modulePerms.find(p => /create|add|upload|post|insert|new/i.test(p.slug));
+    const editPerm = modulePerms.find(p => /update|edit|modify|put|patch|setting|config/i.test(p.slug));
+    const deletePerm = modulePerms.find(p => /delete|remove|destroy|drop|cancel/i.test(p.slug));
+
+    const state = permsObj[moduleKey as keyof typeof MODULE_KEYS];
+    if (state.view && viewPerm) permissionIds.push(viewPerm._id);
+    if (state.create && createPerm) permissionIds.push(createPerm._id);
+    if (state.edit && editPerm) permissionIds.push(editPerm._id);
+    if (state.delete && deletePerm) permissionIds.push(deletePerm._id);
+  });
+
+  return permissionIds;
+};
 
 const UserList: React.FC = () => {
   const { enqueueSnackbar } = useSnackbar();
+  const { canCreate, canEdit, canDelete } = useRBAC();
   const [users, setUsers] = useState<any[]>([]);
+  const [roles, setRoles] = useState<any[]>([]);
   const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
@@ -26,8 +90,7 @@ const UserList: React.FC = () => {
   // User Permissions state
   const [isPermissionModalOpen, setIsPermissionModalOpen] = useState(false);
   const [permissions, setPermissions] = useState<any[]>([]);
-  const [selectedUserPermissions, setSelectedUserPermissions] = useState<string[]>([]);
-
+  const [selectedUserPermissions, setSelectedUserPermissions] = useState<any>(getEmptyPermissionsObject());
 
   const fetchUsers = async () => {
     setLoading(true);
@@ -58,6 +121,18 @@ const UserList: React.FC = () => {
     fetchUsers();
   }, [page, limit, filterRole, filterStatus, sortBy]);
 
+  useEffect(() => {
+    const fetchRoles = async () => {
+      try {
+        const rolesRes = await roleService.getRoles();
+        setRoles(rolesRes.data.results || []);
+      } catch (err) {
+        console.error('Failed to fetch roles:', err);
+      }
+    };
+    fetchRoles();
+  }, []);
+
   const handleSearch = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     setPage(0);
@@ -65,7 +140,9 @@ const UserList: React.FC = () => {
   };
 
   const handleToggleStatus = async (user: any) => {
-    if (user.role === 'super_admin') {
+    const roleValue = user?.role;
+    const roleName = typeof roleValue === 'object' ? (roleValue?.key || roleValue?.slug || roleValue?.name || '') : (roleValue || '');
+    if (roleName.toLowerCase() === 'super_admin') {
       enqueueSnackbar('Security Protocol: Super Admin status cannot be modified.', { variant: 'warning' });
       return;
     }
@@ -84,7 +161,9 @@ const UserList: React.FC = () => {
 
   const handleDelete = async (id: string) => {
     const user = users.find((u: any) => u._id === id);
-    if (user?.role === 'super_admin') {
+    const roleValue = user?.role;
+    const roleName = typeof roleValue === 'object' ? (roleValue?.key || roleValue?.slug || roleValue?.name || '') : (roleValue || '');
+    if (roleName.toLowerCase() === 'super_admin') {
       enqueueSnackbar('Security Protocol: Super Admin accounts cannot be revoked.', { variant: 'error' });
       return;
     }
@@ -110,12 +189,13 @@ const UserList: React.FC = () => {
 
   useEffect(() => {
     if (selectedUser) {
+      const resolvedRole = typeof selectedUser.role === 'object' ? (selectedUser.role.slug || selectedUser.role.key || selectedUser.role.name) : selectedUser.role;
       setFormData({
         name: selectedUser.name || '',
         email: selectedUser.email || '',
         password: '',
         mobileNumber: selectedUser.mobileNumber || '',
-        role: selectedUser.role || 'user',
+        role: resolvedRole || 'user',
         isActive: selectedUser.isActive ?? true
       });
     } else {
@@ -161,15 +241,19 @@ const UserList: React.FC = () => {
   };
 
   const handleOpenPermissionModal = async (row: any) => {
-    if (row.role === 'super_admin') {
+    const roleValue = row?.role;
+    const roleName = typeof roleValue === 'object' ? (roleValue?.key || roleValue?.slug || roleValue?.name || '') : (roleValue || '');
+    if (roleName.toLowerCase() === 'super_admin') {
       enqueueSnackbar('Security Protocol: Super Admin has unrestricted access across all modules.', { variant: 'info' });
       return;
     }
     setSelectedUser(row);
-    if (permissions.length === 0) {
+    let allPerms = permissions;
+    if (allPerms.length === 0) {
       try {
         const permsRes = await roleService.getPermissions();
-        setPermissions(permsRes.data?.results || []);
+        allPerms = permsRes.data?.results || [];
+        setPermissions(allPerms);
       } catch (err) {
         console.error('Error fetching permissions:', err);
       }
@@ -180,7 +264,8 @@ const UserList: React.FC = () => {
     } else if (row.roleId && Array.isArray(row.roleId.permissions)) {
       currentPerms = row.roleId.permissions.map((p: any) => typeof p === 'object' ? p._id : p);
     }
-    setSelectedUserPermissions(currentPerms);
+    const initialPermsObj = convertPermissionsArrayToObject(currentPerms, allPerms);
+    setSelectedUserPermissions(initialPermsObj);
     setIsPermissionModalOpen(true);
   };
 
@@ -188,7 +273,8 @@ const UserList: React.FC = () => {
     if (!selectedUser) return;
     setLoading(true);
     try {
-      await userService.updateUserPermissions(selectedUser._id, selectedUserPermissions);
+      const permissionIds = convertPermissionsObjectToArray(selectedUserPermissions, permissions);
+      await userService.updateUserPermissions(selectedUser._id, permissionIds);
       enqueueSnackbar("User permissions configured successfully!", { variant: 'success' });
       setIsPermissionModalOpen(false);
       fetchUsers();
@@ -197,84 +283,6 @@ const UserList: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const ALLOWED_MODULES = [
-    'Admin Dashboard',
-    'User Management',
-    'Role & Permission',
-    'File Upload',
-    'Settings',
-    'Activity Logs'
-  ];
-
-  const groupedPermissions = permissions.reduce((acc: any, curr: any) => {
-    if (!curr || !curr.slug) return acc;
-    const slug = curr.slug.toLowerCase();
-
-    let modName = '';
-    if (slug.startsWith('dashboard')) modName = 'Admin Dashboard';
-    else if (slug.startsWith('user')) modName = 'User Management';
-    else if (slug.startsWith('role')) modName = 'Role & Permission';
-    else if (slug.startsWith('file') || (slug.startsWith('upload') && !slug.includes('history'))) modName = 'File Upload';
-    else if (slug.startsWith('setting')) modName = 'Settings';
-    else if (slug.startsWith('activity')) modName = 'Activity Logs';
-
-    if (modName && ALLOWED_MODULES.includes(modName)) {
-      if (!acc[modName]) acc[modName] = [];
-      acc[modName].push({ ...curr, module: modName });
-    }
-    return acc;
-  }, {
-    'Admin Dashboard': [],
-    'User Management': [],
-    'Role & Permission': [],
-    'File Upload': [],
-    'Settings': [],
-    'Activity Logs': []
-  });
-
-  const getModuleActionPerms = (perms: any[]) => {
-    const assignedIds = new Set<string>();
-
-    let view = perms.find(p => !assignedIds.has(p._id) && (/view|read|get|list|overview|history|logs/i.test(p.slug) || /view|read|list|overview|history|logs/i.test(p.name)));
-    if (view) assignedIds.add(view._id);
-
-    let add = perms.find(p => !assignedIds.has(p._id) && (/create|add|upload|post|insert|new/i.test(p.slug) || /create|add|upload|insert|new/i.test(p.name)));
-    if (add) assignedIds.add(add._id);
-
-    let edit = perms.find(p => !assignedIds.has(p._id) && (/update|edit|modify|put|patch|setting|config/i.test(p.slug) || /update|edit|modify|setting|config/i.test(p.name)));
-    if (edit) assignedIds.add(edit._id);
-
-    let del = perms.find(p => !assignedIds.has(p._id) && (/delete|remove|destroy|drop|cancel/i.test(p.slug) || /delete|remove|destroy/i.test(p.name)));
-    if (del) assignedIds.add(del._id);
-
-    const remaining = perms.filter(p => !assignedIds.has(p._id));
-
-    if (!view && remaining.length > 0) { view = remaining.shift(); if (view) assignedIds.add(view._id); }
-    if (!add && remaining.length > 0) { add = remaining.shift(); if (add) assignedIds.add(add._id); }
-    if (!edit && remaining.length > 0) { edit = remaining.shift(); if (edit) assignedIds.add(edit._id); }
-    if (!del && remaining.length > 0) { del = remaining.shift(); if (del) assignedIds.add(del._id); }
-
-    return { view, add, edit, del };
-  };
-
-  const renderCheckbox = (permId: string) => {
-    const isChecked = selectedUserPermissions.includes(permId);
-    return (
-      <Checkbox
-        checked={isChecked}
-        onChange={() => {
-          const newPerms = isChecked
-            ? selectedUserPermissions.filter(id => id !== permId)
-            : [...selectedUserPermissions, permId];
-          setSelectedUserPermissions(newPerms);
-        }}
-        color="primary"
-        size="small"
-        sx={{ borderRadius: 1 }}
-      />
-    );
   };
 
   const columns: Column[] = [
@@ -293,9 +301,15 @@ const UserList: React.FC = () => {
     },
     { id: 'mobileNumber', label: 'Contact', minWidth: 150 },
     {
-      id: 'role', label: 'Access Level', minWidth: 150, format: (value: string) => (
-        <Chip label={value?.toUpperCase()} sx={{ borderRadius: '8px', fontWeight: 700, bgcolor: 'rgba(99, 102, 241, 0.1)', color: '#6366f1' }} />
-      )
+      id: 'role',
+      label: 'Access Level',
+      minWidth: 150,
+      format: (value: any) => {
+        const roleText = typeof value === 'object' ? (value?.name || value?.slug || value?.key || '') : value;
+        return (
+          <Chip label={roleText?.toUpperCase() || ''} sx={{ borderRadius: '8px', fontWeight: 700, bgcolor: 'rgba(99, 102, 241, 0.1)', color: '#6366f1' }} />
+        );
+      }
     },
     {
       id: 'isActive',
@@ -323,38 +337,24 @@ const UserList: React.FC = () => {
       align: 'right',
       format: (_, row: any) => (
         <Stack direction="row" spacing={1} justifyContent="flex-end">
-          <Tooltip title={row.role === 'super_admin' ? "Super Admin permissions cannot be modified" : "Configure Custom Permissions"}>
-            <span>
-              <IconButton 
-                onClick={() => handleOpenPermissionModal(row)} 
-                disabled={row.role === 'super_admin'}
-                sx={{ 
-                  color: 'warning.main', 
-                  bgcolor: 'warning.light', 
-                  borderRadius: '10px',
-                  ...(row.role === 'super_admin' && { opacity: 0.4, cursor: 'not-allowed' })
-                }} 
-                size="small"
-              >
-                <SecurityIcon fontSize="small" />
+          {canEdit('user') && (
+            <Tooltip title="Modify Access">
+              <IconButton onClick={() => { setSelectedUser(row); setIsModalOpen(true); }} sx={{ color: 'primary.main', bgcolor: 'primary.light', borderRadius: '10px' }} size="small">
+                <EditIcon fontSize="small" />
               </IconButton>
-            </span>
-          </Tooltip>
-          <Tooltip title="Modify Access">
-            <IconButton onClick={() => { setSelectedUser(row); setIsModalOpen(true); }} sx={{ color: 'primary.main', bgcolor: 'primary.light', borderRadius: '10px' }} size="small">
-              <EditIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Revoke Permissions">
-            <IconButton onClick={() => handleDelete(row._id)} sx={{ color: 'error.main', bgcolor: 'error.light', borderRadius: '10px' }} size="small">
-              <DeleteIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
+            </Tooltip>
+          )}
+          {canDelete('user') && (
+            <Tooltip title="Revoke Permissions">
+              <IconButton onClick={() => handleDelete(row._id)} sx={{ color: 'error.main', bgcolor: 'error.light', borderRadius: '10px' }} size="small">
+                <DeleteIcon fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          )}
         </Stack>
       )
     }
   ];
-
 
   return (
     <Box p={4}>
@@ -363,15 +363,17 @@ const UserList: React.FC = () => {
           <Typography variant="h2" fontWeight={800} className="gradient-text">Identity Governance</Typography>
           <Typography variant="h6" color="text.secondary" fontWeight={500}>Manage your digital ecosystem and user privileges</Typography>
         </Box>
-        <Button
-          variant="contained"
-          size="large"
-          startIcon={<AddIcon />}
-          onClick={() => { setSelectedUser(null); setIsModalOpen(true); }}
-          sx={{ borderRadius: '14px', px: 4, py: 1.5, boxShadow: '0 8px 16px rgba(99, 102, 241, 0.3)' }}
-        >
-          Provision New Identity
-        </Button>
+        {canCreate('user') && (
+          <Button
+            variant="contained"
+            size="large"
+            startIcon={<AddIcon />}
+            onClick={() => { setSelectedUser(null); setIsModalOpen(true); }}
+            sx={{ borderRadius: '14px', px: 4, py: 1.5, boxShadow: '0 8px 16px rgba(99, 102, 241, 0.3)' }}
+          >
+            Provision New Identity
+          </Button>
+        )}
       </Stack>
 
       <Card className="glass" sx={{ p: 3, mb: 4, borderRadius: '24px', border: 'none' }}>
@@ -461,7 +463,6 @@ const UserList: React.FC = () => {
         />
       </Box>
 
-
       <Modal
         open={isModalOpen}
         onClose={() => setIsModalOpen(false)}
@@ -518,9 +519,11 @@ const UserList: React.FC = () => {
             SelectProps={{ native: true }}
             sx={{ '& .MuiOutlinedInput-root': { borderRadius: '14px' } }}
           >
-            <option value="user">Standard User</option>
-            <option value="admin">System Administrator</option>
-            <option value="super_admin">Enterprise Super Admin</option>
+            {roles.map((r: any) => (
+              <option key={r._id} value={r.slug}>
+                {r.name}
+              </option>
+            ))}
           </TextField>
         </Stack>
       </Modal>
@@ -540,7 +543,11 @@ const UserList: React.FC = () => {
       >
         <Stack spacing={3} sx={{ mt: 1 }}>
           <Typography variant="caption" color="text.secondary" sx={{ mt: -2, mb: 1, display: 'block', fontSize: '0.85rem' }}>
-            By default, this user inherits standard permissions from their assigned role ({selectedUser?.role?.toUpperCase() || 'USER'}). Check any boxes below to override with custom user-specific privileges.
+            By default, this user inherits standard permissions from their assigned role ({(() => {
+              const roleVal = selectedUser?.role;
+              const roleText = typeof roleVal === 'object' ? (roleVal?.name || roleVal?.slug || roleVal?.key) : roleVal;
+              return roleText?.toUpperCase() || 'USER';
+            })()}). Check any boxes below to override with custom user-specific privileges.
           </Typography>
 
           <TableContainer component={Paper} variant="outlined" sx={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid', borderColor: 'divider', maxHeight: 420 }}>
@@ -549,16 +556,28 @@ const UserList: React.FC = () => {
                 <TableRow>
                   <TableCell sx={{ py: 1.8, px: 3, fontWeight: 700, width: '40%', bgcolor: 'rgba(0,0,0,0.02)' }}>Menu / Sub-Menu</TableCell>
                   <TableCell align="center" sx={{ py: 1.8, fontWeight: 700, width: '15%', bgcolor: 'rgba(0,0,0,0.02)' }}>View</TableCell>
-                  <TableCell align="center" sx={{ py: 1.8, fontWeight: 700, width: '15%', bgcolor: 'rgba(0,0,0,0.02)' }}>Add</TableCell>
+                  <TableCell align="center" sx={{ py: 1.8, fontWeight: 700, width: '15%', bgcolor: 'rgba(0,0,0,0.02)' }}>Create</TableCell>
                   <TableCell align="center" sx={{ py: 1.8, fontWeight: 700, width: '15%', bgcolor: 'rgba(0,0,0,0.02)' }}>Edit</TableCell>
                   <TableCell align="center" sx={{ py: 1.8, fontWeight: 700, width: '15%', bgcolor: 'rgba(0,0,0,0.02)' }}>Delete</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {Object.entries(groupedPermissions).map(([moduleName, modulePerms]: [string, any]) => {
-                  const { view, add, edit, del } = getModuleActionPerms(modulePerms as any[]);
+                {Object.entries(MODULE_KEYS).map(([moduleKey, moduleName]) => {
+                  const state = selectedUserPermissions[moduleKey as keyof typeof MODULE_KEYS] || { view: false, create: false, edit: false, delete: false };
+                  
+                  const handleCheckboxChange = (action: 'view' | 'create' | 'edit' | 'delete') => {
+                    const newPermissions = {
+                      ...selectedUserPermissions,
+                      [moduleKey]: {
+                        ...selectedUserPermissions[moduleKey as keyof typeof MODULE_KEYS],
+                        [action]: !state[action]
+                      }
+                    };
+                    setSelectedUserPermissions(newPermissions);
+                  };
+
                   return (
-                    <TableRow key={moduleName} hover sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                    <TableRow key={moduleKey} hover sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                       <TableCell component="th" scope="row" sx={{ py: 1.5, px: 3, fontWeight: 600, color: 'text.secondary' }}>
                         <Stack direction="row" spacing={1} alignItems="center">
                           <Typography variant="body2" color="text.disabled">└</Typography>
@@ -566,16 +585,40 @@ const UserList: React.FC = () => {
                         </Stack>
                       </TableCell>
                       <TableCell align="center" sx={{ py: 1 }}>
-                        {view ? renderCheckbox(view._id) : <Typography color="text.disabled" sx={{ fontWeight: 700 }}>—</Typography>}
+                        <Checkbox
+                          checked={state.view}
+                          onChange={() => handleCheckboxChange('view')}
+                          color="primary"
+                          size="small"
+                          sx={{ borderRadius: 1 }}
+                        />
                       </TableCell>
                       <TableCell align="center" sx={{ py: 1 }}>
-                        {add ? renderCheckbox(add._id) : <Typography color="text.disabled" sx={{ fontWeight: 700 }}>—</Typography>}
+                        <Checkbox
+                          checked={state.create}
+                          onChange={() => handleCheckboxChange('create')}
+                          color="primary"
+                          size="small"
+                          sx={{ borderRadius: 1 }}
+                        />
                       </TableCell>
                       <TableCell align="center" sx={{ py: 1 }}>
-                        {edit ? renderCheckbox(edit._id) : <Typography color="text.disabled" sx={{ fontWeight: 700 }}>—</Typography>}
+                        <Checkbox
+                          checked={state.edit}
+                          onChange={() => handleCheckboxChange('edit')}
+                          color="primary"
+                          size="small"
+                          sx={{ borderRadius: 1 }}
+                        />
                       </TableCell>
                       <TableCell align="center" sx={{ py: 1 }}>
-                        {del ? renderCheckbox(del._id) : <Typography color="text.disabled" sx={{ fontWeight: 700 }}>—</Typography>}
+                        <Checkbox
+                          checked={state.delete}
+                          onChange={() => handleCheckboxChange('delete')}
+                          color="primary"
+                          size="small"
+                          sx={{ borderRadius: 1 }}
+                        />
                       </TableCell>
                     </TableRow>
                   );
@@ -590,4 +633,3 @@ const UserList: React.FC = () => {
 };
 
 export default UserList;
-

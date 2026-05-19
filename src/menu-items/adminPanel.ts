@@ -57,7 +57,7 @@ const adminPanel: NavItemType = {
       type: 'item',
       icon: icons.IconUpload,
       url: '/upload',
-      permission: 'file.upload'
+      permission: 'file.view'
     },
     {
       id: 'settings',
@@ -65,7 +65,7 @@ const adminPanel: NavItemType = {
       type: 'item',
       icon: icons.IconSettings,
       url: '/settings',
-      permission: 'settings.edit'
+      permission: 'settings.view'
     },
     {
       id: 'activity-logs',
