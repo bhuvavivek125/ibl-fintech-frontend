@@ -190,20 +190,20 @@ const SettingsDashboard: React.FC = () => {
   }
 
   return (
-    <Box p={4} sx={{ maxWidth: 1200, mx: 'auto' }}>
+    <Box p={{ xs: 2, sm: 4 }} sx={{ maxWidth: 1200, mx: 'auto' }}>
       {/* Header */}
-      <Stack direction={{ xs: 'column', md: 'row' }} justifyContent="space-between" alignItems={{ xs: 'flex-start', md: 'center' }} spacing={2} mb={5}>
+      <Stack direction={{ xs: 'column', md: 'row' }} justifyContent="space-between" alignItems={{ xs: 'flex-start', md: 'center' }} spacing={2} mb={{ xs: 3, sm: 5 }}>
         <Box>
           <Typography variant="h2" fontWeight={800} className="gradient-text">Enterprise Global Settings</Typography>
           <Typography variant="h6" color="text.secondary" fontWeight={500}>Configure platform operations, compliance rules, and fintech parameters</Typography>
         </Box>
-        <Stack direction="row" spacing={2}>
+        <Stack direction="row" spacing={2} sx={{ width: { xs: '100%', md: 'auto' } }}>
           <Button
             variant="outlined"
             color="inherit"
             startIcon={<ResetIcon />}
             onClick={handleResetDefaults}
-            sx={{ borderRadius: '12px', px: 3, py: 1.2, fontWeight: 600 }}
+            sx={{ borderRadius: '12px', px: 3, py: 1.2, fontWeight: 600, flexGrow: { xs: 1, md: 0 } }}
           >
             Reset Defaults
           </Button>
@@ -213,7 +213,7 @@ const SettingsDashboard: React.FC = () => {
             startIcon={<SaveIcon />}
             onClick={handleSave}
             loading={saving}
-            sx={{ borderRadius: '12px', px: 4, py: 1.2, fontWeight: 700, boxShadow: '0 8px 16px rgba(99, 102, 241, 0.3)' }}
+            sx={{ borderRadius: '12px', px: 4, py: 1.2, fontWeight: 700, boxShadow: '0 8px 16px rgba(99, 102, 241, 0.3)', flexGrow: { xs: 1, md: 0 } }}
           >
             Save Changes
           </Button>

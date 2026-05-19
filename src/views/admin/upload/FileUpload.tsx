@@ -83,8 +83,8 @@ const FileUpload: React.FC = () => {
   };
 
   return (
-    <Box p={4}>
-      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={5}>
+    <Box p={{ xs: 2, sm: 4 }}>
+      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="space-between" alignItems={{ xs: 'flex-start', sm: 'center' }} mb={{ xs: 3, sm: 5 }}>
         <Box>
           <Typography variant="h2" fontWeight={800} className="gradient-text">Digital Asset Vault</Typography>
           <Typography variant="h6" color="text.secondary" fontWeight={500}>Securely manage and provision system documents and identity assets</Typography>
@@ -93,19 +93,25 @@ const FileUpload: React.FC = () => {
 
       <Card className="glass" sx={{ borderRadius: '24px', border: 'none', mb: 4, overflow: 'hidden', boxShadow: '0 12px 36px rgba(0,0,0,0.06)' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider', px: 3, pt: 2 }}>
-          <Tabs value={tabValue} onChange={handleTabChange} sx={{ '& .MuiTab-root': { fontWeight: 700, minWidth: 160, py: 2.5 } }}>
+          <Tabs
+            value={tabValue}
+            onChange={handleTabChange}
+            variant="scrollable"
+            scrollButtons="auto"
+            sx={{ '& .MuiTab-root': { fontWeight: 700, minWidth: { xs: 120, sm: 160 }, py: 2.5 } }}
+          >
             <Tab icon={<AccountCircleIcon sx={{ mr: 1 }} />} iconPosition="start" label="Identity Image" />
             <Tab icon={<AssignmentIcon sx={{ mr: 1 }} />} iconPosition="start" label="Credential Document" />
             <Tab icon={<FolderIcon sx={{ mr: 1 }} />} iconPosition="start" label="Bulk Repository" />
           </Tabs>
         </Box>
 
-        <Box p={4}>
-          <Grid container spacing={4}>
+        <Box p={{ xs: 2, sm: 4 }}>
+          <Grid container spacing={{ xs: 2, md: 4 }}>
             <Grid size={{ xs: 12, md: 7 }}>
               <Box
                 sx={{
-                  p: 6,
+                  p: { xs: 3, sm: 6 },
                   textAlign: 'center',
                   border: '2px dashed',
                   borderColor: 'rgba(33, 150, 243, 0.3)',

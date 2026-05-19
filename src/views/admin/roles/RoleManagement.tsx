@@ -215,8 +215,8 @@ const RoleManagement: React.FC = () => {
   ];
 
   return (
-    <Box p={4}>
-      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={4}>
+    <Box p={{ xs: 2, sm: 4 }}>
+      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="space-between" alignItems={{ xs: 'flex-start', sm: 'center' }} mb={{ xs: 3, sm: 4 }}>
         <Box>
           <Typography variant="h2" fontWeight={800} className="gradient-text">Role & Permission Engine</Typography>
           <Typography variant="h6" color="text.secondary" fontWeight={500}>Configure granular access control and menu visibility</Typography>
@@ -235,7 +235,7 @@ const RoleManagement: React.FC = () => {
                 setIsPermissionModalOpen(true);
               }
             }}
-            sx={{ borderRadius: '12px', px: 4 }}
+            sx={{ borderRadius: '12px', px: 4, width: { xs: '100%', sm: 'auto' }, mt: { xs: 2, sm: 0 } }}
           >
             {tabValue === 0 ? 'Create New Role' : 'Define Permission'}
           </Button>
@@ -295,7 +295,7 @@ const RoleManagement: React.FC = () => {
             Changes apply to all users under this role immediately.
           </Typography>
 
-          <Stack direction="row" spacing={2}>
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
             <Input label="Role Name" value={roleFormData.name} onChange={(e) => setRoleFormData({ ...roleFormData, name: e.target.value })} />
             <Input label="Role Slug" value={roleFormData.slug} onChange={(e) => setRoleFormData({ ...roleFormData, slug: e.target.value })} />
           </Stack>

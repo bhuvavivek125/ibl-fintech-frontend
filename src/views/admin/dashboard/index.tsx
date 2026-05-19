@@ -96,7 +96,7 @@ const AdminDashboard: React.FC = () => {
   const growthChartOptions: any = {
     chart: { id: 'growth-chart', type: 'area', toolbar: { show: false }, animations: { enabled: true } },
     xaxis: {
-      categories: Array.isArray(chartData?.userGrowth) ? chartData.userGrowth.map((item: any) => item.month) : [],
+      categories: chartData?.userGrowth?.labels || [],
       axisBorder: { show: false },
       axisTicks: { show: false },
     },
@@ -119,7 +119,7 @@ const AdminDashboard: React.FC = () => {
 
   const growthChartSeries = [{
     name: 'Identity Flow',
-    data: Array.isArray(chartData?.userGrowth) ? chartData.userGrowth.map((item: any) => item.count) : []
+    data: chartData?.userGrowth?.data || []
   }];
 
   const ecosystemOptions: any = {
@@ -153,15 +153,15 @@ const AdminDashboard: React.FC = () => {
   };
 
   return (
-    <Box p={4}>
+    <Box p={{ xs: 2, sm: 4 }}>
       <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-        <Stack direction="row" justifyContent="space-between" alignItems="center" mb={6}>
+        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="space-between" alignItems={{ xs: 'flex-start', sm: 'center' }} mb={6}>
           <Box>
             <Typography variant="h1" fontWeight={900} letterSpacing="-1px" sx={{
               background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
-              fontSize: '2.5rem'
+              fontSize: { xs: '1.8rem', sm: '2.5rem' }
             }}>
               Enterprise Analytics
             </Typography>
@@ -240,14 +240,14 @@ const AdminDashboard: React.FC = () => {
               <Stack spacing={2} mt={4}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <Stack direction="row" spacing={1} alignItems="center">
-                    <Box sx={{ w: 10, h: 10, borderRadius: '50%', bgcolor: theme.palette.success.main }} />
+                    <Box sx={{ width: 10, height: 10, borderRadius: '50%', bgcolor: theme.palette.success.main }} />
                     <Typography variant="body2" fontWeight={600}>Verified</Typography>
                   </Stack>
                   <Typography variant="body2" fontWeight={800}>{stats?.activeUsers}</Typography>
                 </Box>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <Stack direction="row" spacing={1} alignItems="center">
-                    <Box sx={{ w: 10, h: 10, borderRadius: '50%', bgcolor: theme.palette.warning.main }} />
+                    <Box sx={{ width: 10, height: 10, borderRadius: '50%', bgcolor: theme.palette.warning.main }} />
                     <Typography variant="body2" fontWeight={600}>Pending</Typography>
                   </Stack>
                   <Typography variant="body2" fontWeight={800}>{stats?.inactiveUsers}</Typography>

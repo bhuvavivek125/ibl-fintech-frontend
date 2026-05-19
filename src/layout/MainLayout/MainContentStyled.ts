@@ -56,15 +56,17 @@ const MainContentStyled = styled('main', {
   }),
   [theme.breakpoints.down('md')]: {
     marginLeft: 20,
+    marginRight: 20,
     padding: 16,
     marginTop: 88,
-    ...(!open && {
-      width: `calc(100% - ${drawerWidth}px)`
-    })
+    width: '100%'
   },
   [theme.breakpoints.down('sm')]: {
     marginLeft: 10,
-    marginRight: 10
+    marginRight: 10,
+    padding: 16,
+    marginTop: 88,
+    width: '100%'
   }
 }));
 

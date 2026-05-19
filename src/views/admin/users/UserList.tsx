@@ -442,8 +442,8 @@ const UserList: React.FC = () => {
   ];
 
   return (
-    <Box p={4}>
-      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={5}>
+    <Box p={{ xs: 2, sm: 4 }}>
+      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="space-between" alignItems={{ xs: 'flex-start', sm: 'center' }} mb={{ xs: 3, sm: 5 }}>
         <Box>
           <Typography variant="h2" fontWeight={800} className="gradient-text" sx={{ letterSpacing: '-0.5px', mb: 0.5 }}>
             Identity Governance
@@ -463,6 +463,7 @@ const UserList: React.FC = () => {
               borderRadius: '12px',
               px: 4,
               py: 1.5,
+              width: { xs: '100%', sm: 'auto' },
               background: 'linear-gradient(135deg, var(--palette-primary-main) 0%, var(--palette-primary-dark) 100%)',
               boxShadow: '0 8px 20px rgba(99, 102, 241, 0.25)',
               textTransform: 'none',
@@ -474,10 +475,10 @@ const UserList: React.FC = () => {
         )}
       </Stack>
 
-      <Card className="premium-card" sx={{ p: 3, mb: 4, border: 'none' }}>
+      <Card className="premium-card" sx={{ p: { xs: 2, sm: 3 }, mb: 4, border: 'none' }}>
         <Stack spacing={3}>
           {/* Top Row: Search */}
-          <Stack direction="row" spacing={2} alignItems="center">
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems={{ xs: 'stretch', sm: 'center' }}>
             <Box sx={{ flexGrow: 1 }}>
               <Input
                 placeholder="Search identities..."
@@ -489,39 +490,42 @@ const UserList: React.FC = () => {
                 }}
               />
             </Box>
-            <Button
-              variant="contained"
-              onClick={() => handleSearch()}
-              startIcon={<SearchIcon />}
-              sx={{ borderRadius: '12px', px: 4, height: 48, textTransform: 'none', fontWeight: 600 }}
-            >
-              Search
-            </Button>
-            <Button
-              variant="outlined"
-              onClick={fetchUsers}
-              startIcon={<RefreshIcon />}
-              sx={{
-                borderRadius: '12px',
-                px: 3,
-                height: 48,
-                textTransform: 'none',
-                fontWeight: 600,
-                borderColor: 'divider',
-                color: 'text.primary',
-                '&:hover': {
-                  borderColor: 'text.secondary',
-                  bgcolor: 'action.hover'
-                }
-              }}
-            >
-              Sync
-            </Button>
+            <Stack direction="row" spacing={2} sx={{ width: { xs: '100%', sm: 'auto' } }}>
+              <Button
+                variant="contained"
+                onClick={() => handleSearch()}
+                startIcon={<SearchIcon />}
+                sx={{ borderRadius: '12px', px: 4, height: 48, textTransform: 'none', fontWeight: 600, flexGrow: { xs: 1, sm: 0 } }}
+              >
+                Search
+              </Button>
+              <Button
+                variant="outlined"
+                onClick={fetchUsers}
+                startIcon={<RefreshIcon />}
+                sx={{
+                  borderRadius: '12px',
+                  px: 3,
+                  height: 48,
+                  textTransform: 'none',
+                  fontWeight: 600,
+                  borderColor: 'divider',
+                  color: 'text.primary',
+                  flexGrow: { xs: 1, sm: 0 },
+                  '&:hover': {
+                    borderColor: 'text.secondary',
+                    bgcolor: 'action.hover'
+                  }
+                }}
+              >
+                Sync
+              </Button>
+            </Stack>
           </Stack>
 
           {/* Bottom Row: Filters */}
           <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
-            <FormControl sx={{ minWidth: 200 }} size="small">
+            <FormControl sx={{ minWidth: { xs: '100%', md: 200 } }} size="small">
               <InputLabel id="role-label" sx={{ fontWeight: 500 }}>Filter by Role</InputLabel>
               <Select
                 labelId="role-label"
@@ -537,7 +541,7 @@ const UserList: React.FC = () => {
               </Select>
             </FormControl>
 
-            <FormControl sx={{ minWidth: 200 }} size="small">
+            <FormControl sx={{ minWidth: { xs: '100%', md: 200 } }} size="small">
               <InputLabel id="status-label" sx={{ fontWeight: 500 }}>Security Status</InputLabel>
               <Select
                 labelId="status-label"
@@ -553,7 +557,7 @@ const UserList: React.FC = () => {
               </Select>
             </FormControl>
 
-            <FormControl sx={{ minWidth: 160 }} size="small">
+            <FormControl sx={{ minWidth: { xs: '100%', md: 160 } }} size="small">
               <InputLabel id="sort-label" sx={{ fontWeight: 500 }}>Sort Order</InputLabel>
               <Select
                 labelId="sort-label"
