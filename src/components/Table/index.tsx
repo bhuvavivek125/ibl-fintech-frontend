@@ -52,6 +52,7 @@ interface GenericTableProps {
   onPageChange: (newPage: number) => void;
   onLimitChange: (newLimit: number) => void;
   loading?: boolean;
+  sx?: any;
 }
 
 const Table: React.FC<GenericTableProps> = ({
@@ -62,7 +63,8 @@ const Table: React.FC<GenericTableProps> = ({
   limit,
   onPageChange,
   onLimitChange,
-  loading
+  loading,
+  sx
 }) => {
   const handleChangePage = (event: unknown, newPage: number) => {
     onPageChange(newPage);
@@ -73,7 +75,7 @@ const Table: React.FC<GenericTableProps> = ({
   };
 
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
+    <Paper sx={{ width: '100%', overflow: 'hidden', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', ...sx }}>
       <TableContainer sx={{ maxHeight: 600 }}>
         <MuiTable stickyHeader aria-label="sticky table">
           <TableHead>

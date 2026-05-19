@@ -75,7 +75,7 @@ export default function HashtagsCard({ title, blogData, showAcceptButton }: Hash
       <List sx={{ p: 0 }}>
         {blogData.map((data, index) => (
           <ListItem key={index} sx={{ p: '16px 24px' }} alignItems="flex-start" divider>
-            <ListItemText sx={{ m: 0 }}>
+            <ListItemText sx={{ m: 0 }} disableTypography>
               <Stack>
                 <Stack direction="row" sx={{ gap: 1, alignItems: 'center', justifyContent: 'space-between' }}>
                   <Stack direction="row" sx={{ alignItems: 'center', gap: 0.5, justifyContent: 'flex-start' }}>

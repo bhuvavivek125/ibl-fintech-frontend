@@ -16,6 +16,49 @@ export const getNormalizedPermissions = (user: any): any => {
 
   if (!user) return defaultMatrix;
 
+  const mapBackendKeyToFrontendKey = (key: string): string => {
+    const mapping: { [key: string]: string } = {
+      'Admin Dashboard': 'adminDashboard',
+      'User Management': 'userManagement',
+      'Role & Permission': 'rolePermission',
+      'File Upload': 'fileUpload',
+      'Settings': 'settings',
+      'Activity Logs': 'activityLogs',
+      'adminDashboard': 'adminDashboard',
+      'userManagement': 'userManagement',
+      'rolePermission': 'rolePermission',
+      'fileUpload': 'fileUpload',
+      'settings': 'settings',
+      'activityLogs': 'activityLogs'
+    };
+    return mapping[key] || key;
+  };
+
+  const normalizeMatrixObject = (obj: any) => {
+    if (!obj || typeof obj !== 'object' || Array.isArray(obj)) return null;
+    const normalized = {
+      adminDashboard: { view: false, create: false, edit: false, delete: false },
+      userManagement: { view: false, create: false, edit: false, delete: false },
+      rolePermission: { view: false, create: false, edit: false, delete: false },
+      fileUpload: { view: false, create: false, edit: false, delete: false },
+      settings: { view: false, create: false, edit: false, delete: false },
+      activityLogs: { view: false, create: false, edit: false, delete: false }
+    };
+    Object.entries(obj).forEach(([key, val]) => {
+      const frontendKey = mapBackendKeyToFrontendKey(key);
+      if (frontendKey in normalized) {
+        normalized[frontendKey as keyof typeof normalized] = {
+          view: false,
+          create: false,
+          edit: false,
+          delete: false,
+          ...(val as any)
+        };
+      }
+    });
+    return normalized;
+  };
+
   // If user is actually already a normalized matrix object passed in directly
   if (user.adminDashboard && typeof user.adminDashboard === 'object') {
     return { ...defaultMatrix, ...user };
@@ -36,24 +79,29 @@ export const getNormalizedPermissions = (user: any): any => {
     };
   }
 
-  // 1. Check if user.permissions is already a structured matrix object
+  // 1. Check if user.permissions is a structured matrix object
   if (user.permissions && typeof user.permissions === 'object' && !Array.isArray(user.permissions)) {
-    return { ...defaultMatrix, ...user.permissions };
+    return normalizeMatrixObject(user.permissions);
   }
 
-  // 2. Check if user.rolePermissions is already a structured matrix object
+  // 2. Check if user.role.permissions is a structured matrix object
+  if (user.role && typeof user.role === 'object' && user.role.permissions && typeof user.role.permissions === 'object' && !Array.isArray(user.role.permissions)) {
+    return normalizeMatrixObject(user.role.permissions);
+  }
+
+  // 3. Check if user.rolePermissions is a structured matrix object
   if (user.rolePermissions && typeof user.rolePermissions === 'object' && !Array.isArray(user.rolePermissions)) {
-    return { ...defaultMatrix, ...user.rolePermissions };
+    return normalizeMatrixObject(user.rolePermissions);
   }
 
-  // 3. Fallback for array permissions (legacy or overrides)
+  // 4. Fallback for array permissions (legacy or overrides)
   let slugs: string[] = [];
   if (Array.isArray(user.permissions)) {
-    slugs = user.permissions.map((p: any) => (typeof p === 'string' ? p : p.slug));
+    slugs = user.permissions.map((p: any) => (typeof p === 'string' ? p : p.slug || p.name));
   } else if (user.role && typeof user.role === 'object' && Array.isArray(user.role.permissions)) {
-    slugs = user.role.permissions.map((p: any) => (typeof p === 'string' ? p : p.slug));
+    slugs = user.role.permissions.map((p: any) => (typeof p === 'string' ? p : p.slug || p.name));
   } else if (user.rolePermissions && Array.isArray(user.rolePermissions)) {
-    slugs = user.rolePermissions.map((p: any) => (typeof p === 'string' ? p : p.slug));
+    slugs = user.rolePermissions.map((p: any) => (typeof p === 'string' ? p : p.slug || p.name));
   }
 
   if (slugs.length > 0) {
@@ -61,25 +109,25 @@ export const getNormalizedPermissions = (user: any): any => {
     const matrix = { ...defaultMatrix };
 
     // Admin Dashboard
-    if (cleanSlugs.includes('dashboard.view')) matrix.adminDashboard.view = true;
+    if (cleanSlugs.includes('dashboard.view') || cleanSlugs.includes('admin dashboard.view')) matrix.adminDashboard.view = true;
 
     // User Management
-    if (cleanSlugs.includes('user.view')) matrix.userManagement.view = true;
-    if (cleanSlugs.includes('user.create')) matrix.userManagement.create = true;
-    if (cleanSlugs.includes('user.edit')) matrix.userManagement.edit = true;
-    if (cleanSlugs.includes('user.delete')) matrix.userManagement.delete = true;
+    if (cleanSlugs.includes('user.view') || cleanSlugs.includes('user management.view')) matrix.userManagement.view = true;
+    if (cleanSlugs.includes('user.create') || cleanSlugs.includes('user management.create')) matrix.userManagement.create = true;
+    if (cleanSlugs.includes('user.edit') || cleanSlugs.includes('user management.edit')) matrix.userManagement.edit = true;
+    if (cleanSlugs.includes('user.delete') || cleanSlugs.includes('user management.delete')) matrix.userManagement.delete = true;
 
     // Role & Permission
-    if (cleanSlugs.includes('role.view')) matrix.rolePermission.view = true;
-    if (cleanSlugs.includes('role.create')) matrix.rolePermission.create = true;
-    if (cleanSlugs.includes('role.edit')) matrix.rolePermission.edit = true;
-    if (cleanSlugs.includes('role.delete')) matrix.rolePermission.delete = true;
+    if (cleanSlugs.includes('role.view') || cleanSlugs.includes('role & permission.view')) matrix.rolePermission.view = true;
+    if (cleanSlugs.includes('role.create') || cleanSlugs.includes('role & permission.create')) matrix.rolePermission.create = true;
+    if (cleanSlugs.includes('role.edit') || cleanSlugs.includes('role & permission.edit')) matrix.rolePermission.edit = true;
+    if (cleanSlugs.includes('role.delete') || cleanSlugs.includes('role & permission.delete')) matrix.rolePermission.delete = true;
 
     // File Upload
-    if (cleanSlugs.includes('file.view') || cleanSlugs.includes('upload.view')) matrix.fileUpload.view = true;
-    if (cleanSlugs.includes('file.upload') || cleanSlugs.includes('file.create')) matrix.fileUpload.create = true;
-    if (cleanSlugs.includes('file.edit')) matrix.fileUpload.edit = true;
-    if (cleanSlugs.includes('file.delete')) matrix.fileUpload.delete = true;
+    if (cleanSlugs.includes('file.view') || cleanSlugs.includes('upload.view') || cleanSlugs.includes('file upload.view')) matrix.fileUpload.view = true;
+    if (cleanSlugs.includes('file.upload') || cleanSlugs.includes('file.create') || cleanSlugs.includes('file upload.create')) matrix.fileUpload.create = true;
+    if (cleanSlugs.includes('file.edit') || cleanSlugs.includes('file upload.edit')) matrix.fileUpload.edit = true;
+    if (cleanSlugs.includes('file.delete') || cleanSlugs.includes('file upload.delete')) matrix.fileUpload.delete = true;
 
     // Settings
     if (cleanSlugs.includes('settings.view')) matrix.settings.view = true;
@@ -88,10 +136,10 @@ export const getNormalizedPermissions = (user: any): any => {
     if (cleanSlugs.includes('settings.delete')) matrix.settings.delete = true;
 
     // Activity Logs
-    if (cleanSlugs.includes('activity.view')) matrix.activityLogs.view = true;
-    if (cleanSlugs.includes('activity.create')) matrix.activityLogs.create = true;
-    if (cleanSlugs.includes('activity.edit')) matrix.activityLogs.edit = true;
-    if (cleanSlugs.includes('activity.delete')) matrix.activityLogs.delete = true;
+    if (cleanSlugs.includes('activity.view') || cleanSlugs.includes('activity logs.view')) matrix.activityLogs.view = true;
+    if (cleanSlugs.includes('activity.create') || cleanSlugs.includes('activity logs.create')) matrix.activityLogs.create = true;
+    if (cleanSlugs.includes('activity.edit') || cleanSlugs.includes('activity logs.edit')) matrix.activityLogs.edit = true;
+    if (cleanSlugs.includes('activity.delete') || cleanSlugs.includes('activity logs.delete')) matrix.activityLogs.delete = true;
 
     return matrix;
   }
@@ -175,6 +223,7 @@ export const extractPermissionSlugs = (user: any): string[] => {
   Object.entries(matrix).forEach(([moduleKey, state]: [string, any]) => {
     let moduleName = moduleKey;
     if (moduleKey === 'adminDashboard') moduleName = 'dashboard';
+    if (moduleKey === 'userManagement') moduleName = 'user';
     if (moduleKey === 'rolePermission') moduleName = 'role';
     if (moduleKey === 'fileUpload') moduleName = 'file';
     if (moduleKey === 'activityLogs') moduleName = 'activity';

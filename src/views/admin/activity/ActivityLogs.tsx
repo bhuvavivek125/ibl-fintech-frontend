@@ -22,6 +22,7 @@ import { motion } from 'framer-motion';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import dashboardService from 'services/dashboard.service';
+import useAuth from 'hooks/useAuth';
 
 // assets
 import { IconActivity, IconClock } from '@tabler/icons-react';
@@ -42,6 +43,7 @@ const IconWrapper = styled(Box)(({ color }: { color: string }) => ({
 
 const ActivityLogs: React.FC = () => {
   const theme = useTheme();
+  const { user } = useAuth();
   const [activities, setActivities] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -69,12 +71,19 @@ const ActivityLogs: React.FC = () => {
     );
   }
 
+  const roleValue = user?.role as any;
+  const roleName = typeof roleValue === 'string' ? roleValue : roleValue?.key || roleValue?.slug || roleValue?.name || '';
+  const isSuperAdmin = roleName.toLowerCase() === 'super_admin';
+  const headingText = isSuperAdmin ? 'System Activity Logs' : 'My Activity Logs';
+
   return (
-    <MainCard title="System Activity Logs">
+    <MainCard title={headingText}>
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
         <Box mb={3}>
           <Typography variant="body2" color="text.secondary">
-            Comprehensive audit trail of all system governance events and administrative actions.
+            {isSuperAdmin 
+              ? "Comprehensive audit trail of all system governance events and administrative actions."
+              : "Audit trail of your personal activity events and operations."}
           </Typography>
         </Box>
         
@@ -100,11 +109,11 @@ const ActivityLogs: React.FC = () => {
                     </IconWrapper>
                   </ListItemIcon>
                   <ListItemText
-                    primary={
-                      <Typography variant="subtitle1" fontWeight={700}>
-                        {activity.details}
-                      </Typography>
-                    }
+                    primary={activity.details}
+                    primaryTypographyProps={{
+                      variant: 'subtitle1',
+                      fontWeight: 700
+                    }}
                     secondary={
                       <Stack direction="row" spacing={2} mt={0.5} alignItems="center">
                         <Typography variant="caption" color="text.secondary" fontWeight={600}>
@@ -121,6 +130,9 @@ const ActivityLogs: React.FC = () => {
                         </Stack>
                       </Stack>
                     }
+                    secondaryTypographyProps={{
+                      component: 'div'
+                    }}
                   />
                   <Chip
                     label={activity.action}

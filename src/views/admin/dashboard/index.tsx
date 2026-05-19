@@ -282,6 +282,7 @@ const AdminDashboard: React.FC = () => {
                         <Typography variant="caption" color="text.secondary" fontWeight={600}>{new Date(activity.createdAt).toLocaleTimeString()}</Typography>
                       </Stack>
                     }
+                    secondaryTypographyProps={{ component: 'div' }}
                   />
                   <Chip
                     label={activity.action}

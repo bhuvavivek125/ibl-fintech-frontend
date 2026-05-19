@@ -76,7 +76,7 @@ export default function TrendingArticles({ title, articles }: TrendingArticlesPr
       <List sx={{ p: 0 }}>
         {articles.map((data, index) => (
           <ListItem key={index} sx={{ p: '16px 20px' }} divider>
-            <ListItemText sx={{ m: 0 }}>
+            <ListItemText sx={{ m: 0 }} disableTypography>
               <Stack sx={{ gap: 1.5 }}>
                 <Stack sx={{ gap: 0.5 }}>
                   <Stack direction="row" sx={{ alignItems: 'center', justifyContent: 'space-between' }}>

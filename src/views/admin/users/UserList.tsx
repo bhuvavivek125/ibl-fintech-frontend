@@ -289,12 +289,24 @@ const UserList: React.FC = () => {
     {
       id: 'name', label: 'User Identity', minWidth: 200, format: (value: string, row: any) => (
         <Stack direction="row" spacing={2} alignItems="center">
-          <Box sx={{ width: 40, height: 40, borderRadius: '12px', bgcolor: 'primary.light', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, color: 'primary.main' }}>
-            {value ? value.charAt(0) : 'U'}
+          <Box sx={{
+            width: 42,
+            height: 42,
+            borderRadius: '12px',
+            bgcolor: 'primary.light',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontWeight: 700,
+            color: 'primary.main',
+            boxShadow: '0 4px 10px rgba(99, 102, 241, 0.1)',
+            border: '1px solid rgba(99, 102, 241, 0.15)'
+          }}>
+            {value ? value.charAt(0).toUpperCase() : 'U'}
           </Box>
           <Box>
-            <Typography variant="subtitle1" fontWeight={700}>{value}</Typography>
-            <Typography variant="caption" color="text.secondary">{row.email}</Typography>
+            <Typography variant="subtitle1" fontWeight={700} sx={{ color: 'text.primary' }}>{value}</Typography>
+            <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 500 }}>{row.email}</Typography>
           </Box>
         </Stack>
       )
@@ -306,8 +318,34 @@ const UserList: React.FC = () => {
       minWidth: 150,
       format: (value: any) => {
         const roleText = typeof value === 'object' ? (value?.name || value?.slug || value?.key || '') : value;
+        const roleLower = roleText?.toLowerCase() || '';
+        let chipColor = '#6366f1';
+        let chipBg = 'rgba(99, 102, 241, 0.08)';
+        
+        if (roleLower === 'super_admin') {
+          chipColor = '#f59e0b';
+          chipBg = 'rgba(245, 158, 11, 0.08)';
+        } else if (roleLower === 'admin') {
+          chipColor = '#10b981';
+          chipBg = 'rgba(16, 185, 129, 0.08)';
+        } else {
+          chipColor = '#3b82f6';
+          chipBg = 'rgba(59, 130, 246, 0.08)';
+        }
+        
         return (
-          <Chip label={roleText?.toUpperCase() || ''} sx={{ borderRadius: '8px', fontWeight: 700, bgcolor: 'rgba(99, 102, 241, 0.1)', color: '#6366f1' }} />
+          <Chip
+            label={roleText?.toUpperCase() || ''}
+            sx={{
+              borderRadius: '8px',
+              fontWeight: 700,
+              bgcolor: chipBg,
+              color: chipColor,
+              border: `1px solid ${chipColor}15`,
+              fontSize: '0.72rem',
+              letterSpacing: '0.3px'
+            }}
+          />
         );
       }
     },
@@ -315,38 +353,85 @@ const UserList: React.FC = () => {
       id: 'isActive',
       label: 'Security Status',
       minWidth: 150,
-      format: (value: boolean, row: any) => (
-        <Chip
-          label={value ? 'Verified Active' : 'Suspended'}
-          variant={value ? 'filled' : 'outlined'}
-          color={value ? 'success' : 'error'}
-          onClick={() => handleToggleStatus(row)}
-          sx={{ borderRadius: '8px', fontWeight: 600, cursor: 'pointer' }}
-        />
-      )
+      format: (value: boolean, row: any) => {
+        const statusColor = value ? '#10b981' : '#ef4444';
+        const statusBg = value ? 'rgba(16, 185, 129, 0.08)' : 'rgba(239, 68, 68, 0.08)';
+        return (
+          <Chip
+            label={value ? 'Verified Active' : 'Suspended'}
+            onClick={() => handleToggleStatus(row)}
+            sx={{
+              borderRadius: '8px',
+              fontWeight: 700,
+              bgcolor: statusBg,
+              color: statusColor,
+              cursor: 'pointer',
+              border: `1px solid ${statusColor}18`,
+              fontSize: '0.72rem',
+              letterSpacing: '0.3px',
+              transition: 'all 0.2s ease',
+              '&:hover': {
+                bgcolor: value ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)',
+                transform: 'translateY(-1px)'
+              }
+            }}
+          />
+        );
+      }
     },
     {
       id: 'createdAt', label: 'Registration', minWidth: 150, format: (value: string) => (
-        <Typography variant="body2" color="text.secondary">{new Date(value).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</Typography>
+        <Typography variant="body2" color="text.secondary" fontWeight={500}>
+          {new Date(value).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+        </Typography>
       )
     },
     {
       id: 'actions',
       label: 'Management',
-      minWidth: 120,
+      minWidth: 160,
       align: 'right',
       format: (_, row: any) => (
         <Stack direction="row" spacing={1} justifyContent="flex-end">
+
           {canEdit('user') && (
             <Tooltip title="Modify Access">
-              <IconButton onClick={() => { setSelectedUser(row); setIsModalOpen(true); }} sx={{ color: 'primary.main', bgcolor: 'primary.light', borderRadius: '10px' }} size="small">
+              <IconButton
+                onClick={() => { setSelectedUser(row); setIsModalOpen(true); }}
+                sx={{
+                  color: 'primary.main',
+                  bgcolor: 'primary.light',
+                  borderRadius: '10px',
+                  transition: 'all 0.2s ease',
+                  '&:hover': {
+                    bgcolor: 'primary.light',
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 4px 10px rgba(33, 150, 243, 0.15)'
+                  }
+                }}
+                size="small"
+              >
                 <EditIcon fontSize="small" />
               </IconButton>
             </Tooltip>
           )}
           {canDelete('user') && (
             <Tooltip title="Revoke Permissions">
-              <IconButton onClick={() => handleDelete(row._id)} sx={{ color: 'error.main', bgcolor: 'error.light', borderRadius: '10px' }} size="small">
+              <IconButton
+                onClick={() => handleDelete(row._id)}
+                sx={{
+                  color: 'error.main',
+                  bgcolor: 'error.light',
+                  borderRadius: '10px',
+                  transition: 'all 0.2s ease',
+                  '&:hover': {
+                    bgcolor: 'error.light',
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 4px 10px rgba(244, 67, 54, 0.15)'
+                  }
+                }}
+                size="small"
+              >
                 <DeleteIcon fontSize="small" />
               </IconButton>
             </Tooltip>
@@ -360,8 +445,12 @@ const UserList: React.FC = () => {
     <Box p={4}>
       <Stack direction="row" justifyContent="space-between" alignItems="center" mb={5}>
         <Box>
-          <Typography variant="h2" fontWeight={800} className="gradient-text">Identity Governance</Typography>
-          <Typography variant="h6" color="text.secondary" fontWeight={500}>Manage your digital ecosystem and user privileges</Typography>
+          <Typography variant="h2" fontWeight={800} className="gradient-text" sx={{ letterSpacing: '-0.5px', mb: 0.5 }}>
+            Identity Governance
+          </Typography>
+          <Typography variant="h6" color="text.secondary" fontWeight={500}>
+            Manage your digital ecosystem and user privileges
+          </Typography>
         </Box>
         {canCreate('user') && (
           <Button
@@ -369,14 +458,23 @@ const UserList: React.FC = () => {
             size="large"
             startIcon={<AddIcon />}
             onClick={() => { setSelectedUser(null); setIsModalOpen(true); }}
-            sx={{ borderRadius: '14px', px: 4, py: 1.5, boxShadow: '0 8px 16px rgba(99, 102, 241, 0.3)' }}
+            className="hover-glow"
+            sx={{
+              borderRadius: '12px',
+              px: 4,
+              py: 1.5,
+              background: 'linear-gradient(135deg, var(--palette-primary-main) 0%, var(--palette-primary-dark) 100%)',
+              boxShadow: '0 8px 20px rgba(99, 102, 241, 0.25)',
+              textTransform: 'none',
+              fontWeight: 700
+            }}
           >
             Provision New Identity
           </Button>
         )}
       </Stack>
 
-      <Card className="glass" sx={{ p: 3, mb: 4, borderRadius: '24px', border: 'none' }}>
+      <Card className="premium-card" sx={{ p: 3, mb: 4, border: 'none' }}>
         <Stack spacing={3}>
           {/* Top Row: Search */}
           <Stack direction="row" spacing={2} alignItems="center">
@@ -385,16 +483,38 @@ const UserList: React.FC = () => {
                 placeholder="Search identities..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '14px' } }}
+                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '12px', bgcolor: 'background.paper' } }}
                 InputProps={{
                   startAdornment: <SearchIcon color="action" sx={{ mr: 1.5 }} />
                 }}
               />
             </Box>
-            <Button variant="contained" onClick={() => handleSearch()} startIcon={<SearchIcon />} sx={{ borderRadius: '14px', px: 4, height: 48 }}>
+            <Button
+              variant="contained"
+              onClick={() => handleSearch()}
+              startIcon={<SearchIcon />}
+              sx={{ borderRadius: '12px', px: 4, height: 48, textTransform: 'none', fontWeight: 600 }}
+            >
               Search
             </Button>
-            <Button variant="outlined" onClick={fetchUsers} startIcon={<RefreshIcon />} sx={{ borderRadius: '14px', px: 3, height: 48 }}>
+            <Button
+              variant="outlined"
+              onClick={fetchUsers}
+              startIcon={<RefreshIcon />}
+              sx={{
+                borderRadius: '12px',
+                px: 3,
+                height: 48,
+                textTransform: 'none',
+                fontWeight: 600,
+                borderColor: 'divider',
+                color: 'text.primary',
+                '&:hover': {
+                  borderColor: 'text.secondary',
+                  bgcolor: 'action.hover'
+                }
+              }}
+            >
               Sync
             </Button>
           </Stack>
@@ -402,13 +522,13 @@ const UserList: React.FC = () => {
           {/* Bottom Row: Filters */}
           <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
             <FormControl sx={{ minWidth: 200 }} size="small">
-              <InputLabel id="role-label">Filter by Role</InputLabel>
+              <InputLabel id="role-label" sx={{ fontWeight: 500 }}>Filter by Role</InputLabel>
               <Select
                 labelId="role-label"
                 value={filterRole}
                 label="Filter by Role"
                 onChange={(e) => setFilterRole(e.target.value)}
-                sx={{ borderRadius: '12px' }}
+                sx={{ borderRadius: '12px', bgcolor: 'background.paper' }}
               >
                 <MenuItem value="">All Access Levels</MenuItem>
                 <MenuItem value="user">Standard Users</MenuItem>
@@ -418,13 +538,13 @@ const UserList: React.FC = () => {
             </FormControl>
 
             <FormControl sx={{ minWidth: 200 }} size="small">
-              <InputLabel id="status-label">Security Status</InputLabel>
+              <InputLabel id="status-label" sx={{ fontWeight: 500 }}>Security Status</InputLabel>
               <Select
                 labelId="status-label"
                 value={filterStatus}
                 label="Security Status"
                 onChange={(e) => setFilterStatus(e.target.value)}
-                sx={{ borderRadius: '12px' }}
+                sx={{ borderRadius: '12px', bgcolor: 'background.paper' }}
               >
                 <MenuItem value="">All Statuses</MenuItem>
                 <MenuItem value="Active">Verified Active</MenuItem>
@@ -434,13 +554,13 @@ const UserList: React.FC = () => {
             </FormControl>
 
             <FormControl sx={{ minWidth: 160 }} size="small">
-              <InputLabel id="sort-label">Sort Order</InputLabel>
+              <InputLabel id="sort-label" sx={{ fontWeight: 500 }}>Sort Order</InputLabel>
               <Select
                 labelId="sort-label"
                 value={sortBy}
                 label="Sort Order"
                 onChange={(e) => setSortBy(e.target.value)}
-                sx={{ borderRadius: '12px' }}
+                sx={{ borderRadius: '12px', bgcolor: 'background.paper' }}
               >
                 <MenuItem value="desc">Newest First</MenuItem>
                 <MenuItem value="asc">Oldest First</MenuItem>
@@ -450,7 +570,7 @@ const UserList: React.FC = () => {
         </Stack>
       </Card>
 
-      <Box className="glass" sx={{ borderRadius: '24px', overflow: 'hidden', border: 'none' }}>
+      <Box className="premium-card" sx={{ overflow: 'hidden', border: 'none' }}>
         <Table
           columns={columns}
           data={users}
@@ -460,6 +580,7 @@ const UserList: React.FC = () => {
           onPageChange={setPage}
           onLimitChange={setLimit}
           loading={loading}
+          sx={{ boxShadow: 'none', background: 'transparent' }}
         />
       </Box>
 
@@ -469,20 +590,31 @@ const UserList: React.FC = () => {
         title={selectedUser ? 'Modify Digital Identity' : 'Provision New Identity'}
         actions={
           <Stack direction="row" spacing={2} justifyContent="flex-end">
-            <Button onClick={() => setIsModalOpen(false)} variant="text" color="inherit">Cancel</Button>
-            <Button variant="contained" onClick={handleCreateUpdate} loading={loading}>
+            <Button onClick={() => setIsModalOpen(false)} variant="text" sx={{ color: 'text.secondary', fontWeight: 600 }}>Cancel</Button>
+            <Button
+              variant="contained"
+              onClick={handleCreateUpdate}
+              loading={loading}
+              sx={{
+                borderRadius: '10px',
+                px: 3,
+                fontWeight: 700,
+                background: 'linear-gradient(135deg, var(--palette-primary-main) 0%, var(--palette-primary-dark) 100%)'
+              }}
+            >
               {selectedUser ? 'Confirm Changes' : 'Execute Provision'}
             </Button>
           </Stack>
         }
       >
-        <Stack spacing={3} sx={{ mt: 1 }}>
+        <Stack spacing={3} sx={{ mt: 1.5 }}>
           <Input
             name="name"
             label="Full Legal Name"
             value={formData.name}
             onChange={handleInputChange}
             autoComplete="new-password"
+            sx={{ '& .MuiOutlinedInput-root': { borderRadius: '12px' } }}
           />
           <Input
             name="email"
@@ -490,6 +622,7 @@ const UserList: React.FC = () => {
             value={formData.email}
             onChange={handleInputChange}
             autoComplete="new-password"
+            sx={{ '& .MuiOutlinedInput-root': { borderRadius: '12px' } }}
           />
           <Input
             name="mobileNumber"
@@ -498,6 +631,7 @@ const UserList: React.FC = () => {
             value={formData.mobileNumber}
             onChange={handleInputChange}
             autoComplete="new-password"
+            sx={{ '& .MuiOutlinedInput-root': { borderRadius: '12px' } }}
           />
           {!selectedUser && (
             <Input
@@ -507,6 +641,7 @@ const UserList: React.FC = () => {
               value={formData.password}
               onChange={handleInputChange}
               autoComplete="new-password"
+              sx={{ '& .MuiOutlinedInput-root': { borderRadius: '12px' } }}
             />
           )}
           <TextField
@@ -517,7 +652,10 @@ const UserList: React.FC = () => {
             onChange={handleInputChange}
             fullWidth
             SelectProps={{ native: true }}
-            sx={{ '& .MuiOutlinedInput-root': { borderRadius: '14px' } }}
+            sx={{
+              '& .MuiOutlinedInput-root': { borderRadius: '12px' },
+              '& .MuiInputLabel-root': { fontWeight: 500 }
+            }}
           >
             {roles.map((r: any) => (
               <option key={r._id} value={r.slug}>
@@ -535,14 +673,26 @@ const UserList: React.FC = () => {
         title={selectedUser ? `Custom Permissions — ${selectedUser.name}` : 'Configure User Permissions'}
         actions={
           <Stack direction="row" spacing={2} justifyContent="flex-end">
-            <Button onClick={() => setIsPermissionModalOpen(false)} variant="text" color="inherit">Cancel</Button>
-            <Button variant="contained" onClick={handleSaveUserPermissions} loading={loading}>Save Permissions</Button>
+            <Button onClick={() => setIsPermissionModalOpen(false)} variant="text" sx={{ color: 'text.secondary', fontWeight: 600 }}>Cancel</Button>
+            <Button
+              variant="contained"
+              onClick={handleSaveUserPermissions}
+              loading={loading}
+              sx={{
+                borderRadius: '10px',
+                px: 3,
+                fontWeight: 700,
+                background: 'linear-gradient(135deg, var(--palette-primary-main) 0%, var(--palette-primary-dark) 100%)'
+              }}
+            >
+              Save Permissions
+            </Button>
           </Stack>
         }
         maxWidth="md"
       >
         <Stack spacing={3} sx={{ mt: 1 }}>
-          <Typography variant="caption" color="text.secondary" sx={{ mt: -2, mb: 1, display: 'block', fontSize: '0.85rem' }}>
+          <Typography variant="caption" color="text.secondary" sx={{ mt: -1.5, mb: 1, display: 'block', fontSize: '0.85rem', fontWeight: 500 }}>
             By default, this user inherits standard permissions from their assigned role ({(() => {
               const roleVal = selectedUser?.role;
               const roleText = typeof roleVal === 'object' ? (roleVal?.name || roleVal?.slug || roleVal?.key) : roleVal;
@@ -550,15 +700,15 @@ const UserList: React.FC = () => {
             })()}). Check any boxes below to override with custom user-specific privileges.
           </Typography>
 
-          <TableContainer component={Paper} variant="outlined" sx={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid', borderColor: 'divider', maxHeight: 420 }}>
+          <TableContainer component={Paper} variant="outlined" sx={{ borderRadius: '16px', overflow: 'hidden', border: '1px solid', borderColor: 'divider', maxHeight: 420 }}>
             <MuiTable size="small" stickyHeader>
               <TableHead>
                 <TableRow>
-                  <TableCell sx={{ py: 1.8, px: 3, fontWeight: 700, width: '40%', bgcolor: 'rgba(0,0,0,0.02)' }}>Menu / Sub-Menu</TableCell>
-                  <TableCell align="center" sx={{ py: 1.8, fontWeight: 700, width: '15%', bgcolor: 'rgba(0,0,0,0.02)' }}>View</TableCell>
-                  <TableCell align="center" sx={{ py: 1.8, fontWeight: 700, width: '15%', bgcolor: 'rgba(0,0,0,0.02)' }}>Create</TableCell>
-                  <TableCell align="center" sx={{ py: 1.8, fontWeight: 700, width: '15%', bgcolor: 'rgba(0,0,0,0.02)' }}>Edit</TableCell>
-                  <TableCell align="center" sx={{ py: 1.8, fontWeight: 700, width: '15%', bgcolor: 'rgba(0,0,0,0.02)' }}>Delete</TableCell>
+                  <TableCell sx={{ py: 2, px: 3, fontWeight: 700, width: '40%', bgcolor: 'background.paper', borderBottom: '1px solid', borderColor: 'divider' }}>Menu / Sub-Menu</TableCell>
+                  <TableCell align="center" sx={{ py: 2, fontWeight: 700, width: '15%', bgcolor: 'background.paper', borderBottom: '1px solid', borderColor: 'divider' }}>View</TableCell>
+                  <TableCell align="center" sx={{ py: 2, fontWeight: 700, width: '15%', bgcolor: 'background.paper', borderBottom: '1px solid', borderColor: 'divider' }}>Create</TableCell>
+                  <TableCell align="center" sx={{ py: 2, fontWeight: 700, width: '15%', bgcolor: 'background.paper', borderBottom: '1px solid', borderColor: 'divider' }}>Edit</TableCell>
+                  <TableCell align="center" sx={{ py: 2, fontWeight: 700, width: '15%', bgcolor: 'background.paper', borderBottom: '1px solid', borderColor: 'divider' }}>Delete</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -590,7 +740,7 @@ const UserList: React.FC = () => {
                           onChange={() => handleCheckboxChange('view')}
                           color="primary"
                           size="small"
-                          sx={{ borderRadius: 1 }}
+                          sx={{ borderRadius: '4px' }}
                         />
                       </TableCell>
                       <TableCell align="center" sx={{ py: 1 }}>
@@ -599,7 +749,7 @@ const UserList: React.FC = () => {
                           onChange={() => handleCheckboxChange('create')}
                           color="primary"
                           size="small"
-                          sx={{ borderRadius: 1 }}
+                          sx={{ borderRadius: '4px' }}
                         />
                       </TableCell>
                       <TableCell align="center" sx={{ py: 1 }}>
@@ -608,7 +758,7 @@ const UserList: React.FC = () => {
                           onChange={() => handleCheckboxChange('edit')}
                           color="primary"
                           size="small"
-                          sx={{ borderRadius: 1 }}
+                          sx={{ borderRadius: '4px' }}
                         />
                       </TableCell>
                       <TableCell align="center" sx={{ py: 1 }}>
@@ -617,7 +767,7 @@ const UserList: React.FC = () => {
                           onChange={() => handleCheckboxChange('delete')}
                           color="primary"
                           size="small"
-                          sx={{ borderRadius: 1 }}
+                          sx={{ borderRadius: '4px' }}
                         />
                       </TableCell>
                     </TableRow>

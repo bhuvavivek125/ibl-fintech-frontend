@@ -40,6 +40,11 @@ function MenuList() {
   useLayoutEffect(() => {
     const finalMenuItems = [...menuItem.items];
     
+    // Log user permissions to help diagnose naming mismatches
+    if (user && user.role && typeof user.role === 'object') {
+      console.log("Logged-in User Permissions: ", (user.role as any).permissions);
+    }
+
     // Identify logged-in user's role slug or key (e.g., user.role.key or user.role.slug)
     const roleValue = user?.role as any;
     const isSuperAdmin = (
@@ -113,6 +118,8 @@ function MenuList() {
         );
     }
   });
+
+  console.log("Current User Role Permissions:", (user?.role as any)?.permissions);
 
   return !isHorizontal ? <Box>{navItems}</Box> : <>{navItems}</>;
 }

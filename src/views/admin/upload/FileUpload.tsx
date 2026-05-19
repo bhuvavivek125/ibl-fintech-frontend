@@ -147,7 +147,11 @@ const FileUpload: React.FC = () => {
                           </IconButton>
                         } sx={{ borderBottom: index < selectedFiles.length - 1 ? '1px solid' : 'none', borderColor: 'divider', py: 1.5 }}>
                           <ListItemIcon><FileIcon color="primary" /></ListItemIcon>
-                          <ListItemText primary={<Typography fontWeight={600} variant="body2">{file.name}</Typography>} secondary={`${(file.size / 1024).toFixed(1)} KB`} />
+                          <ListItemText
+                            primary={file.name}
+                            primaryTypographyProps={{ fontWeight: 600, variant: 'body2' }}
+                            secondary={`${(file.size / 1024).toFixed(1)} KB`}
+                          />
                         </ListItem>
                       ))}
                     </List>
@@ -180,10 +184,10 @@ const FileUpload: React.FC = () => {
 
             <Grid size={{ xs: 12, md: 5 }}>
               <Typography variant="h5" fontWeight={800} mb={3}>Deployment Log</Typography>
-              <Box 
-                sx={{ 
-                  maxHeight: 500, 
-                  overflowY: 'auto', 
+              <Box
+                sx={{
+                  maxHeight: 500,
+                  overflowY: 'auto',
                   pr: 1.5,
                   '&::-webkit-scrollbar': { width: '6px' },
                   '&::-webkit-scrollbar-track': { bgcolor: 'rgba(0,0,0,0.03)', borderRadius: '10px' },
@@ -195,23 +199,23 @@ const FileUpload: React.FC = () => {
                     {uploadedFiles.map((file, index) => {
                       const isSelected = selectedLogIndex === index;
                       return (
-                        <Card 
-                          key={index} 
-                          variant="outlined" 
+                        <Card
+                          key={index}
+                          variant="outlined"
                           onClick={() => setSelectedLogIndex(index)}
-                          sx={{ 
-                            p: 2, 
-                            borderRadius: '16px', 
+                          sx={{
+                            p: 2,
+                            borderRadius: '16px',
                             cursor: 'pointer',
                             borderColor: isSelected ? 'primary.main' : 'divider',
                             bgcolor: isSelected ? 'rgba(33, 150, 243, 0.05)' : 'background.paper',
                             boxShadow: isSelected ? '0 4px 12px rgba(33, 150, 243, 0.15)' : 'none',
                             transition: 'all 0.2s ease-in-out',
-                            '&:hover': { 
-                              borderColor: 'primary.main', 
+                            '&:hover': {
+                              borderColor: 'primary.main',
                               bgcolor: isSelected ? 'rgba(33, 150, 243, 0.08)' : 'rgba(33, 150, 243, 0.02)',
                               transform: 'translateY(-1px)'
-                            } 
+                            }
                           }}
                         >
                           <Stack direction="row" spacing={2} alignItems="center">
@@ -220,9 +224,9 @@ const FileUpload: React.FC = () => {
                               <Typography variant="subtitle2" fontWeight={700} noWrap>{file.originalName || file.fileName || file.name || `Asset-${index + 1}`}</Typography>
                               <Typography variant="caption" color="text.secondary">Provisioned {new Date().toLocaleDateString()}</Typography>
                             </Box>
-                            <Button 
-                              size="small" 
-                              variant={isSelected ? "contained" : "text"} 
+                            <Button
+                              size="small"
+                              variant={isSelected ? "contained" : "text"}
                               onClick={(e) => {
                                 e.stopPropagation();
                                 window.open(getFullFileUrl(file.fileUrl || file.url), '_blank');

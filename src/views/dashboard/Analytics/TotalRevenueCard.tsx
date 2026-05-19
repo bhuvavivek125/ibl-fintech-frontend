@@ -45,6 +45,7 @@ export default function TotalRevenueCard({ title }: TotalRevenueCardProps) {
               <ArrowDropUpIcon sx={successSX} />
             </ListItemIcon>
             <ListItemText
+              disableTypography
               primary={
                 <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
                   <span>Bitcoin</span>
@@ -59,6 +60,7 @@ export default function TotalRevenueCard({ title }: TotalRevenueCardProps) {
               <ArrowDropDownIcon sx={errorSX} />
             </ListItemIcon>
             <ListItemText
+              disableTypography
               primary={
                 <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
                   <span>Ethereum</span>
@@ -73,6 +75,7 @@ export default function TotalRevenueCard({ title }: TotalRevenueCardProps) {
               <ArrowDropUpIcon sx={successSX} />
             </ListItemIcon>
             <ListItemText
+              disableTypography
               primary={
                 <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
                   <span>Ripple</span>
@@ -87,6 +90,7 @@ export default function TotalRevenueCard({ title }: TotalRevenueCardProps) {
               <ArrowDropDownIcon sx={errorSX} />
             </ListItemIcon>
             <ListItemText
+              disableTypography
               primary={
                 <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
                   <span>Neo</span>
@@ -101,6 +105,7 @@ export default function TotalRevenueCard({ title }: TotalRevenueCardProps) {
               <ArrowDropDownIcon sx={errorSX} />
             </ListItemIcon>
             <ListItemText
+              disableTypography
               primary={
                 <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
                   <span>Ethereum</span>
@@ -115,6 +120,7 @@ export default function TotalRevenueCard({ title }: TotalRevenueCardProps) {
               <ArrowDropUpIcon sx={successSX} />
             </ListItemIcon>
             <ListItemText
+              disableTypography
               primary={
                 <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
                   <span>Ripple</span>
@@ -129,6 +135,7 @@ export default function TotalRevenueCard({ title }: TotalRevenueCardProps) {
               <ArrowDropDownIcon sx={errorSX} />
             </ListItemIcon>
             <ListItemText
+              disableTypography
               primary={
                 <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
                   <span>Neo</span>
@@ -143,6 +150,7 @@ export default function TotalRevenueCard({ title }: TotalRevenueCardProps) {
               <ArrowDropDownIcon sx={errorSX} />
             </ListItemIcon>
             <ListItemText
+              disableTypography
               primary={
                 <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
                   <span>Ethereum</span>
@@ -157,6 +165,7 @@ export default function TotalRevenueCard({ title }: TotalRevenueCardProps) {
               <ArrowDropUpIcon sx={successSX} />
             </ListItemIcon>
             <ListItemText
+              disableTypography
               primary={
                 <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
                   <span>Ripple</span>
@@ -171,6 +180,7 @@ export default function TotalRevenueCard({ title }: TotalRevenueCardProps) {
               <ArrowDropDownIcon sx={errorSX} />
             </ListItemIcon>
             <ListItemText
+              disableTypography
               primary={
                 <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
                   <span>Neo</span>
