@@ -1,16 +1,12 @@
-// material-ui
 import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import MainCard from './MainCard';
 
-// types
 import { GenericCardProps } from 'types';
 
-// ============================|| ROUND ICON CARD ||============================ //
 
 interface Props {
   primary: string;

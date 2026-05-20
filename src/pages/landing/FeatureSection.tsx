@@ -1,4 +1,3 @@
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -6,12 +5,10 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import CardMedia from '@mui/material/CardMedia';
 
-// project imports
 import FadeInWhenVisible from './Animation';
 import SubCard from 'ui-component/cards/SubCard';
 import Avatar from 'ui-component/extended/Avatar';
 
-// assets
 import Offer1 from 'assets/images/landing/offer/offer-1.png';
 import Offer2 from 'assets/images/landing/offer/offer-2.png';
 import Offer3 from 'assets/images/landing/offer/offer-3.png';
@@ -58,7 +55,6 @@ function OfferCard({ title, caption, image }: OfferCardProps) {
   );
 }
 
-// =============================|| LANDING - FEATURE PAGE ||============================= //
 
 export default function FeatureSection() {
   return (

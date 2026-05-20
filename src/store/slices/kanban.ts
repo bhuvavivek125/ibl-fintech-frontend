@@ -1,15 +1,11 @@
-// third party
 import { createSlice } from '@reduxjs/toolkit';
 
-// project imports
 import axios from 'utils/axios';
 import { dispatch } from '../index';
 
-// types
 import { DefaultRootStateProps } from 'types';
 import { KanbanColumn, KanbanComment, KanbanItem, KanbanUserStory } from 'types/kanban';
 
-// ==============================|| SLICE - KANBAN ||============================== //
 
 const initialState: DefaultRootStateProps['kanban'] = {
   error: null,
@@ -161,10 +157,8 @@ const slice = createSlice({
   }
 });
 
-// Reducer
 export default slice.reducer;
 
-// ==============================|| SLICE - KANBAN ACTIONS ||============================== //
 
 export function getColumns() {
   return async () => {

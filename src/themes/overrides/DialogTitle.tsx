@@ -1,4 +1,3 @@
-// ==============================|| OVERRIDES - DIALOG TITLE ||============================== //
 
 export default function DialogTitle() {
   return {

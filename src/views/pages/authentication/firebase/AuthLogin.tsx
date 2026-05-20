@@ -1,7 +1,6 @@
 import { SyntheticEvent, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
@@ -16,11 +15,9 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 
-// project imports
 import FirebaseSocial from './FirebaseSocial';
 import useAuth from 'hooks/useAuth';
 import useConfig from 'hooks/useConfig';
@@ -29,11 +26,9 @@ import AnimateButton from 'ui-component/extended/AnimateButton';
 import CustomFormControl from 'ui-component/extended/Form/CustomFormControl';
 import { withAlpha } from 'utils/colorUtils';
 
-// assets
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-// ============================|| FIREBASE - LOGIN ||============================ //
 
 export default function FirebaseLogin({ ...others }) {
   const theme = useTheme();

@@ -1,4 +1,3 @@
-// ==============================|| OVERRIDES - DATE TIME PICKER TOOLBAR ||============================== //
 
 export default function DateTimePickerToolbar() {
   return {

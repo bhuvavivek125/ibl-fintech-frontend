@@ -1,12 +1,10 @@
 import { useEffect, useState, ReactElement } from 'react';
 
-// material-ui
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import Box from '@mui/material/Box';
 
-// assets
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 type AccordionItem = {
@@ -26,7 +24,6 @@ interface AccordionProps {
   toggle?: boolean;
 }
 
-// ==============================|| ACCORDION ||============================== //
 
 export default function Accordion({ data, defaultExpandedId = null, expandIcon, square, toggle }: AccordionProps) {
   const [expanded, setExpanded] = useState<string | boolean | null>(null);

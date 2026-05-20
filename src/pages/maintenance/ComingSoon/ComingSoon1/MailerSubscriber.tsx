@@ -1,15 +1,12 @@
-// material-ui
 import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Grid from '@mui/material/Grid';
 import OutlinedInput from '@mui/material/OutlinedInput';
 
-// project imports
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import { gridSpacing } from 'store/constant';
 
-// ===========================|| MAILER SUBSCRIBER ||=========================== //
 
 export default function MailerSubscriber() {
   return (

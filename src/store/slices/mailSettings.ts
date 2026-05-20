@@ -1,14 +1,10 @@
-// third party
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-// project imports
 import { dispatch } from '../index';
 import { IMailSettings } from 'api/mail-settings';
 
-// types
 import { DefaultRootStateProps } from 'types';
 
-// ==============================|| SLICE - MAIL SETTINGS ||============================== //
 
 export interface MailSettingsState {
   data: IMailSettings | null;
@@ -57,10 +53,8 @@ const slice = createSlice({
   }
 });
 
-// Reducer
 export default slice.reducer;
 
-// ==============================|| SLICE - MAIL SETTINGS ACTIONS ||============================== //
 
 // Import API functions
 import { saveMailSettings } from 'api/mail-settings';

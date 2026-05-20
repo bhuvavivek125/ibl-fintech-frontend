@@ -1,6 +1,5 @@
 import { Link as RouterLink, useSearchParams } from 'react-router-dom';
 
-// material-ui
 import { Theme, useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Button from '@mui/material/Button';
@@ -8,10 +7,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Stack from '@mui/material/Stack';
 import Tooltip from '@mui/material/Tooltip';
 
-// project imports
 import { AuthProvider, APP_AUTH } from 'config';
 
-// assets
 import Jwt from 'assets/images/icons/jwt.svg';
 import Firebase from 'assets/images/icons/firebase.svg';
 import Auth0 from 'assets/images/icons/auth0.svg';
@@ -22,7 +19,6 @@ interface LoginProps {
   currentLoginWith: string;
 }
 
-// ==============================|| SOCIAL BUTTON ||============================== //
 
 export default function LoginProvider({ currentLoginWith }: LoginProps) {
   const theme = useTheme();

@@ -3,7 +3,6 @@ import { use } from 'react';
 // auth provider
 import AuthContext from 'contexts/JWTContext';
 
-// ==============================|| AUTH HOOKS ||============================== //
 
 export default function useAuth() {
   const context = use(AuthContext);

@@ -1,9 +1,7 @@
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import MarketShareAreaChartCard from './MarketShareAreaChartCard';
 import TotalRevenueCard from './TotalRevenueCard';
 import LatestCustomerTableCard from './LatestCustomerTableCard';
@@ -13,13 +11,11 @@ import UserCountCard from 'ui-component/cards/UserCountCard';
 
 import { gridSpacing } from 'store/constant';
 
-// assets
 import { IconShare, IconAccessPoint, IconCircles, IconCreditCard } from '@tabler/icons-react';
 import MonetizationOnTwoToneIcon from '@mui/icons-material/MonetizationOnTwoTone';
 import AccountCircleTwoTone from '@mui/icons-material/AccountCircleTwoTone';
 import DescriptionTwoToneIcon from '@mui/icons-material/DescriptionTwoTone';
 
-// ==============================|| ANALYTICS DASHBOARD ||============================== //
 
 export default function Analytics() {
   const theme = useTheme();

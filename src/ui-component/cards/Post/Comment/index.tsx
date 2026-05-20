@@ -1,6 +1,5 @@
 import { useState, ReactElement } from 'react';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Button from '@mui/material/Button';
@@ -17,34 +16,29 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// third party
 import * as yup from 'yup';
 import uniqueId from 'lodash/uniqueId';
 import { Controller, FormProvider, useForm, useFormContext } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-// project imports
 import Reply from './Reply';
 import Avatar from 'ui-component/extended/Avatar';
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import { Comment as CommentProps, CommentData, PostProps, Profile } from 'types/user-profile';
 import { getImageUrl, ImagePath } from 'utils/getImageUrl';
 
-// assets
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import MoreVertTwoToneIcon from '@mui/icons-material/MoreVertTwoTone';
 import ThumbUpAltTwoToneIcon from '@mui/icons-material/ThumbUpAltTwoTone';
 import ReplyTwoToneIcon from '@mui/icons-material/ReplyTwoTone';
 import AttachmentRoundedIcon from '@mui/icons-material/AttachmentRounded';
 
-// types
 import { FormInputProps } from 'types';
 
 const validationSchema = yup.object().shape({
   name: yup.string().required('Reply Field is Required')
 });
 
-// ==============================|| COMMENT TEXTFIELD ||============================== //
 
 function FormInput({ bug, label, name, required, ...others }: FormInputProps) {
   const { control } = useFormContext();
@@ -93,7 +87,6 @@ interface CommentComponentProps {
   user: Profile;
 }
 
-// ==============================|| SOCIAL PROFILE - COMMENT ||============================== //
 
 export default function Comment({ comment, handleCommentLikes, handleReplayLikes, postId, replyAdd, user }: CommentComponentProps) {
   const theme = useTheme();

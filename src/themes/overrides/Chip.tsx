@@ -1,11 +1,7 @@
-// material-ui
 import { Theme } from '@mui/material/styles';
 import { ChipProps } from '@mui/material/Chip';
 
-// project imports
 import { withAlpha } from 'utils/colorUtils';
-
-// ===============================||  OVERRIDES - CHIP  ||=============================== //
 
 export default function Chip(theme: Theme) {
   return {

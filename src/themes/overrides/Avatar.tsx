@@ -1,7 +1,4 @@
-// material-ui
 import { Theme } from '@mui/material/styles';
-
-// ==============================|| OVERRIDES - AVATAR ||============================== //
 
 export default function Avatar(theme: Theme) {
   return {

@@ -1,10 +1,6 @@
-// material-ui
 import { Theme } from '@mui/material/styles';
 
-// project imports
 import { withAlpha } from 'utils/colorUtils';
-
-// ==============================|| OVERRIDES - TABS ||============================== //
 
 export default function Tabs(theme: Theme) {
   return {

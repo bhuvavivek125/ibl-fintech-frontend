@@ -1,22 +1,18 @@
 import { Link } from 'react-router-dom';
 
-// material-ui
 import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// project imports
 import { DASHBOARD_PATH } from 'config';
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import { gridSpacing } from 'store/constant';
 
-// assets
 import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
 import error500 from 'assets/images/maintenance/500-error.svg';
 
-// ==============================|| ERROR PAGE ||============================== //
 
 export default function Error() {
   return (

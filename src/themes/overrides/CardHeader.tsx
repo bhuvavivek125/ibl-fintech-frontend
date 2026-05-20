@@ -1,7 +1,4 @@
-// material-ui
 import { Theme } from '@mui/material/styles';
-
-// ==============================|| OVERRIDES - CARD HEADER ||============================== //
 
 export default function CardHeader(theme: Theme) {
   return {

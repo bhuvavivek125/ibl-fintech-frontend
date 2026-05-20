@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
-// project imports
 import useAuth from 'hooks/useAuth';
 import { extractPermissionSlugs } from 'utils/filterMenuByPermissions';
 import { GuardProps } from 'types';
@@ -10,10 +9,7 @@ interface PermissionGuardProps extends GuardProps {
   permission: string;
 }
 
-/**
- * Permission guard for routes
- * @param {PermissionGuardProps} props 
- */
+// Permission guard for routes
 export default function PermissionGuard({ children, permission }: PermissionGuardProps) {
   const { user, isLoggedIn } = useAuth();
   const navigate = useNavigate();

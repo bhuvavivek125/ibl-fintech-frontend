@@ -1,14 +1,11 @@
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 
-// third party
 import Marquee from 'react-fast-marquee';
 
-// =============================|| LANDING - INCLUDE SECTION ||============================= //
 
 export default function IncludeSection() {
   const theme = useTheme();

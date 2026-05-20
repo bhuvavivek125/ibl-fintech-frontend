@@ -1,12 +1,9 @@
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 
-// third party
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 
-// project imports
 import { ThemeDirection } from 'config';
 import useConfig from 'hooks/useConfig';
 import { withAlpha } from 'utils/colorUtils';
@@ -17,7 +14,6 @@ interface ReactQuillProps {
   onChange?: (value: string) => void;
 }
 
-// ==============================|| QUILL EDITOR ||============================== //
 
 export default function ReactQuillDemo({ value, editorMinHeight = 125, onChange }: ReactQuillProps) {
   const {

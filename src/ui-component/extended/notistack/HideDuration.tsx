@@ -4,10 +4,8 @@ import { useState } from 'react';
 import Button from '@mui/material/Button';
 import Slider from '@mui/material/Slider';
 
-// third party
 import { enqueueSnackbar } from 'notistack';
 
-// project imports
 import SubCard from 'ui-component/cards/SubCard';
 
 function valueLabelFormat(value: number) {
@@ -15,7 +13,6 @@ function valueLabelFormat(value: number) {
   return `${value}s`;
 }
 
-// ==============================|| NOTISTACK - TIMEOUT ||============================== //
 
 export default function HideDuration() {
   const [value, setValue] = useState<number>(1);

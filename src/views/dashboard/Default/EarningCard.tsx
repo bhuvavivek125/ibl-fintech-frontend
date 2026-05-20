@@ -1,6 +1,5 @@
 import React from 'react';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
 import CardMedia from '@mui/material/CardMedia';
@@ -10,11 +9,9 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// project imports
 import MainCard from 'ui-component/cards/MainCard';
 import SkeletonEarningCard from 'ui-component/cards/Skeleton/EarningCard';
 
-// assets
 import EarningIcon from 'assets/images/icons/earning.svg';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
@@ -23,7 +20,6 @@ import FileCopyTwoToneIcon from '@mui/icons-material/FileCopyOutlined';
 import PictureAsPdfTwoToneIcon from '@mui/icons-material/PictureAsPdfOutlined';
 import ArchiveTwoToneIcon from '@mui/icons-material/ArchiveOutlined';
 
-// ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
 
 interface EarningCardProps {
   isLoading: boolean;

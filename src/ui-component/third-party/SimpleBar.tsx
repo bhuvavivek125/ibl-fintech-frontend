@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 
-// material-ui
 import { styled, Theme, useTheme } from '@mui/material/styles';
 import { MUIStyledCommonProps } from '@mui/system';
 import Box from '@mui/material/Box';
@@ -9,7 +8,6 @@ import Box from '@mui/material/Box';
 import { ThemeDirection } from 'config';
 import { withAlpha } from 'utils/colorUtils';
 
-// third party
 import { BrowserView, MobileView } from 'react-device-detect';
 import SimpleBar, { Props } from 'simplebar-react';
 
@@ -32,7 +30,6 @@ const SimpleBarStyle = styled(SimpleBar)(({ theme }) => ({
   '& .simplebar-mask': { zIndex: 'inherit' }
 }));
 
-// ==============================|| SIMPLE SCROLL BAR  ||============================== //
 
 export default function SimpleBarScroll({ children, sx, ...other }: MUIStyledCommonProps<Theme> & Props) {
   const theme = useTheme();

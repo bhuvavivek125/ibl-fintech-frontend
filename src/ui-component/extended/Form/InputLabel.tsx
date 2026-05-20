@@ -1,4 +1,3 @@
-// material-ui
 import { styled } from '@mui/material/styles';
 import MuiInputLabel, { InputLabelProps } from '@mui/material/InputLabel';
 

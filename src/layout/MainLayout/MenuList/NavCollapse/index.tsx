@@ -1,7 +1,6 @@
 import { Activity, useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-// material-ui
 import { styled, useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
@@ -16,7 +15,6 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// project imports
 import NavItem from '../NavItem';
 import Transitions from 'ui-component/extended/Transitions';
 import { withAlpha } from 'utils/colorUtils';
@@ -26,14 +24,11 @@ import { MenuOrientation, ThemeDirection } from 'config';
 import useConfig from 'hooks/useConfig';
 import useMenuCollapse from 'hooks/useMenuCollapse';
 
-// third party
 import { FormattedMessage } from 'react-intl';
 
-// assets
 import { IconChevronDown, IconChevronRight, IconChevronUp } from '@tabler/icons-react';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
-// types
 import { NavItemType } from 'types';
 
 // horizontal-menu - wrapper
@@ -73,7 +68,6 @@ const PopperStyled = styled(Popper)(({ theme }) => ({
   }
 }));
 
-// ==============================|| SIDEBAR MENU LIST COLLAPSE ITEMS ||============================== //
 
 type VirtualElement = {
   getBoundingClientRect: () => DOMRectReadOnly | DOMRect;

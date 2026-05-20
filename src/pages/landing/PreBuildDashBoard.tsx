@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 
-// material-ui
 import { styled, useColorScheme, useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import IconButton from '@mui/material/IconButton';
@@ -9,13 +8,10 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// third party
 import { Carousel } from 'react-responsive-carousel';
 
-// project imports
 import { ThemeMode } from 'config';
 
-// assets
 import { IconChevronRight, IconChevronLeft, IconLink } from '@tabler/icons-react';
 
 import SliderLight1 from 'assets/images/landing/pre-apps/slider-light-1.png';
@@ -41,7 +37,6 @@ import SliderDark10 from 'assets/images/landing/pre-apps/slider-dark-10.png';
 import SliderLight11 from 'assets/images/landing/pre-apps/slider-light-11.png';
 import SliderDark11 from 'assets/images/landing/pre-apps/slider-dark-11.png';
 
-// styles
 const Images = styled('img')({
   width: '100%',
   height: 'auto',

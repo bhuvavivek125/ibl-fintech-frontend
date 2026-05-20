@@ -1,7 +1,6 @@
 import { Activity, useEffect, useRef, useState } from 'react';
 import { Link, matchPath, useLocation } from 'react-router-dom';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Avatar from '@mui/material/Avatar';
@@ -13,22 +12,17 @@ import ListItemText from '@mui/material/ListItemText';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import { handlerDrawerOpen, useGetMenuMaster } from 'api/menu';
 import { MenuOrientation, ThemeDirection } from 'config';
 import useConfig from 'hooks/useConfig';
 import { withAlpha } from 'utils/colorUtils';
 
-// third party
 import { FormattedMessage } from 'react-intl';
 
-// assets
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
-// types
 import { LinkTarget, NavItemType } from 'types';
 
-// ==============================|| SIDEBAR MENU LIST ITEMS ||============================== //
 
 interface NavItemProps {
   item: NavItemType;

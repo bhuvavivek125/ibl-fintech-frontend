@@ -3,10 +3,8 @@ import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 
-// third party
 import { enqueueSnackbar, MaterialDesignContent, SnackbarProvider } from 'notistack';
 
-// project imports
 import SubCard from 'ui-component/cards/SubCard';
 
 const StyledMaterialDesignContent = styled(MaterialDesignContent)(({ theme }) => ({
@@ -15,7 +13,6 @@ const StyledMaterialDesignContent = styled(MaterialDesignContent)(({ theme }) =>
   }
 }));
 
-// ==============================|| NOTISTACK - COLOR VARIANTS ||============================== //
 
 export default function ColorVariants() {
   return (

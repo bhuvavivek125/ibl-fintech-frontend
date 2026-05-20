@@ -1,7 +1,6 @@
 import { useEffect, Dispatch, SetStateAction } from 'react';
 import { matchPath } from 'react-router-dom';
 
-// types
 import { NavItemType } from 'types';
 
 // Type alias for setting state
@@ -10,18 +9,8 @@ import { NavItemType } from 'types';
 
 type SetState<T> = (value: T | null) => void;
 
-// ==============================|| MENU COLLAPSED - RECURSIVE FUNCTION ||============================== //
 
-/**
- * Recursively traverses menu items to find and open the correct parent menu.
- * If a menu item matches the current pathname, it marks the corresponding menu as selected and opens it.
- *
- * @param {NavItemType[]} items - List of menu items.
- * @param {string} pathname - Current route pathname.
- * @param {string | undefined} menuId - ID of the menu to be set as selected.
- * @param {SetState<string | null>} setSelected - Function to update the selected menu.
- * @param {Dispatch<SetStateAction<boolean>>} setOpen - Function to update the open state.
- */
+// Recursively traverses menu items to find and open the correct parent menu. If a menu item matches the current pathname, it marks the corresponding menu as selected and opens it.
 
 function setParentOpenedMenu(
   items: NavItemType[],
@@ -44,19 +33,8 @@ function setParentOpenedMenu(
   }
 }
 
-// ==============================|| MENU COLLAPSED - HOOK ||============================== //
 
-/**
- * Hook to handle menu collapse behavior based on the current route.
- * Automatically expands the parent menu of the active route item.
- *
- * @param {NavItemType} menu - The menu object containing items.
- * @param {string} pathname - Current route pathname.
- * @param {boolean} miniMenuOpened - Flag indicating if the mini menu is open.
- * @param {SetState<string | null>} setSelected - Function to update selected menu state.
- * @param {Dispatch<SetStateAction<boolean>>} setOpen - Function to update menu open state.
- * @param {SetState<HTMLElement>} setAnchorEl - Function to update the anchor element state.
- */
+// Hook to handle menu collapse behavior based on the current route. Automatically expands the parent menu of the active route item.
 
 export default function useMenuCollapse(
   menu: NavItemType,

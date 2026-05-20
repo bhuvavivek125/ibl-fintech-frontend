@@ -1,4 +1,3 @@
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -7,10 +6,8 @@ import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import AnimateButton from 'ui-component/extended/AnimateButton';
 
-// ==============================|| PROFILE MENU - UPGRADE PLAN CARD ||============================== //
 
 export default function UpgradePlanCard() {
   const theme = useTheme();

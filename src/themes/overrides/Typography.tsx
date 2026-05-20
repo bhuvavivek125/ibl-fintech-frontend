@@ -1,7 +1,4 @@
-// material-ui
 import { Theme } from '@mui/material/styles';
-
-// ==============================|| OVERRIDES - TYPOGRAPHY ||============================== //
 
 export default function Typography(theme: Theme) {
   const headingColor = theme.vars.palette.text.heading;

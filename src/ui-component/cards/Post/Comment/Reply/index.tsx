@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import ButtonBase from '@mui/material/ButtonBase';
@@ -12,12 +11,10 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// project imports
 import Avatar from 'ui-component/extended/Avatar';
 import { CommentData, UserProfile } from 'types/user-profile';
 import { getImageUrl, ImagePath } from 'utils/getImageUrl';
 
-// assets
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import MoreVertTwoToneIcon from '@mui/icons-material/MoreVertTwoTone';
 import ThumbUpAltTwoToneIcon from '@mui/icons-material/ThumbUpAltTwoTone';
@@ -31,7 +28,6 @@ interface ReplyProps {
   reply: { id: string; profile: UserProfile; data: CommentData };
 }
 
-// ==============================|| POST & COMMENT - REPLAY ||============================== //
 
 export default function Reply({ commentId, handleReplayLikes, onReply, postId, reply }: ReplyProps) {
   const theme = useTheme();

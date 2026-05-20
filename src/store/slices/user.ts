@@ -1,15 +1,11 @@
-// third party
 import { createSlice } from '@reduxjs/toolkit';
 
-// project imports
 import axios from 'utils/axios';
 import { dispatch } from '../index';
 
-// types
 import { DefaultRootStateProps } from 'types';
 import { Reply } from 'types/user-profile';
 
-// ==============================|| SLICE - USER ||============================== //
 
 const initialState: DefaultRootStateProps['user'] = {
   error: null,
@@ -146,10 +142,8 @@ const slice = createSlice({
   }
 });
 
-// Reducer
 export default slice.reducer;
 
-// ==============================|| SLICE - USER ACTIONS ||============================== //
 
 export function getUsersListStyle1() {
   return async () => {

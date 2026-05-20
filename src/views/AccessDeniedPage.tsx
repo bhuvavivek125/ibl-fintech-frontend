@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// material-ui
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -11,7 +10,6 @@ import CardContent from '@mui/material/CardContent';
 import Stack from '@mui/material/Stack';
 import { useTheme } from '@mui/material/styles';
 
-// assets
 import { IconAlertTriangle, IconHome, IconArrowLeft } from '@tabler/icons-react';
 
 interface AccessDeniedPageProps {

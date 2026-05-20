@@ -1,11 +1,9 @@
-// material-ui
 import CardMedia from '@mui/material/CardMedia';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import MImageList from '@mui/material/ImageList';
 import Box from '@mui/material/Box';
 
-// project imports
 import { PostImage } from 'types/user-profile';
 import useConfig from 'hooks/useConfig';
 import { getImageUrl, ImagePath } from 'utils/getImageUrl';
@@ -16,7 +14,6 @@ function srcset(image: string, width: number, height: number, rows = 1, cols = 1
   ${image}?w=${width * cols}&h=${height * rows}&fit=crop&auto=format&dpr=2 2x`;
 }
 
-// ==============================|| IMAGE LIST/GRID ||============================== //
 
 interface ImageListProps {
   itemData: PostImage[];

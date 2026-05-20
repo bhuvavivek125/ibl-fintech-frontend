@@ -1,6 +1,5 @@
 import { Link, useSearchParams } from 'react-router-dom';
 
-// material-ui
 import { Theme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Button from '@mui/material/Button';
@@ -8,7 +7,6 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// project imports
 import AuthWrapper1 from './AuthWrapper1';
 import AuthCardWrapper from './AuthCardWrapper';
 import ViewOnlyAlert from './ViewOnlyAlert';
@@ -21,7 +19,6 @@ import AuthFooter from 'ui-component/cards/AuthFooter';
 import useAuth from 'hooks/useAuth';
 import { APP_AUTH } from 'config';
 
-// ==============================|| AUTH3 - CHECK MAIL ||============================== //
 
 export default function CheckMail() {
   const downMD = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));

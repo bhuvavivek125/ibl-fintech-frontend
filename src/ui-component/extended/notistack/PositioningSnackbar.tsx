@@ -3,13 +3,10 @@ import { useTheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 
-// third party
 import { enqueueSnackbar } from 'notistack';
 
-// project imports
 import SubCard from 'ui-component/cards/SubCard';
 
-// ==============================|| NOTISTACK - POSTIONING ||============================== //
 
 export default function PositioningSnackbar() {
   const theme = useTheme();

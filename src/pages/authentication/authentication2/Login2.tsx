@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 
-// material-ui
 import { Theme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CardMedia from '@mui/material/CardMedia';
@@ -10,7 +9,6 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// project imports
 import AuthWrapper2 from '../AuthWrapper2';
 import AuthCardWrapper from '../AuthCardWrapper';
 import AuthLogin from '../jwt/AuthLogin';
@@ -20,7 +18,6 @@ import AuthFooter from 'ui-component/cards/AuthFooter';
 import AuthSlider from 'ui-component/cards/AuthSlider';
 import { AuthSliderProps } from 'types';
 
-// assets
 import imgMain from 'assets/images/auth/img-a2-login.svg';
 
 // carousel items
@@ -39,7 +36,6 @@ const items: AuthSliderProps[] = [
   }
 ];
 
-// ================================|| AUTH2 - LOGIN ||================================ //
 
 export default function Login() {
   const downMD = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));

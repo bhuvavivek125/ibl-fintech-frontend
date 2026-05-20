@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-// material-ui
 import { useTheme, styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -11,21 +10,17 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import Avatar from '../extended/Avatar';
 import { gridSpacing } from 'store/constant';
 import { getImageUrl, ImagePath } from 'utils/getImageUrl';
 
-// assets
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
-// types
 import { UserSimpleCardProps } from 'types/user';
 
-// styles
 const FacebookWrapper = styled(Button)({
   padding: 8,
   background: 'rgba(66, 103, 178, 0.2)',
@@ -68,7 +63,6 @@ const LinkedInWrapper = styled(Button)({
   }
 });
 
-// ==============================|| USER SIMPLE CARD ||============================== //
 
 export default function UserSimpleCard({ avatar, name, status }: UserSimpleCardProps) {
   const theme = useTheme();

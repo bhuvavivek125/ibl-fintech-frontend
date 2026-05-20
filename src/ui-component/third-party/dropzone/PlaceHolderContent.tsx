@@ -3,13 +3,10 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import CardMedia from '@mui/material/CardMedia';
 
-// types
 import { DropzopType } from 'config';
 
-// assets
 import UploadCover from 'assets/images/upload/upload.svg';
 
-// ==============================|| UPLOAD - PLACEHOLDER ||============================== //
 
 export default function PlaceholderContent({ type }: { type?: string }) {
   return (

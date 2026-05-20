@@ -1,6 +1,5 @@
 import { SyntheticEvent } from 'react';
 
-// material-ui
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import Fade from '@mui/material/Fade';
@@ -9,7 +8,6 @@ import IconButton from '@mui/material/IconButton';
 import Slide, { SlideProps } from '@mui/material/Slide';
 import MuiSnackbar from '@mui/material/Snackbar';
 
-// assets
 import CloseIcon from '@mui/icons-material/Close';
 
 import { KeyedObject } from 'types';
@@ -47,7 +45,6 @@ const animation: KeyedObject = {
   Fade
 };
 
-// ==============================|| SNACKBAR ||============================== //
 
 export default function Snackbar() {
   const dispatch = useDispatch();

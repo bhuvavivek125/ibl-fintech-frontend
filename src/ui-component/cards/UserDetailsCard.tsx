@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -10,18 +9,15 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import Avatar from '../extended/Avatar';
 import { gridSpacing } from 'store/constant';
 import { UserProfile } from 'types/user-profile';
 import { getImageUrl, ImagePath } from 'utils/getImageUrl';
 
-// assets
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import NotInterestedTwoToneIcon from '@mui/icons-material/NotInterestedTwoTone';
 import ChatBubbleTwoToneIcon from '@mui/icons-material/ChatBubbleTwoTone';
 
-// ==============================|| USER DETAILS CARD ||============================== //
 
 export default function UserDetailsCard({ about, avatar, contact, email, location, name, role }: UserProfile) {
   const theme = useTheme();

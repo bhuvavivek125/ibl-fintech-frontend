@@ -1,23 +1,18 @@
 import { Link } from 'react-router-dom';
 import { useSelector } from 'store';
 
-// third party
 import { sum } from 'lodash-es';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import Fab from '@mui/material/Fab';
 import Badge from '@mui/material/Badge';
 import IconButton from '@mui/material/IconButton';
 
-// assets
 import ShoppingCartTwoToneIcon from '@mui/icons-material/ShoppingCartTwoTone';
 
-// types
 import { DefaultRootStateProps } from 'types';
 import { CartProductStateProps } from 'types/cart';
 
-// ==============================|| CART ITEMS - FLOATING BUTTON ||============================== //
 
 export default function FloatingCart() {
   const theme = useTheme();

@@ -1,9 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
-// third party
 import { motion, useAnimation, useInView } from 'framer-motion';
 
-// =============================|| LANDING - FADE IN ANIMATION ||============================= //
 
 export default function FadeInWhenVisible({ children }: { children: React.ReactElement }) {
   const controls = useAnimation();

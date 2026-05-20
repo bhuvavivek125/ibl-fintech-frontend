@@ -1,16 +1,13 @@
 import { useState } from 'react';
 
-// material-ui
 import Divider from '@mui/material/Divider';
 import FormControl from '@mui/material/FormControl';
 import InputAdornment from '@mui/material/InputAdornment';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 
-// project imports
 import { GenericCardProps } from 'types';
 
-// ==============================|| FORM CONTROL SELECT ||============================== //
 
 interface FormControlSelectProps {
   captionLabel?: string;

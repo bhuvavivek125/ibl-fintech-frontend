@@ -1,7 +1,6 @@
 import { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 
-// project imports
 import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
 
@@ -26,7 +25,6 @@ const ActivityLogs = Loadable(lazy(() => import('views/admin/activity/ActivityLo
 const SettingsDashboard = Loadable(lazy(() => import('views/admin/settings/Settings')));
 const AccessDenied = Loadable(lazy(() => import('views/AccessDeniedPage')));
 const Error = Loadable(lazy(() => import('views/Error')));
-// ==============================|| MAIN ROUTING ||============================== //
 
 const MaintenanceErrorRoute = {
   path: '/*',

@@ -1,10 +1,7 @@
-// material-ui
 import { Theme } from '@mui/material/styles';
 
-// third party
 import { merge } from 'lodash-es';
 
-// project imports
 import Alert from './Alert';
 import Autocomplete from './Autocomplete';
 import Avatar from './Avatar';
@@ -38,8 +35,6 @@ import TimelineDot from './TimelineDot';
 import Tooltip from './Tooltip';
 import TreeItem from './TreeItem';
 import Typography from './Typography';
-
-// ===============================||  OVERRIDES - MAIN  ||=============================== //
 
 export default function ComponentsOverrides(theme: Theme, borderRadius: number, outlinedFilled: boolean) {
   return merge(

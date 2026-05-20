@@ -1,13 +1,9 @@
 import { Outlet } from 'react-router-dom';
 
-// material-ui
 import { styled } from '@mui/material/styles';
 
-// project imports
 import Customization from 'layout/Customization';
 import AppBar from 'ui-component/extended/AppBar';
-
-// ==============================|| LAYOUTS - STRUCTURE ||============================== //
 
 const headerBackground = '/assets/images/landing/bg-header.jpg';
 const HeaderWrapper = styled('div')(({ theme }) => ({
@@ -21,8 +17,6 @@ const HeaderWrapper = styled('div')(({ theme }) => ({
     paddingTop: 0
   }
 }));
-
-// ==============================|| SIMPLE LAYOUT ||============================== //
 
 export default function SimpleLayout() {
   return (

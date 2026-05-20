@@ -1,19 +1,15 @@
 import { useState } from 'react';
 
-// material-ui
 import Button from '@mui/material/Button';
 import FormHelperText from '@mui/material/FormHelperText';
 import Grid from '@mui/material/Grid';
 
-// project imports
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import useAuth from 'hooks/useAuth';
 import useScriptRef from 'hooks/useScriptRef';
 
-// assets
 import LockIcon from '@mui/icons-material/Lock';
 
-// ==============================|| AUTH0 - LOGIN ||============================== //
 
 export default function Auth0Login({ ...others }) {
   const { loginAuth } = useAuth();

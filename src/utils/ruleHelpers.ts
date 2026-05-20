@@ -16,12 +16,12 @@ export function toStr(v: unknown): string {
   return v !== null && v !== undefined ? String(v) : '';
 }
 
-/** Format a rupee amount — adds ₹ prefix and Indian locale commas for values ≥ 1000 */
+
 export function formatRupee(value: number): string {
   return value >= 1000 ? `₹${value.toLocaleString('en-IN')}` : String(value);
 }
 
-/** Extract variable names from description string (e.g., "{current}" or "{grace_period_days}") */
+
 export function extractVariableNames(description: string): string[] {
   const regex = /\{(\w+)\}/g;
   const matches: string[] = [];
@@ -34,7 +34,7 @@ export function extractVariableNames(description: string): string[] {
   return [...new Set(matches)]; // Remove duplicates
 }
 
-/** Get variable value from rule (searches in value and config) */
+
 export function getRuleVariableValue(rule: BRERule, varName: string): number | boolean | string | null {
   // Check in value object first
   if (varName === 'current' && rule.value.current !== undefined) {
@@ -60,7 +60,7 @@ export function getRuleVariableValue(rule: BRERule, varName: string): number | b
   return null;
 }
 
-/** Build RuleValue patch payload from edited fields */
+
 export function buildRuleValuePayload(original: RuleValue, editCurrent: string, editMin: string, editMax: string): Partial<RuleValue> {
   const newValue: RuleValue = { ...original };
 

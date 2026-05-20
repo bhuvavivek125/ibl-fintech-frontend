@@ -1,7 +1,4 @@
-// material-ui
 import { Theme } from '@mui/material/styles';
-
-// ==============================|| OVERRIDES - INPUT BASE ||============================== //
 
 export default function InputBase(theme: Theme) {
   return {

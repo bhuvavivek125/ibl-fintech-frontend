@@ -1,11 +1,9 @@
 import { useState } from 'react';
 
-// material-ui
 import Tab, { TabProps } from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Box from '@mui/material/Box';
 
-// project imports
 import MainCard from 'ui-component/cards/MainCard';
 
 interface TabItem {
@@ -24,7 +22,6 @@ function a11yProps(index: number) {
   };
 }
 
-// ==============================|| BLOG DETAILS - HEADING TAB ||============================== //
 
 export default function HeadingTab({ tabs }: HeadingTabProps) {
   const [tabValue, setTabValue] = useState(0);

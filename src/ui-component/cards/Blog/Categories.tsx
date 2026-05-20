@@ -1,17 +1,13 @@
-// material-ui
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Button from '@mui/material/Button';
 
-// project imports
 import SubCard from 'ui-component/cards/SubCard';
 
-// assets
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 
-// ==============================|| BLOG - CATEGORIES ||============================== //
 
 export default function Categories() {
   return (

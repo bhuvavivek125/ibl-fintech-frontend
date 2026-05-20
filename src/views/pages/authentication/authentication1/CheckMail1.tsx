@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 
-// material-ui
 import { Theme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Button from '@mui/material/Button';
@@ -10,7 +9,6 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// project imports
 import AuthWrapper1 from '../AuthWrapper1';
 import AuthCardWrapper from '../AuthCardWrapper';
 import Logo from 'ui-component/Logo';
@@ -19,7 +17,6 @@ import BackgroundPattern1 from 'ui-component/cards/BackgroundPattern1';
 import AuthSlider from 'ui-component/cards/AuthSlider';
 import { AuthSliderProps } from 'types';
 
-// assets
 import AuthBlueCard from 'assets/images/auth/auth-mail-blue-card.svg';
 
 // carousel items
@@ -38,7 +35,6 @@ const items: AuthSliderProps[] = [
   }
 ];
 
-// ==============================|| AUTH1 - CHECK MAIL ||============================== //
 
 export default function CheckMail() {
   const downMD = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));

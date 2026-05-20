@@ -1,11 +1,8 @@
-// material-ui
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-// project imports
 import SubCard from 'ui-component/cards/SubCard';
 
-// ==============================|| BLOG - COMMENT CARD ||============================== //
 
 export default function CommentCard() {
   return (

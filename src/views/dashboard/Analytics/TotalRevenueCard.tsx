@@ -1,4 +1,3 @@
-// material-ui
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -7,15 +6,12 @@ import ListItemText from '@mui/material/ListItemText';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import MainCard from 'ui-component/cards/MainCard';
 import SimpleBar from 'ui-component/third-party/SimpleBar';
 
-// assets
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
-// ===========================|| DASHBOARD ANALYTICS - TOTAL REVENUE CARD ||=========================== //
 
 interface TotalRevenueCardProps {
   title?: string;

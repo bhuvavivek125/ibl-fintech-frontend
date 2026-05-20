@@ -1,15 +1,12 @@
 import { ReactNode } from 'react';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
 import Link from '@mui/material/Link';
 import Tooltip from '@mui/material/Tooltip';
 
-// project imports
 import Avatar from '../extended/Avatar';
 
-// ==============================|| CARD SECONDARY ACTION ||============================== //
 
 interface CardSecondaryActionProps {
   title?: string;

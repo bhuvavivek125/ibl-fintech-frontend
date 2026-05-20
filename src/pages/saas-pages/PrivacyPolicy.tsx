@@ -1,4 +1,3 @@
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -7,14 +6,11 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 
-// project imports
 import MainCard from 'ui-component/cards/MainCard';
 import { gridSpacing } from 'store/constant';
 
-// assets
 import headerBackground from 'assets/images/landing/bg-header.jpg';
 
-// ============================|| SAAS PAGES - PRIVCY POLICY ||============================ //
 
 export default function PrivacyPolicy() {
   const theme = useTheme();

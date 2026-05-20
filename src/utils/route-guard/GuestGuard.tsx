@@ -1,18 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
-// project imports
 import useAuth from 'hooks/useAuth';
 import Loader from 'ui-component/Loader';
 import { DASHBOARD_PATH } from 'config';
 import { GuardProps } from 'types';
 
-// ==============================|| GUEST GUARD ||============================== //
-
-/**
- * Guest guard for routes having no auth required
- * @param {PropTypes.node} children children element/node
- */
+// Guest guard for routes having no auth required
 
 export default function GuestGuard({ children }: GuardProps) {
   const { isLoggedIn, isInitialized } = useAuth();

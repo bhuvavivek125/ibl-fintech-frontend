@@ -1,4 +1,3 @@
-// ==============================|| OVERRIDES - PAGINATION ITEM ||============================== //
 
 export default function PaginationItem() {
   return {

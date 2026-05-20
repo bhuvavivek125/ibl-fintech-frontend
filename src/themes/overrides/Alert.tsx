@@ -1,14 +1,9 @@
-// material-ui
 import { Theme } from '@mui/material/styles';
 import { AlertProps } from '@mui/material/Alert';
 
-// project imports
 import { withAlpha } from 'utils/colorUtils';
 
-// assets
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-
-// ==============================|| OVERRIDES - ALERT ||============================== //
 
 export default function Alert(theme: Theme) {
   const { vars } = theme;

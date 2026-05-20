@@ -1,7 +1,6 @@
 import { Activity, ReactElement, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import Divider from '@mui/material/Divider';
@@ -10,21 +9,17 @@ import Typography from '@mui/material/Typography';
 import MuiBreadcrumbs, { BreadcrumbsProps } from '@mui/material/Breadcrumbs';
 import Box from '@mui/material/Box';
 
-// third party
 import { FormattedMessage } from 'react-intl';
 
-// project imports
 import { ThemeDirection } from 'config';
 import navigation from 'menu-items';
 import useConfig from 'hooks/useConfig';
 
-// assets
 import { IconChevronRight, IconTallymark1 } from '@tabler/icons-react';
 import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
 import HomeIcon from '@mui/icons-material/Home';
 import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
 
-// types
 import { NavItemType, OverrideIcon } from 'types';
 
 interface BreadcrumbLinkProps {
@@ -33,7 +28,6 @@ interface BreadcrumbLinkProps {
   icon?: string | OverrideIcon;
 }
 
-// ==============================|| BREADCRUMBS TITLE ||============================== //
 
 function BTitle({ title }: { title: string }) {
   return (
@@ -45,7 +39,6 @@ function BTitle({ title }: { title: string }) {
   );
 }
 
-// ==============================|| BREADCRUMBS ||============================== //
 
 interface Props {
   card?: boolean;

@@ -1,17 +1,14 @@
 import { createRoot } from 'react-dom/client';
 
-// third party
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
-// project imports
 import App from 'App';
 import { store, persister } from 'store';
 import * as serviceWorker from 'serviceWorker';
 import reportWebVitals from 'reportWebVitals';
 import { ConfigProvider } from 'contexts/ConfigContext';
 
-// style + assets
 import 'assets/scss/style.scss';
 
 // yet-another-react-lightbox
@@ -25,7 +22,6 @@ import 'maplibre-react-components/style.css';
 // Preload critical fonts (for example, Roboto) to reduce FOUC.
 // (In a real app, you might add a <link rel="preload" as="font" href="..." crossorigin="anonymous" /> tag in your HTML (or via a plugin) for each critical font.)
 // (Below is a dummy example – replace with your actual font URLs if needed.)
-// <link rel="preload" as="font" href="https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu4mxK.woff2" crossorigin="anonymous" />
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/300.css';
@@ -41,7 +37,6 @@ import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
 
-// ==============================|| REACT DOM RENDER ||============================== //
 
 const container = document.getElementById('root');
 const root = createRoot(container!);

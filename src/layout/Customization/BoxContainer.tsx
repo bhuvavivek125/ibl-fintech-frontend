@@ -1,4 +1,3 @@
-// material-ui
 import CardMedia from '@mui/material/CardMedia';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
@@ -7,11 +6,9 @@ import Stack from '@mui/material/Stack';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import Avatar from 'ui-component/extended/Avatar';
 import useConfig from 'hooks/useConfig';
 
-// assets
 import big from 'assets/images/customization/big.svg';
 import small from 'assets/images/customization/small.svg';
 
@@ -20,7 +17,6 @@ enum ContainerType {
   FLUID = 'fluid'
 }
 
-// ==============================|| CUSTOMIZATION - CONTAINER ||============================== //
 
 export default function BoxContainer() {
   const {

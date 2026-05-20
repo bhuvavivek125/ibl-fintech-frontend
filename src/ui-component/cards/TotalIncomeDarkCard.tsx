@@ -1,4 +1,3 @@
-// material-ui
 import { styled, useTheme } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
 import List from '@mui/material/List';
@@ -8,14 +7,11 @@ import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// project imports
 import MainCard from 'ui-component/cards/MainCard';
 import TotalIncomeCard from 'ui-component/cards/Skeleton/TotalIncomeCard';
 
-// assets
 import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
 
-// styles
 const CardWrapper = styled(MainCard)(({ theme }) => ({
   backgroundColor: theme.vars.palette.primary.dark,
   color: theme.vars.palette.primary.light,
@@ -43,7 +39,6 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
   }
 }));
 
-// ==============================|| DASHBOARD - TOTAL INCOME DARK CARD ||============================== //
 
 interface TotalIncomeDarkCardProps {
   isLoading: boolean;

@@ -1,13 +1,10 @@
-// material-ui
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
-// types
 import { GenericCardProps } from 'types';
 
-// =============================|| REVENUE CARD ||============================= //
 
 interface RevenueCardProps extends GenericCardProps {}
 

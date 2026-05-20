@@ -32,7 +32,7 @@ import { DecisionChip, EmptyState, IndexBubble } from './BreSharedUI';
 
 const GRID = '44px 1fr 1fr 1fr';
 
-/** Build rule description label from bracket config */
+
 function buildRuleLabel(bracket: DpdBracket, idx: number): string {
   if (bracket.dpd_max === null) return `Max DPD > ${bracket.dpd_min - 1} days`;
   if (idx === 0) return `Max DPD ≤ ${bracket.dpd_max} days`;

@@ -1,10 +1,7 @@
-// material-ui
 import Box from '@mui/material/Box';
 
-// project imports
 import MainCard, { MainCardProps } from 'ui-component/cards/MainCard';
 
-// ==============================|| AUTHENTICATION CARD WRAPPER ||============================== //
 
 export default function AuthCardWrapper({ children, ...other }: MainCardProps) {
   return (

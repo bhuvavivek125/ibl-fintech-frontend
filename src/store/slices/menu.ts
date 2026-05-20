@@ -1,10 +1,6 @@
-// third party
 import { createSlice } from '@reduxjs/toolkit';
 
-// types
 import { MenuProps } from 'types/menu';
-
-// ==============================|| SLICE - MENU ||============================== //
 
 const initialState: MenuProps = {
   isDashboardDrawerOpened: true

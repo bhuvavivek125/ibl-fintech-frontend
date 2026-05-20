@@ -1,6 +1,5 @@
 import { MouseEvent, useState } from 'react';
 
-// material-ui
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -16,13 +15,10 @@ import MenuItem from '@mui/material/MenuItem';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import Avatar from 'ui-component/extended/Avatar';
 
-// types
 import { DraftItem } from 'types/blog';
 
-// assets
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ModeEditOutlinedIcon from '@mui/icons-material/ModeEditOutlined';
 import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
@@ -34,7 +30,6 @@ interface DraftsProps {
   draftData: DraftItem[];
 }
 
-// ==============================|| BLOG - DRAFT ||============================== //
 
 export default function Drafts({ title, avatarCount, draftData }: DraftsProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

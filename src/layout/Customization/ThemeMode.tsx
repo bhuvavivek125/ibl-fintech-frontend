@@ -1,6 +1,5 @@
 import { ChangeEvent } from 'react';
 
-// material-ui
 import { useColorScheme } from '@mui/material/styles';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
@@ -9,14 +8,11 @@ import Stack from '@mui/material/Stack';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import { ThemeMode } from 'config';
 import Avatar from 'ui-component/extended/Avatar';
 
-// assets
 import { IconCpu, IconMoon, IconSun } from '@tabler/icons-react';
 
-// ==============================|| CUSTOMIZATION - MODE ||============================== //
 
 export default function ThemeModeLayout() {
   const { mode, setMode } = useColorScheme();

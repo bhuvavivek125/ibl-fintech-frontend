@@ -1,6 +1,5 @@
 import { ReactElement } from 'react';
 
-// material-ui
 import { Masonry } from '@mui/lab';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -10,11 +9,9 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// project imports
 import { cards } from './CardData';
 import PeopleCard from './PeopleCard';
 
-// =============================|| LANDING - FEATURE PAGE ||============================= //
 
 export default function PeopleSection() {
   let cardResult: ReactElement | ReactElement[] = <></>;

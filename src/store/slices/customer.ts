@@ -1,14 +1,10 @@
-// third party
 import { createSlice } from '@reduxjs/toolkit';
 
-// project imports
 import axios from 'utils/axios';
 import { dispatch } from '../index';
 
-// types
 import { DefaultRootStateProps } from 'types';
 
-// ==============================|| SLICE - CUSTOMER ||============================== //
 
 const initialState: DefaultRootStateProps['customer'] = {
   error: null,
@@ -55,10 +51,8 @@ const slice = createSlice({
   }
 });
 
-// Reducer
 export default slice.reducer;
 
-// ==============================|| SLICE - CUSTOMER ACTIONS ||============================== //
 
 export function getCustomers() {
   return async () => {

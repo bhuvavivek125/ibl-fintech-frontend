@@ -1,7 +1,5 @@
-// material-ui
 import { styled } from '@mui/material/styles';
 
-// project imports
 import { MenuOrientation } from 'config';
 import { drawerWidth } from 'store/constant';
 
@@ -11,7 +9,6 @@ interface MainStyleProps {
   borderRadius: number;
 }
 
-// ==============================|| MAIN LAYOUT - STYLED ||============================== //
 
 const MainContentStyled = styled('main', {
   shouldForwardProp: (prop) => prop !== 'open' && prop !== 'menuOrientation' && prop !== 'borderRadius'

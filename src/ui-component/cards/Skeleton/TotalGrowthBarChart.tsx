@@ -1,13 +1,10 @@
-// material-ui
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
 import Skeleton from '@mui/material/Skeleton';
 
-// project imports
 import { gridSpacing } from 'store/constant';
 
-// ==============================|| SKELETON TOTAL GROWTH BAR CHART ||============================== //
 
 export default function TotalGrowthBarChart() {
   return (

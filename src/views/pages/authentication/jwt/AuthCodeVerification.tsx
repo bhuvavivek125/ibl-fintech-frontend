@@ -1,21 +1,17 @@
 import { useState } from 'react';
 
-// material-ui
 import { useColorScheme, useTheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// third party
 import OTPInput from 'react-otp-input';
 
-// project imports
 import { ThemeMode } from 'config';
 import useConfig from 'hooks/useConfig';
 import { withAlpha } from 'utils/colorUtils';
 
-// ============================|| JWT - CODE VERIFICATION ||============================ //
 
 export default function AuthCodeVerification() {
   const theme = useTheme();

@@ -1,10 +1,6 @@
-// material-ui
 import { Theme } from '@mui/material/styles';
 
-// project imports
 import { withAlpha } from 'utils/colorUtils';
-
-// ==============================|| OVERRIDES - BUTTON ||============================== //
 
 export default function Button(theme: Theme) {
   return {

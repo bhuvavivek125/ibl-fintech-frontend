@@ -1,6 +1,5 @@
 import { useState, SyntheticEvent } from 'react';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -11,10 +10,8 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import { getImageUrl, ImagePath } from 'utils/getImageUrl';
 
-// assets
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import PersonAddTwoToneIcon from '@mui/icons-material/PersonAddTwoTone';
 import PeopleAltTwoToneIcon from '@mui/icons-material/PeopleAltTwoTone';
@@ -24,10 +21,8 @@ import FavoriteTwoToneIcon from '@mui/icons-material/FavoriteTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import GroupTwoToneIcon from '@mui/icons-material/GroupTwoTone';
 
-// types
 import { FollowerCardProps } from 'types/user';
 
-// ==============================|| SOCIAL PROFILE - FOLLOWER CARD ||============================== //
 
 export default function FollowerCard({ avatar, follow, location, name }: FollowerCardProps) {
   const theme = useTheme();

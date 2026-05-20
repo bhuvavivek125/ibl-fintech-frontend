@@ -1,7 +1,5 @@
 import { ApexOptions } from 'apexcharts';
 
-// ==============================|| DASHBOARD - MARKET SHARE AREA CHART ||============================== //
-
 const chartOptions: ApexOptions = {
   chart: {
     id: 'market-share-area-chart',

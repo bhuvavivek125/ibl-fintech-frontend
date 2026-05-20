@@ -1,6 +1,5 @@
 import { Activity } from 'react';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Avatar from '@mui/material/Avatar';
@@ -8,7 +7,6 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import LogoSection from '../LogoSection';
 import SearchSection from './SearchSection';
 import MobileSection from './MobileSection';
@@ -23,10 +21,8 @@ import { MenuOrientation } from 'config';
 import useConfig from 'hooks/useConfig';
 import useAuth from 'hooks/useAuth';
 
-// assets
 import { IconMenu2 } from '@tabler/icons-react';
 
-// ==============================|| MAIN NAVBAR / HEADER ||============================== //
 
 export default function Header() {
   const theme = useTheme();

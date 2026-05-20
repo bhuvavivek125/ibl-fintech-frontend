@@ -4,7 +4,6 @@ import { useMemo } from 'react';
 // Project-imports
 import { fetcher } from 'utils/axios';
 
-// types
 import { MenuProps } from 'types/menu';
 import { NavItemType } from 'types';
 

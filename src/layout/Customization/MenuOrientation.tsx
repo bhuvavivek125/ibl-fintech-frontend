@@ -1,4 +1,3 @@
-// material-ui
 import CardMedia from '@mui/material/CardMedia';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
@@ -7,16 +6,13 @@ import Stack from '@mui/material/Stack';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import { MenuOrientation } from 'config';
 import Avatar from 'ui-component/extended/Avatar';
 import useConfig from 'hooks/useConfig';
 
-// assets
 import vertical from 'assets/images/customization/vertical.svg';
 import horizontal from 'assets/images/customization/horizontal.svg';
 
-// ==============================|| CUSTOMIZATION - MENU ORIENTATION ||============================== //
 
 export default function MenuOrientationPage() {
   const {

@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 
-// material-ui
 import { useTheme, styled } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
 import List from '@mui/material/List';
@@ -10,12 +9,10 @@ import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// project imports
 import MainCard from 'ui-component/cards/MainCard';
 import TotalIncomeCard from 'ui-component/cards/Skeleton/TotalIncomeCard';
 import { withAlpha } from 'utils/colorUtils';
 
-// styles
 const CardWrapper = styled(MainCard)(({ theme }) => ({
   overflow: 'hidden',
   position: 'relative',
@@ -41,7 +38,6 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
   }
 }));
 
-// ==============================|| DASHBOARD - TOTAL INCOME LIGHT CARD ||============================== //
 
 interface TotalIncomeLightCardProps {
   isLoading: boolean;

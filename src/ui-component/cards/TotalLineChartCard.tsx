@@ -1,10 +1,8 @@
-// material-ui
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// third party
 import Chart, { Props as ChartProps } from 'react-apexcharts';
 
 interface TotalLineChartCardProps {
@@ -15,7 +13,6 @@ interface TotalLineChartCardProps {
   value: number;
 }
 
-// ============================|| TOTAL LINE CHART CARD ||============================ //
 
 export default function TotalLineChartCard({ bgColor, chartData, title, percentage, value }: TotalLineChartCardProps) {
   return (

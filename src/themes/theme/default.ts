@@ -1,7 +1,5 @@
 import { ColorProps } from 'types';
 
-// ==============================|| DEFAULT THEME COLORS ||============================== //
-
 const defaultColor: ColorProps = {
   // paper & background
   paper: '#ffffff',
@@ -50,8 +48,6 @@ const defaultColor: ColorProps = {
   grey600: '#4b5565',
   grey700: '#364152',
   grey900: '#121926',
-
-  // ==============================|| DARK THEME VARIANTS ||============================== //
 
   // paper & background
   darkPaper: '#111936',

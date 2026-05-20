@@ -1,6 +1,5 @@
 import React from 'react';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
@@ -15,14 +14,12 @@ import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// project imports
 import { ThemeDirection } from 'config';
 import MainCard from 'ui-component/cards/MainCard';
 import useConfig from 'hooks/useConfig';
 import { gridSpacing } from 'store/constant';
 import { withAlpha } from 'utils/colorUtils';
 
-// assets
 import CheckTwoToneIcon from '@mui/icons-material/CheckTwoTone';
 import TwoWheelerTwoToneIcon from '@mui/icons-material/TwoWheelerTwoTone';
 import AirportShuttleTwoToneIcon from '@mui/icons-material/AirportShuttleTwoTone';
@@ -69,7 +66,6 @@ const planList = [
   'Separate sale of our UI Elements?' // 7
 ];
 
-// ===============================|| PRICING - PRICE 1 ||=============================== //
 
 export default function Price1() {
   const theme = useTheme();

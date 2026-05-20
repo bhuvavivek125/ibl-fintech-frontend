@@ -1,12 +1,10 @@
 import { useSearchParams } from 'react-router-dom';
 
-// material-ui
 import Alert from '@mui/material/Alert';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 
-// project imports
 import { APP_AUTH } from 'config';
 
 export default function ViewOnlyAlert() {

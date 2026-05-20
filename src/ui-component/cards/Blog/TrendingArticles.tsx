@@ -1,6 +1,5 @@
 import { MouseEvent, useState } from 'react';
 
-// material-ui
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
 import CardActions from '@mui/material/CardActions';
@@ -13,14 +12,11 @@ import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 
-// project imports
 import Avatar from 'ui-component/extended/Avatar';
 import MainCard from 'ui-component/cards/MainCard';
 
-// types
 import { Article } from 'types/blog';
 
-// assets
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import FiberManualRecordTwoToneIcon from '@mui/icons-material/FiberManualRecordTwoTone';
@@ -29,7 +25,6 @@ interface TrendingArticlesProps {
   title?: string;
   articles: Article[];
 }
-// ==============================|| BLOG - TRENDING ARTICLES ||============================== //
 
 export default function TrendingArticles({ title, articles }: TrendingArticlesProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

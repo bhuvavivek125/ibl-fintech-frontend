@@ -1,6 +1,5 @@
 import React, { Activity, useEffect, useRef, useState } from 'react';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Avatar from '@mui/material/Avatar';
@@ -14,17 +13,13 @@ import Popper from '@mui/material/Popper';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// project imports
 import Transitions from 'ui-component/extended/Transitions';
 
-// assets
 import TranslateTwoToneIcon from '@mui/icons-material/TranslateTwoTone';
 import useConfig from 'hooks/useConfig';
 
-// types
 import { I18n } from 'types/config';
 
-// ==============================|| LOCALIZATION ||============================== //
 
 export default function LocalizationSection() {
   const {

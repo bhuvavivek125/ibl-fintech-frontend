@@ -1,17 +1,13 @@
-// material-ui
 import { styled, useTheme } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import MainCard from 'ui-component/cards/MainCard';
 
-// assets
 import { IconLayoutGridAdd } from '@tabler/icons-react';
 
-// styles
 const CardWrapper = styled(MainCard)(({ theme }) => ({
   background: `linear-gradient(350deg, ${theme.vars.palette.primary[800]} 40%, ${theme.vars.palette.primary.main} 100%)`,
   color: theme.vars.palette.primary.light,
@@ -41,7 +37,6 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
   }
 }));
 
-// ==============================|| DISCOUNT CARD ||============================== //
 
 interface DiscountCardProps {
   discountText: string;

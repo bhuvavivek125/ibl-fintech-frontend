@@ -1,10 +1,7 @@
-// material-ui
 import { PaletteMode } from '@mui/material/styles';
 
-// project imports
 import { extendPaletteWithChannels, withAlpha } from 'utils/colorUtils';
 
-// assets
 import defaultColor from './theme/default';
 import theme1 from './theme/theme1';
 import theme2 from './theme/theme2';
@@ -13,11 +10,8 @@ import theme4 from './theme/theme4';
 import theme5 from './theme/theme5';
 import theme6 from './theme/theme6';
 
-// types
 import { ColorProps } from 'types';
 import { PresetColor } from 'types/config';
-
-// ==============================|| DEFAULT THEME - PALETTE ||============================== //
 
 export function buildPalette(presetColor: PresetColor) {
   let colors: ColorProps;

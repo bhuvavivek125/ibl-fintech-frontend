@@ -1,6 +1,5 @@
 import { Activity, useEffect, useRef, useState } from 'react';
 
-// material-ui
 import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
@@ -9,21 +8,16 @@ import Popper from '@mui/material/Popper';
 import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
 
-// project imports
 import LocalizationSection from '../LocalizationSection';
 import Transitions from 'ui-component/extended/Transitions';
 
-// assets
 import { IconDotsVertical } from '@tabler/icons-react';
 
-// ==============================|| MOBILE HEADER ||============================== //
 
 export default function MobileSection() {
   const [open, setOpen] = useState(false);
 
-  /**
-   * anchorRef is used on different componets and specifying one type leads to other components throwing an error
-   * */
+  // anchorRef is used on different componets and specifying one type leads to other components throwing an error
   const anchorRef = useRef<any>(null);
 
   const handleToggle = () => {

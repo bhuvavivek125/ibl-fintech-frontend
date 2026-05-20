@@ -1,4 +1,3 @@
-// ==============================|| OVERRIDES - SELECT ||============================== //
 
 export default function Select() {
   return {

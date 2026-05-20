@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 
-// material-ui
 import { styled, useColorScheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -9,12 +8,10 @@ import CardMedia from '@mui/material/CardMedia';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import { ThemeMode, DASHBOARD_PATH } from 'config';
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import { gridSpacing } from 'store/constant';
 
-// assets
 import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
 
 import image from 'assets/images/maintenance/img-build.svg';
@@ -22,7 +19,6 @@ import imageBackground from 'assets/images/maintenance/img-bg-grid.svg';
 import imageDarkBackground from 'assets/images/maintenance/img-bg-grid-dark.svg';
 import imageParts from 'assets/images/maintenance/img-bg-parts.svg';
 
-// styles
 const CardMediaWrapper = styled('div')({
   maxWidth: 720,
   margin: '0 auto',
@@ -58,7 +54,6 @@ const CardMediaParts = styled('img')({
   animation: '10s blink ease-in-out infinite'
 });
 
-// ========================|| UNDER CONSTRUCTION PAGE ||======================== //
 
 export default function UnderConstruction() {
   const { colorScheme } = useColorScheme();

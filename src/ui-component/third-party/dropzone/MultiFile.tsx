@@ -1,19 +1,15 @@
-// material-ui
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 
-// third party
 import { useDropzone } from 'react-dropzone';
 
-// project imports
 import FilesPreview from './FilePreview';
 import PlaceholderContent from './PlaceHolderContent';
 import RejectionFiles from './RejectionFile';
 import { DropzopType } from 'config';
 
-// types
 import { CustomFile, UploadMultiFileProps } from 'types/dropzone';
 
 const DropzoneWrapper = styled('div')(({ theme }) => ({
@@ -25,7 +21,6 @@ const DropzoneWrapper = styled('div')(({ theme }) => ({
   '&:hover': { opacity: 0.72, cursor: 'pointer' }
 }));
 
-// ==============================|| UPLOAD - MULTIPLE FILE ||============================== //
 
 export default function MultiFileUpload({ error, showList = false, files, type, setFieldValue, sx, onUpload }: UploadMultiFileProps) {
   const { getRootProps, getInputProps, isDragActive, isDragReject, fileRejections } = useDropzone({

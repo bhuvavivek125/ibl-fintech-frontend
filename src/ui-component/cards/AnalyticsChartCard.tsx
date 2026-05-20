@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-// material-ui
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Menu from '@mui/material/Menu';
@@ -8,18 +7,14 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// third party
 import Chart, { Props as ChartProps } from 'react-apexcharts';
 
-// project imports
 import MainCard from './MainCard';
 import { GenericCardProps } from 'types';
 
-// assets
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
-// ==========================|| ANALYTICS CHART CARD ||========================== //
 
 interface AnalyticsChartCardProps extends GenericCardProps {
   title: string;

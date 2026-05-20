@@ -1,12 +1,10 @@
 import { ReactNode } from 'react';
 
-// material-ui
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// third party
 import Chart, { Props as ChartProps } from 'react-apexcharts';
 
 interface SalesLineChartCardProps {
@@ -18,7 +16,6 @@ interface SalesLineChartCardProps {
   percentage?: string;
 }
 
-// ============================|| SALES LINE CARD ||============================ //
 
 export default function SalesLineChartCard({ bgColor, chartData, footerData, icon, title, percentage }: SalesLineChartCardProps) {
   let footerHtml;

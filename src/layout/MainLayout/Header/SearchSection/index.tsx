@@ -1,6 +1,5 @@
 import { ReactNode, useState } from 'react';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import Avatar, { AvatarProps } from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
@@ -10,13 +9,10 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import Popper from '@mui/material/Popper';
 import Box from '@mui/material/Box';
 
-// third party
 import PopupState, { bindPopper, bindToggle } from 'material-ui-popup-state';
 
-// project imports
 import Transitions from 'ui-component/extended/Transitions';
 
-// assets
 import { IconAdjustmentsHorizontal, IconSearch, IconX } from '@tabler/icons-react';
 
 interface HeaderAvatarProps extends AvatarProps {
@@ -62,7 +58,6 @@ interface Props {
   popupState: any;
 }
 
-// ==============================|| SEARCH INPUT - MOBILE||============================== //
 
 function MobileSearch({ value, setValue, popupState }: Props) {
   const theme = useTheme();
@@ -109,7 +104,6 @@ function MobileSearch({ value, setValue, popupState }: Props) {
   );
 }
 
-// ==============================|| SEARCH INPUT ||============================== //
 
 export default function SearchSection() {
   const [value, setValue] = useState('');

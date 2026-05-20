@@ -1,7 +1,6 @@
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
@@ -15,12 +14,10 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import OTPInput from 'react-otp-input';
 
-// project imports
 import useAuth from 'hooks/useAuth';
 import useScriptRef from 'hooks/useScriptRef';
 import { dispatch } from 'store';
@@ -29,15 +26,12 @@ import AnimateButton from 'ui-component/extended/AnimateButton';
 import CustomFormControl from 'ui-component/extended/Form/CustomFormControl';
 import { strengthColor, strengthIndicator } from 'utils/password-strength';
 
-// assets
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { IconBug } from '@tabler/icons-react';
 
-// types
 import { StringColorProps } from 'types';
 
-// ========================|| AWS COGNITO - RESET PASSWORD ||======================== //
 
 export default function AuthResetPassword({ ...others }) {
   const theme = useTheme();

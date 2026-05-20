@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-// material-ui
 import { useTheme, styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -14,16 +13,13 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Chip from '@mui/material/Chip';
 
-// third-party
 import Chart from 'react-apexcharts';
 import { motion } from 'framer-motion';
 
-// project imports
 import MainCard from 'ui-component/cards/MainCard';
 import dashboardService from 'services/dashboard.service';
 import { gridSpacing } from 'store/constant';
 
-// assets
 import {
   IconUsers,
   IconUserCheck,
@@ -58,8 +54,6 @@ const IconWrapper = styled(Box)(({ color }: { color: string }) => ({
   background: `${color}15`,
   color: color,
 }));
-
-// ==============================|| ADMIN DASHBOARD ||============================== //
 
 const AdminDashboard: React.FC = () => {
   const theme = useTheme();

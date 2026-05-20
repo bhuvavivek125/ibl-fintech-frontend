@@ -1,15 +1,11 @@
-// third party
 import { createSlice } from '@reduxjs/toolkit';
 
-// project imports
 import axios from 'utils/axios';
 import { dispatch } from '../index';
 
-// types
 import { DefaultRootStateProps } from 'types';
 import { Address, ProductCardProps } from 'types/cart';
 
-// ==============================|| SLICE - CART ||============================== //
 
 const initialState: DefaultRootStateProps['cart'] = {
   error: null,
@@ -139,10 +135,8 @@ const slice = createSlice({
   }
 });
 
-// Reducer
 export default slice.reducer;
 
-// ==============================|| SLICE - CART ACTIONS ||============================== //
 
 export function addProduct(product: ProductCardProps, products: ProductCardProps[]) {
   return async () => {

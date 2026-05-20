@@ -1,10 +1,6 @@
-// material-ui
 import { Theme } from '@mui/material';
 
-// project imports
 import { withAlpha } from 'utils/colorUtils';
-
-// ==============================|| OVERRIDES - DATA GRID ||============================== //
 
 export default function DataGrid(theme: Theme) {
   const schemeTheme = theme.colorSchemes;

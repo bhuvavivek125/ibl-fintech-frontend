@@ -1,7 +1,5 @@
-// third party
 import firebase from 'firebase/compat/app';
 
-// project imports
 import { UserProfile } from 'types/user-profile';
 import { PopupLoginOptions, RedirectLoginOptions } from '@auth0/auth0-react';
 

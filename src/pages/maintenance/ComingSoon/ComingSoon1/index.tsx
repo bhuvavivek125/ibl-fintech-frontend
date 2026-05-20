@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-// material-ui
 import { useTheme, styled, useColorScheme } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
 import ButtonBase from '@mui/material/ButtonBase';
@@ -12,17 +11,14 @@ import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// third party
 import Lightbox from 'yet-another-react-lightbox';
 
-// project imports
 import { ThemeDirection, ThemeMode } from 'config';
 import MailerSubscriber from './MailerSubscriber';
 import Slider from './Slider';
 import useConfig from 'hooks/useConfig';
 import { gridSpacing } from 'store/constant';
 
-// assets
 import { IconBrandDribbble } from '@tabler/icons-react';
 import FiberManualRecordTwoToneIcon from '@mui/icons-material/FiberManualRecordTwoTone';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -51,7 +47,6 @@ import imageDarkSlider2 from 'assets/images/landing/pre-apps/slider-dark-2.png';
 import imageLightSlider3 from 'assets/images/landing/pre-apps/slider-light-3.png';
 import imageDarkSlider3 from 'assets/images/landing/pre-apps/slider-dark-3.png';
 
-// styles
 const CardMediaWrapper = styled('div')(({ theme }) => ({
   maxWidth: 720,
   margin: '0 auto',
@@ -146,7 +141,6 @@ const CardMediaWidget = styled('img')({
   }
 });
 
-// ===========================|| COMING SOON 1 ||=========================== //
 
 export default function ComingSoon1() {
   const theme = useTheme();

@@ -7,8 +7,6 @@ type useLocalReturn<T> = {
   resetState: () => void;
 };
 
-// ==============================|| HOOKS - LOCAL STORAGE ||============================== //
-
 export function useLocalStorage<T>(key: string, defaultValue: T): useLocalReturn<T> {
   // Load initial state from localStorage or fallback to default
   const readValue = (): T => {

@@ -1,4 +1,3 @@
-// ==============================|| OVERRIDES - PAPER ||============================== //
 
 export default function Paper(borderRadius: number) {
   return {

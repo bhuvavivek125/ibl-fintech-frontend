@@ -1,20 +1,16 @@
-// material-ui
 import { Theme, useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
 import Stack from '@mui/material/Stack';
 
-// project imports
 import useAuth from 'hooks/useAuth';
 import { withAlpha } from 'utils/colorUtils';
 
-// assets
 import Google from 'assets/images/icons/google.svg';
 import Twitter from 'assets/images/icons/twitter.svg';
 import Facebook from 'assets/images/icons/facebook.svg';
 
-// ==============================|| FIREBASE - SOCIAL BUTTON ||============================== //
 
 export default function FirebaseSocial() {
   const theme = useTheme();

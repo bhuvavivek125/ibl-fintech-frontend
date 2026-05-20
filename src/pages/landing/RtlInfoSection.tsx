@@ -1,20 +1,16 @@
-// material-ui
 import { styled, useColorScheme, useTheme } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// types
 import { ThemeMode } from 'config';
 
-// assets
 import LightRTLImage from 'assets/images/landing/bg-rtl-info-light.svg';
 import DarkRTLImage from 'assets/images/landing/bg-rtl-info-dark.svg';
 
 import BgDark from 'assets/images/landing/bg-rtl-info-block-dark.png';
 import BgLight from 'assets/images/landing/bg-rtl-info-block-light.png';
 
-// styles
 const HeaderImage = styled('img')(({ theme }) => ({
   maxWidth: '100%',
   height: '100%',

@@ -1,13 +1,9 @@
-// third party
 import { SnackbarProvider } from 'notistack';
 
-// project imports
 import { useSelector } from 'store';
 
-// assets
 import { IconCircleCheck, IconSquareRoundedX, IconInfoCircle, IconAlertCircle } from '@tabler/icons-react';
 
-// ===========================|| SNACKBAR - NOTISTACK ||=========================== //
 
 export default function Notistack({ children }: any) {
   const snackbar = useSelector((state) => state.snackbar);

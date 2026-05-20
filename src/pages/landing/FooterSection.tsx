@@ -1,6 +1,5 @@
 import { Link as RouterLink } from 'react-router-dom';
 
-// material-ui
 import { useTheme, styled } from '@mui/material/styles';
 import Chip from '@mui/material/Chip';
 import Container from '@mui/material/Container';
@@ -11,11 +10,9 @@ import Stack from '@mui/material/Stack';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 
-// project imports
 import { frameworks } from './FrameworkSection';
 import Logo from 'ui-component/Logo';
 
-// assets
 import { IconBrandDiscord } from '@tabler/icons-react';
 
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -32,7 +29,6 @@ const FooterLink = styled(Link)(({ theme }) => ({
   '&:hover, &:active': { color: theme.vars.palette.secondary[200] }
 }));
 
-// =============================|| LANDING - FOOTER SECTION ||============================= //
 
 export default function FooterSection() {
   const theme = useTheme();

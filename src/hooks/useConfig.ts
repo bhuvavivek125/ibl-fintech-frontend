@@ -1,8 +1,7 @@
 import { use } from 'react';
 import { ConfigContext } from 'contexts/ConfigContext';
 
-// ==============================|| CONFIG - HOOKS ||============================== //
-
+// Use the context provided by ConfigProvider
 export default function useConfig() {
   const context = use(ConfigContext);
 

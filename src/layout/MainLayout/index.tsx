@@ -1,7 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import { Outlet } from 'react-router-dom';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import AppBar from '@mui/material/AppBar';
@@ -9,7 +8,6 @@ import Container from '@mui/material/Container';
 import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
 
-// project imports
 import Footer from './Footer';
 import Header from './Header';
 import Sidebar from './Sidebar';
@@ -23,7 +21,6 @@ import useConfig from 'hooks/useConfig';
 import { handlerDrawerOpen, useGetMenuMaster } from 'api/menu';
 import Customization from 'layout/Customization';
 
-// ==============================|| MAIN LAYOUT ||============================== //
 
 export default function MainLayout() {
   const theme = useTheme();

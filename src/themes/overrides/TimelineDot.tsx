@@ -1,4 +1,3 @@
-// ==============================|| OVERRIDES - TIMELINE DOT ||============================== //
 
 export default function TimelineDot() {
   return {

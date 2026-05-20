@@ -2,13 +2,10 @@
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
-// third party
 import { useSnackbar } from 'notistack';
 
-// project imports
 import SubCard from 'ui-component/cards/SubCard';
 
-// ==============================|| NOTISTACK - DISMISS ||============================== //
 
 export default function DismissSnackBar() {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();

@@ -1,7 +1,5 @@
-// material-ui
 import { TypographyVariantsOptions } from '@mui/material/styles';
 
-// types
 import { FontFamily } from 'types/config';
 
 export default function Typography(fontFamily: FontFamily): TypographyVariantsOptions {

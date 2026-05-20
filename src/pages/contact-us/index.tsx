@@ -1,13 +1,9 @@
-// material-ui
 import Box from '@mui/material/Box';
 
-// project imports
 import ContactCard from './ContactCard';
 
-// assets
 import headerBackground from 'assets/images/landing/bg-header.jpg';
 
-// ============================|| CONTACT US ||============================ //
 
 export default function ContactUsPage() {
   return (

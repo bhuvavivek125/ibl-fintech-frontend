@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
@@ -22,11 +21,9 @@ import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// third party
 import { FormattedMessage } from 'react-intl';
 import { useSnackbar } from 'notistack';
 
-// project imports
 import UpgradePlanCard from './UpgradePlanCard';
 import MainCard from 'ui-component/cards/MainCard';
 import Transitions from 'ui-component/extended/Transitions';
@@ -35,12 +32,10 @@ import useAdminAuth from 'hooks/useAdminAuth';
 import { useModuleAccess } from 'hooks/useModuleAccess';
 import { adminLogout } from 'api/admin-auth';
 
-// assets
 import User1 from 'assets/images/users/user-round.svg';
 import { IconLogout, IconSearch, IconSettings, IconUser } from '@tabler/icons-react';
 import useConfig from 'hooks/useConfig';
 
-// ==============================|| PROFILE MENU ||============================== //
 
 export default function ProfileSection() {
   const theme = useTheme();

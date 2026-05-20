@@ -1,4 +1,3 @@
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
 import CardMedia from '@mui/material/CardMedia';
@@ -8,14 +7,11 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// third party
 import Slider from 'react-slick';
 
-// project imports
 import SubCard from 'ui-component/cards/SubCard';
 import { withAlpha } from 'utils/colorUtils';
 
-// assets
 import Angular from 'assets/images/landing/frameworks/angular.svg';
 import Bootstrap from 'assets/images/landing/frameworks/bootstrap.svg';
 import Django from 'assets/images/landing/frameworks/django.svg';
@@ -75,7 +71,6 @@ export const frameworks = [
   }
 ];
 
-// =============================|| LANDING - FRAMWORK SECTION ||============================= //
 
 export default function FrameworkSection() {
   const theme = useTheme();

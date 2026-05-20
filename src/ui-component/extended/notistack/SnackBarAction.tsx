@@ -1,14 +1,10 @@
-// material-ui
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
-// third party
 import { SnackbarKey, useSnackbar } from 'notistack';
 
-// project imports
 import SubCard from 'ui-component/cards/SubCard';
 
-// ==============================|| NOTISTACK - ACTION BUTTONS ||============================== //
 
 export default function SnackBarAction() {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();

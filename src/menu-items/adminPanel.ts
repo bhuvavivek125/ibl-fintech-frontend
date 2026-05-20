@@ -1,4 +1,3 @@
-// assets
 import {
   IconDashboard,
   IconUsers,
@@ -8,7 +7,6 @@ import {
   IconHistory
 } from '@tabler/icons-react';
 
-// types
 import { NavItemType } from 'types';
 
 const icons = {
@@ -20,7 +18,6 @@ const icons = {
   IconHistory
 };
 
-// ==============================|| MENU ITEMS - Admin Panel ||============================== //
 
 const adminPanel: NavItemType = {
   id: 'admin-panel',

@@ -1,7 +1,5 @@
-// third party
 import { createSlice } from '@reduxjs/toolkit';
 
-// ==============================|| SLICE - AUTO DISBURSEMENT ||============================== //
 
 interface AutoDisbursementState {
   isEnabled: boolean;

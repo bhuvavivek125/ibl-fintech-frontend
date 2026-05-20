@@ -1,19 +1,15 @@
 import { Link } from 'react-router-dom';
 
-// material-ui
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import { GenericCardProps } from 'types';
 
-// assets
 import ArrowRightAltRoundedIcon from '@mui/icons-material/ArrowRightAltRounded';
 
-// ==============================|| BILL CARD ||============================== //
 
 interface BillCardProps extends GenericCardProps {
   link: string;

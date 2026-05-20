@@ -1,26 +1,21 @@
 import { useState, ChangeEvent, useEffect } from 'react';
 
-// material-ui
 import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
 import Radio from '@mui/material/Radio';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import RadioGroup from '@mui/material/RadioGroup';
 
-// third party
 import { SnackbarProvider, useSnackbar } from 'notistack';
 
-// project imports
 import SubCard from 'ui-component/cards/SubCard';
 
 import { dispatch, useSelector } from 'store';
 import { handlerIconVariants } from 'store/slices/snackbar';
 
-// assets
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 
-// ==============================|| NOTISTACK - CUSTOM ICON ||============================== //
 
 function IconVariantsContent() {
   const [value, setValue] = useState('usedefault');

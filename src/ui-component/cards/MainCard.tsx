@@ -1,6 +1,5 @@
 import { CSSProperties, ReactNode, Ref } from 'react';
 
-// material-ui
 import { useColorScheme } from '@mui/material/styles';
 import Card, { CardProps } from '@mui/material/Card';
 import CardContent, { CardContentProps } from '@mui/material/CardContent';
@@ -8,7 +7,6 @@ import CardHeader, { CardHeaderProps } from '@mui/material/CardHeader';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import { ThemeMode } from 'config';
 
 // constant
@@ -16,7 +14,6 @@ const headerStyle = {
   '& .MuiCardHeader-action': { mr: 0 }
 };
 
-// ==============================|| CUSTOM MAIN CARD ||============================== //
 
 export interface MainCardProps {
   border?: boolean;

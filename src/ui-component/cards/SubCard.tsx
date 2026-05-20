@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 
-// material-ui
 import { useColorScheme } from '@mui/material/styles';
 import Card, { CardProps } from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -9,7 +8,6 @@ import CardHeader from '@mui/material/CardHeader';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import { ThemeMode } from 'config';
 
 interface SubCardProps {
@@ -26,7 +24,6 @@ interface SubCardProps {
   actions?: ReactNode | string;
 }
 
-// ==============================|| CUSTOM SUB CARD ||============================== //
 
 export default function SubCard({
   children,

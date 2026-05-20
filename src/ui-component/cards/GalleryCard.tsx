@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
 import Card from '@mui/material/Card';
@@ -11,19 +10,15 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import Avatar from 'ui-component/extended/Avatar';
 import { gridSpacing } from 'store/constant';
 import { getImageUrl, ImagePath } from 'utils/getImageUrl';
 
-// assets
 import MoreVertTwoToneIcon from '@mui/icons-material/MoreVertTwoTone';
 import EventTwoToneIcon from '@mui/icons-material/EventTwoTone';
 
-// types
 import { GenericCardProps } from 'types';
 
-// ==============================|| SOCIAL PROFILE - GALLERY CARD ||============================== //
 
 export default function GalleryCard({ dateTime, image, title }: GenericCardProps) {
   const theme = useTheme();

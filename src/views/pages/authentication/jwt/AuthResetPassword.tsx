@@ -1,7 +1,6 @@
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-// material-ui
 import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
@@ -13,11 +12,9 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 
-// project imports
 import useAuth from 'hooks/useAuth';
 import useScriptRef from 'hooks/useScriptRef';
 import AnimateButton from 'ui-component/extended/AnimateButton';
@@ -27,14 +24,11 @@ import { strengthColor, strengthIndicator } from 'utils/password-strength';
 import { dispatch } from 'store';
 import { openSnackbar } from 'store/slices/snackbar';
 
-// assets
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-// types
 import { StringColorProps } from 'types';
 
-// ========================|| JWT - RESET PASSWORD ||======================== //
 
 export default function AuthResetPassword({ link, ...others }: { link?: string }) {
   const navigate = useNavigate();

@@ -1,14 +1,10 @@
-// third party
 import { createSlice } from '@reduxjs/toolkit';
 
-// project imports
 import axios from 'utils/axios';
 import { dispatch } from '../index';
 
-// types
 import { DefaultRootStateProps } from 'types';
 
-// ==============================|| SLICE - MAIL ||============================== //
 
 const initialState: DefaultRootStateProps['mail'] = {
   error: null,
@@ -38,10 +34,8 @@ const slice = createSlice({
   }
 });
 
-// Reducer
 export default slice.reducer;
 
-// ==============================|| SLICE - MAIL ACTIONS ||============================== //
 
 export function getMails() {
   return async () => {

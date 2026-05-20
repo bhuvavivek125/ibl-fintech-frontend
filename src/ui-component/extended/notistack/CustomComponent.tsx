@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react';
 
-// material-ui
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -11,13 +10,10 @@ import Collapse from '@mui/material/Collapse';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 
-// third party
 import { enqueueSnackbar, useSnackbar, SnackbarContent, SnackbarKey, SnackbarMessage } from 'notistack';
 
-// project imports
 import SubCard from 'ui-component/cards/SubCard';
 
-// assets
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
@@ -78,7 +74,6 @@ function CustomNotistack({ id, message }: { id: SnackbarKey; message: SnackbarMe
   );
 }
 
-// ==============================|| NOTISTACK - CUSTOM STYLE ||============================== //
 
 export default function CustomComponent() {
   return (

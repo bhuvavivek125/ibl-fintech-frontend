@@ -1,6 +1,5 @@
 import { createContext, ReactElement, useEffect, useReducer } from 'react';
 
-// third party
 import { Chance } from 'chance';
 import { jwtDecode } from 'jwt-decode';
 
@@ -8,11 +7,9 @@ import { jwtDecode } from 'jwt-decode';
 import { LOGIN, LOGOUT } from 'store/actions';
 import accountReducer from 'store/accountReducer';
 
-// project imports
 import Loader from 'ui-component/Loader';
 import axios from 'utils/axios';
 
-// types
 import { KeyedObject } from 'types';
 import { InitialLoginContextProps, JWTContextType } from 'types/auth';
 
@@ -50,7 +47,6 @@ function setSession(serviceToken?: string | null): void {
   }
 }
 
-// ==============================|| JWT CONTEXT & PROVIDER ||============================== //
 
 const JWTContext = createContext<JWTContextType | null>(null);
 

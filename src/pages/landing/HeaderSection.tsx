@@ -1,7 +1,6 @@
 import { Link as RouterLink } from 'react-router-dom';
 import { useMemo } from 'react';
 
-// material-ui
 import { styled, useColorScheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
@@ -12,16 +11,13 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// third party
 import { motion } from 'framer-motion';
 
-// project imports
 import AnimateButton from 'ui-component/extended/AnimateButton';
 
 import { ThemeDirection, ThemeMode, DASHBOARD_PATH } from 'config';
 import useConfig from 'hooks/useConfig';
 
-// assets
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import TechLight from 'assets/images/landing/berry_tech_light.svg';
 import TechDark from 'assets/images/landing/berry_tech_dark.svg';
@@ -31,7 +27,6 @@ import widget2 from 'assets/images/landing/hero-widget-2.png';
 import BgDark from 'assets/images/landing/bg-hero-block-dark.png';
 import BgLight from 'assets/images/landing/bg-hero-block-light.png';
 
-// styles
 const HeaderImage = styled('img')(({ theme }) => ({
   maxWidth: '100%',
   borderRadius: 20,
@@ -50,7 +45,6 @@ const HeaderAnimationImage = styled('img')({
   filter: 'drop-shadow(0px 0px 50px rgb(33 150 243 / 30%))'
 });
 
-// ==============================|| LANDING - HEADER PAGE ||============================== //
 
 export default function HeaderSection() {
   const { colorScheme } = useColorScheme();

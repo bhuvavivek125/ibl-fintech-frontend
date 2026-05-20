@@ -1,4 +1,3 @@
-// material-ui
 import { styled, useColorScheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -8,15 +7,12 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-// third party
 import { useTimer } from 'react-timer-hook';
 
-// project imports
 import { ThemeMode } from 'config';
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import { gridSpacing } from 'store/constant';
 
-// assets
 import imageGrid from 'assets/images/maintenance/img-soon-grid.svg';
 import imageDarkGrid from 'assets/images/maintenance/img-soon-grid-dark.svg';
 import imageBlock from 'assets/images/maintenance/img-soon-block.svg';
@@ -25,7 +21,6 @@ import imagePurpleBlock from 'assets/images/maintenance/img-soon-purple-block.sv
 
 import NotificationsActiveTwoToneIcon from '@mui/icons-material/NotificationsActiveTwoTone';
 
-// styles
 const CardMediaWrapper = styled('div')({
   maxWidth: 720,
   margin: '0 auto',
@@ -85,7 +80,6 @@ const CardMediaPurple = styled('img')({
   animation: '12s wings ease-in-out infinite'
 });
 
-// ===========================|| COMING SOON 2 ||=========================== //
 
 export default function ComingSoon2() {
   const { colorScheme } = useColorScheme();

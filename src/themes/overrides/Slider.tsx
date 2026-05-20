@@ -1,10 +1,6 @@
-// material-ui
 import { Theme } from '@mui/material/styles';
 
-// project imports
 import { withAlpha } from 'utils/colorUtils';
-
-// ==============================|| OVERRIDES - SLIDER ||============================== //
 
 export default function Slider(theme: Theme) {
   return {

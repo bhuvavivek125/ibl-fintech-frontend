@@ -1,13 +1,10 @@
-// material-ui
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-// third party
 import Slider, { Settings } from 'react-slick';
 
-// types
 import { AuthSliderProps } from 'types';
 
 const CustomSlider = styled(Slider)(({ theme }) => ({

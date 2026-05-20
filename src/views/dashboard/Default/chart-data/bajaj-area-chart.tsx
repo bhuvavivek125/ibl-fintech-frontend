@@ -1,6 +1,5 @@
 import { ApexOptions } from 'apexcharts';
 
-// ==============================|| DASHBOARD - BAJAJ AREA CHART ||============================== //
 
 const chartOptions: ApexOptions = {
   chart: {

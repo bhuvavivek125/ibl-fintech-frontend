@@ -1,9 +1,7 @@
-// third party
 import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-// project imports
 import snackbarReducer from './slices/snackbar';
 import customerReducer from './slices/customer';
 import contactReducer from './slices/contact';
@@ -17,7 +15,6 @@ import kanbanReducer from './slices/kanban';
 import autoDisbursementReducer from './slices/autoDisbursement';
 import mailSettingsReducer from './slices/mailSettings';
 
-// ==============================|| COMBINE REDUCER ||============================== //
 
 const reducer = combineReducers({
   snackbar: snackbarReducer,

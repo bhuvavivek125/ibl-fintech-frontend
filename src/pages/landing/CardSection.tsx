@@ -1,16 +1,13 @@
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 
-// project imports
 import FadeInWhenVisible from './Animation';
 import SubCard from 'ui-component/cards/SubCard';
 import Avatar from 'ui-component/extended/Avatar';
 
-// assets
 import GridViewIcon from '@mui/icons-material/GridView';
 import WidgetsOutlinedIcon from '@mui/icons-material/WidgetsOutlined';
 import WebOutlinedIcon from '@mui/icons-material/WebOutlined';
@@ -39,7 +36,6 @@ const landingCards = [
   }
 ];
 
-// =============================|| LANDING - CARD SECTION ||============================= //
 
 export default function CardSection() {
   const theme = useTheme();

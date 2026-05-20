@@ -1,6 +1,5 @@
 import { Activity, memo, useLayoutEffect, useState, useContext } from 'react';
 
-// material-ui
 import { Theme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Divider from '@mui/material/Divider';
@@ -8,7 +7,6 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// project imports
 import NavItem from './NavItem';
 import NavGroup from './NavGroup';
 import { MenuOrientation } from 'config';
@@ -19,10 +17,8 @@ import { filterMenuByPermissions, extractPermissionSlugs } from 'utils/filterMen
 
 import { HORIZONTAL_MAX_ITEM } from 'config';
 
-// types
 import { NavItemType } from 'types';
 
-// ==============================|| SIDEBAR MENU LIST ||============================== //
 
 function MenuList() {
   const downMD = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));

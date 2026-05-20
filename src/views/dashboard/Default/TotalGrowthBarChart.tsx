@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 
-// material-ui
 import { useColorScheme, useTheme } from '@mui/material/styles';
 import MenuItem from '@mui/material/MenuItem';
 import Stack from '@mui/material/Stack';
@@ -8,10 +7,8 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// third party
 import Chart from 'react-apexcharts';
 
-// project imports
 import useConfig from 'hooks/useConfig';
 import SkeletonTotalGrowthBarChart from 'ui-component/cards/Skeleton/TotalGrowthBarChart';
 import MainCard from 'ui-component/cards/MainCard';
@@ -33,7 +30,6 @@ const series = [
   { name: 'Maintenance', data: [0, 0, 75, 0, 0, 115, 0, 0, 0, 0, 150, 0] }
 ];
 
-// ==============================|| DASHBOARD DEFAULT - TOTAL GROWTH BAR CHART ||============================== //
 
 interface TotalGrowthBarChartProps {
   isLoading: boolean;

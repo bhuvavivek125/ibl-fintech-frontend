@@ -1,13 +1,9 @@
-// material-ui
 import { Theme, SxProps } from '@mui/material/styles';
 
-// project imports
 import { DropzopType } from 'config';
 
-// third party
 import { DropzoneOptions } from 'react-dropzone';
 
-// ==============================|| TYPES - DROPZONE ||============================== //
 
 export interface CustomFile extends File {
   path?: string;

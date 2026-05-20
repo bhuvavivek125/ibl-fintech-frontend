@@ -1,8 +1,5 @@
-// project imports
 import { ThemeMode } from 'config';
 import { withAlpha } from 'utils/colorUtils';
-
-// ==============================|| DEFAULT THEME - CUSTOM SHADOWS ||============================== //
 
 function createCustomShadow(palette: any, baseColor: string) {
   const transparent = withAlpha(baseColor, 0.24);

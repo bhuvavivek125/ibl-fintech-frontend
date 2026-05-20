@@ -1,26 +1,21 @@
 import { useEffect, useState } from 'react';
 
-// material-ui
 import { useColorScheme, useTheme } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// third party
 import Chart from 'react-apexcharts';
 
-// project imports
 import marketShareChartOption from './chart-data/market-share-area-chart';
 import { ThemeMode } from 'config';
 import useConfig from 'hooks/useConfig';
 import MainCard from 'ui-component/cards/MainCard';
 import { withAlpha } from 'utils/colorUtils';
 
-// assets
 import { IconBrandFacebook, IconBrandYoutube, IconBrandTwitter } from '@tabler/icons-react';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 
-// ===========================|| DASHBOARD ANALYTICS - MARKET SHARE AREA CHART CARD ||=========================== //
 
 export default function MarketShareAreaChartCard() {
   const theme = useTheme();

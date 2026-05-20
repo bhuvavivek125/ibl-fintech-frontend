@@ -1,12 +1,9 @@
-// material-ui
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-// project imports
 import SubCard from 'ui-component/cards/SubCard';
 
-// ==============================|| BLOG - VIDEO CARD ||============================== //
 
 export default function VideoCard() {
   return (

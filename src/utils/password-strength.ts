@@ -1,6 +1,4 @@
-/**
- * Password validator for login pages
- */
+// Password validator for login pages
 import { NumbColorFunc, StringBoolFunc, StringNumFunc } from 'types';
 import value from '../themes/theme/default';
 

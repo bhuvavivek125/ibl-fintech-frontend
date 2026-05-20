@@ -1,9 +1,7 @@
 import { RouterProvider } from 'react-router-dom';
 
-// routing
 import router from 'routes';
 
-// project imports
 import Locales from 'ui-component/Locales';
 import NavigationScroll from 'layout/NavigationScroll';
 import RTLLayout from 'ui-component/RTLLayout';
@@ -19,7 +17,6 @@ import { AdminAuthProvider } from 'contexts/AdminAuthContext';
 
 console.log('App is running');
 
-// ==============================|| APP ||============================== //
 
 export default function App() {
   return (

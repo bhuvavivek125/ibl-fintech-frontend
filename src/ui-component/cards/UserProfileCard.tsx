@@ -1,4 +1,3 @@
-// material-ui
 import { useTheme, styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -8,21 +7,17 @@ import Chip from '@mui/material/Chip';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import Avatar from '../extended/Avatar';
 import { gridSpacing } from 'store/constant';
 import { getImageUrl, ImagePath } from 'utils/getImageUrl';
 
-// assets
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import ChatBubbleTwoToneIcon from '@mui/icons-material/ChatBubbleTwoTone';
 
-// types
 import { UserProfileCardProps } from 'types/user';
 
-// styles
 const FacebookWrapper = styled(Button)({
   padding: 8,
   background: 'rgba(66, 103, 178, 0.2)',
@@ -65,7 +60,6 @@ const LinkedInWrapper = styled(Button)({
   }
 });
 
-// ==============================|| USER PROFILE CARD ||============================== //
 
 export default function UserProfileCard({ avatar, name, profile, role, status }: UserProfileCardProps) {
   const theme = useTheme();

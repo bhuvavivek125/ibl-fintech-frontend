@@ -1,6 +1,5 @@
 import { ApexOptions } from 'apexcharts';
 
-// ==============================|| DASHBOARD - TOTAL ORDER LINE CHART ||============================== //
 
 const chartOptions: ApexOptions = {
   chart: {

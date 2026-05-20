@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-// material-ui
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 import Menu from '@mui/material/Menu';
@@ -10,21 +9,17 @@ import Stack from '@mui/material/Stack';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
-// third party
 import { format } from 'date-fns';
 
-// project imports
 import Avatar from '../extended/Avatar';
 import { getImageUrl, ImagePath } from 'utils/getImageUrl';
 
-// assets
 import StarTwoToneIcon from '@mui/icons-material/StarTwoTone';
 import StarBorderTwoToneIcon from '@mui/icons-material/StarBorderTwoTone';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 
-// ==============================|| PRODUCT DETAILS - REVIEW ||============================== //
 
 interface ReviewProps {
   avatar: string;

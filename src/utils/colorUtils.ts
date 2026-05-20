@@ -1,13 +1,6 @@
-// material-ui
 import { alpha } from '@mui/material/styles';
 
-/**
- * Converts a hex color string to an RGB channel string ("r g b").
- *
- * @param hex - The hex color string (e.g. "#C8FAD6", "#FFF", "#FF00FFAA").
- * @returns The RGB channel string (e.g. "200 250 214").
- * @throws {Error} If the input is not a valid hex color.
- */
+// Converts a hex color string to an RGB channel string ("r g b").
 export function hexToRgbChannel(hex: string): string {
   let cleaned = hex.replace(/^#/, '');
 

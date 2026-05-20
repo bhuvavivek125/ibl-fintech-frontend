@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -13,11 +12,9 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 
-// project imports
 import { gridSpacing } from 'store/constant';
 import { getImageUrl, ImagePath } from 'utils/getImageUrl';
 
-// assets
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import PinDropTwoToneIcon from '@mui/icons-material/PinDropTwoTone';
 import VideoCallTwoToneIcon from '@mui/icons-material/VideoCallTwoTone';
@@ -27,10 +24,8 @@ import FavoriteTwoToneIcon from '@mui/icons-material/FavoriteTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import GroupTwoToneIcon from '@mui/icons-material/GroupTwoTone';
 
-// types
 import { FriendsCardProps } from 'types/user';
 
-// ==============================|| SOCIAL PROFILE - FRIENDS CARD ||============================== //
 
 export default function FriendsCard({ avatar, location, name }: FriendsCardProps) {
   const theme = useTheme();

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// Material-UI
 import {
   Box,
   Button,
@@ -21,12 +20,10 @@ import { Theme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
-// Project imports
 import Logo from 'ui-component/Logo';
 import useAdminAuth from 'hooks/useAdminAuth';
 import { DASHBOARD_PATH } from 'config';
 
-// ==============================|| ADMIN LOGIN PAGE ||============================== //
 
 export default function AdminLogin() {
   const navigate = useNavigate();

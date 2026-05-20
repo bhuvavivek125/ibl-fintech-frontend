@@ -1,11 +1,9 @@
-// material-ui
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// types
 import { GenericCardProps } from 'types';
 
 interface UserCountCardProps {
@@ -15,7 +13,6 @@ interface UserCountCardProps {
   color: string;
 }
 
-// =============================|| USER NUM CARD ||============================= //
 
 export default function UserCountCard({ primary, secondary, iconPrimary, color }: UserCountCardProps) {
   const IconPrimary = iconPrimary!;

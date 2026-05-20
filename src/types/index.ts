@@ -1,13 +1,10 @@
 import React, { FunctionComponent, ReactElement } from 'react';
 
-// material-ui
 import { OverridableComponent } from '@mui/material/OverridableComponent';
 import { SvgIconTypeMap } from '@mui/material/SvgIcon';
 import { ChipProps } from '@mui/material/Chip';
 import { TableCellProps } from '@mui/material/TableCell';
 
-// project imports
-// import { TablerIcon } from '@tabler/icons';
 import { CartStateProps } from './cart';
 import { KanbanStateProps } from './kanban';
 import { CustomerStateProps } from './customer';
@@ -152,7 +149,7 @@ export interface FormInputProps {
   };
 }
 
-/** ---- Common Functions types ---- */
+
 
 export type StringBoolFunc = (s: string) => boolean;
 export type StringNumFunc = (s: string) => number;

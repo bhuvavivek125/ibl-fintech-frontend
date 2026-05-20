@@ -1,23 +1,18 @@
 import { useState, useRef, useEffect } from 'react';
 
-// material-ui
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 
-// third party
 import { useSnackbar, SnackbarKey } from 'notistack';
 
-// project imports
 import SubCard from 'ui-component/cards/SubCard';
 import { dispatch } from 'store';
 import { handlerIncrease } from 'store/slices/snackbar';
 
-// assets
 import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 
-// ==============================|| NOTISTACK - MAXIMUM SNACKBAR ||============================== //
 
 export default function MaxSnackbar() {
   const width = { minWidth: 'auto' };

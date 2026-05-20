@@ -1,20 +1,17 @@
 import { ReactNode } from 'react';
 
-// material-ui
 import MuiAvatar, { AvatarProps } from '@mui/material/Avatar';
 import { OverridableComponent } from '@mui/material/OverridableComponent';
 
-// types
 import { LinkTarget } from 'types';
 
-// ==============================|| AVATAR ||============================== //
 
 interface avatarProps extends AvatarProps {
   alt?: string;
   src?: string;
   className?: string;
   color?: string;
-  component?: OverridableComponent<any> /** Any component can override */;
+  component?: OverridableComponent<any> ;
   target?: LinkTarget;
   href?: string;
   sx?: AvatarProps['sx'];

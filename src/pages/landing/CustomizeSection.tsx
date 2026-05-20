@@ -1,4 +1,3 @@
-// material-ui
 import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
 import Container from '@mui/material/Container';
@@ -7,7 +6,6 @@ import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-// assets
 import { IconCircleCheck } from '@tabler/icons-react';
 import DownloadIcon from '@mui/icons-material/Download';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -15,7 +13,6 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LayerLeft from 'assets/images/landing/customization-left.png';
 import LayerRight from 'assets/images/landing/customization-right.png';
 
-// ==============================|| LANDING - CUSTOMIZE ||============================== //
 
 export default function CustomizeSection() {
   const listSX = {

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-// material-ui
 import Button from '@mui/material/Button';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -10,7 +9,6 @@ import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import MainCard from './MainCard';
 import SkeletonProductPlaceholder from 'ui-component/cards/Skeleton/ProductPlaceholder';
 import { useDispatch, useSelector } from 'store';
@@ -19,10 +17,8 @@ import { openSnackbar } from 'store/slices/snackbar';
 import { ProductCardProps } from 'types/cart';
 import { getImageUrl, ImagePath } from 'utils/getImageUrl';
 
-// assets
 import ShoppingCartTwoToneIcon from '@mui/icons-material/ShoppingCartTwoTone';
 
-// ==============================|| PRODUCT CARD ||============================== //
 
 export default function ProductCard({ id, color, name, image, description, offerPrice, salePrice, rating }: ProductCardProps) {
   const dispatch = useDispatch();

@@ -1,4 +1,3 @@
-// material-ui
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
@@ -6,19 +5,15 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// project imports
 import Avatar from 'ui-component/extended/Avatar';
 import { gridSpacing } from 'store/constant';
 import { getImageUrl, ImagePath } from 'utils/getImageUrl';
 
-// assets
 import ChatBubbleTwoToneIcon from '@mui/icons-material/ChatBubbleTwoTone';
 import PhoneTwoToneIcon from '@mui/icons-material/PhoneTwoTone';
 
-// types
 import { UserProfile } from 'types/user-profile';
 
-// ==============================|| USER CONTACT LIST ||============================== //
 
 interface ContactListProps extends UserProfile {
   onActive: () => void;

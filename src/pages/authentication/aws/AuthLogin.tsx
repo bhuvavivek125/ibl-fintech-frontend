@@ -1,7 +1,6 @@
 import { MouseEvent, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
-// material-ui
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -14,21 +13,17 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 
-// project imports
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import CustomFormControl from 'ui-component/extended/Form/CustomFormControl';
 import useAuth from 'hooks/useAuth';
 import useScriptRef from 'hooks/useScriptRef';
 
-// assets
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-// ===============================|| AWS COGNITO - LOGIN ||=============================== //
 
 export default function AwsCognitoLogin({ ...others }) {
   const { login, isLoggedIn } = useAuth();

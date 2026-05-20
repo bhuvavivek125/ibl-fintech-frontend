@@ -1,18 +1,14 @@
 import { ReactElement } from 'react';
 
-// material-ui
 import { useColorScheme, useTheme } from '@mui/material/styles';
 import CardMedia from '@mui/material/CardMedia';
 import Box from '@mui/material/Box';
 
-// project imports
 import { ThemeMode } from 'config';
 
-// assets
 import AuthPattern from 'assets/images/auth/img-a2-grid.svg';
 import AuthPatternDark from 'assets/images/auth/img-a2-grid-dark.svg';
 
-// ===========================|| BACKGROUND GRID PATTERN 2 ||=========================== //
 
 export default function BackgroundPattern2({ children }: { children: ReactElement | ReactElement[] }) {
   const theme = useTheme();

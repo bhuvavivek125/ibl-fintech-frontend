@@ -1,4 +1,3 @@
-// material-ui
 import Link from '@mui/material/Link';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -7,10 +6,8 @@ import ListItemText from '@mui/material/ListItemText';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 
-// project imports
 import SubCard from 'ui-component/cards/SubCard';
 
-// assets
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
@@ -33,7 +30,6 @@ const socialData = [
   }
 ];
 
-// ==============================|| BLOG - SOCIAL CARD ||============================== //
 
 export default function SocialCard() {
   return (

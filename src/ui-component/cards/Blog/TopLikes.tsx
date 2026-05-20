@@ -1,6 +1,5 @@
 import { SyntheticEvent, useState } from 'react';
 
-// material-ui
 import Button from '@mui/material/Button';
 import CardActions from '@mui/material/CardActions';
 import Menu from '@mui/material/Menu';
@@ -11,16 +10,13 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import IconButton from '@mui/material/IconButton';
 import ListItemText from '@mui/material/ListItemText';
 
-// project imports
 import Avatar from 'ui-component/extended/Avatar';
 import MainCard from 'ui-component/cards/MainCard';
 
-// assets
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import PersonAddAlt1OutlinedIcon from '@mui/icons-material/PersonAddAlt1Outlined';
 
-// ==============================|| BLOG - TOP LIKES ||============================== //
 
 interface User {
   name: string;

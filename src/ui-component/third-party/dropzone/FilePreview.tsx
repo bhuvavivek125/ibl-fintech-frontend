@@ -1,4 +1,3 @@
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import CardMedia from '@mui/material/CardMedia';
 import List from '@mui/material/List';
@@ -6,19 +5,15 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItem from '@mui/material/ListItem';
 import IconButton from '@mui/material/IconButton';
 
-// project imports
 import { DropzopType } from 'config';
 import useConfig from 'hooks/useConfig';
 import getDropzoneData from 'utils/getDropzoneData';
 
-// assets
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
-// types
 import { FilePreviewProps } from 'types/dropzone';
 
-// ==============================|| MULTI UPLOAD - PREVIEW ||============================== //
 
 export default function FilesPreview({ showList = false, files, onRemove, type }: FilePreviewProps) {
   const {

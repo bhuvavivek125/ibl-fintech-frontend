@@ -1,6 +1,5 @@
 import React from 'react';
 
-// material-ui
 import { useTheme, styled } from '@mui/material/styles';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
@@ -16,17 +15,14 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ToggleButton from '@mui/material/ToggleButton';
 import Box from '@mui/material/Box';
 
-// project imports
 import { ThemeDirection } from 'config';
 import { gridSpacing } from 'store/constant';
 import useConfig from 'hooks/useConfig';
 import MainCard from 'ui-component/cards/MainCard';
 
-// assets
 import CheckCircleTwoToneIcon from '@mui/icons-material/CheckCircle';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 
-// styles
 const FeatureTitleWrapper = styled(CardContent)(({ theme }) => ({
   background: `${theme.vars.palette.grey[100]} !important`,
   ...theme.applyStyles('dark', { background: `${theme.vars.palette.background.default} !important` }),
@@ -209,7 +205,6 @@ const OrderButton = ({ view, index, popular }: { view: number; index: number; po
   </Grid>
 );
 
-// =============================|| PRICING - PRICE 2 ||============================= //
 
 export default function Price2() {
   const theme = useTheme();

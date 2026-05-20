@@ -1,9 +1,6 @@
 import { ReactElement } from 'react';
 
-// third party
 import { motion, Transition } from 'framer-motion';
-
-// ==============================|| ANIMATION FOR CONTENT ||============================== //
 
 export default function NavMotion({ children }: { children: ReactElement | ReactElement[] }) {
   const motionVariants = {

@@ -1,6 +1,5 @@
 import React from 'react';
 
-// material-ui
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CardActions from '@mui/material/CardActions';
@@ -13,19 +12,16 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// project imports
 import BajajAreaChartCard from './BajajAreaChartCard';
 import MainCard from 'ui-component/cards/MainCard';
 import SkeletonPopularCard from 'ui-component/cards/Skeleton/PopularCard';
 import { gridSpacing } from 'store/constant';
 
-// assets
 import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 
-// ==============================|| DASHBOARD DEFAULT - POPULAR CARD ||============================== //
 
 interface PopularCardProps {
   isLoading: boolean;

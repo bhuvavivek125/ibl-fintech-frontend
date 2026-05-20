@@ -1,14 +1,11 @@
-// material-ui
 import Divider from '@mui/material/Divider';
 import InputAdornment from '@mui/material/InputAdornment';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import MUIFormControl from '@mui/material/FormControl';
 
-// types
 import { GenericCardProps } from 'types';
 
-// ==============================|| FORM CONTROL ||============================== //
 
 interface FormControlProps {
   captionLabel?: string;

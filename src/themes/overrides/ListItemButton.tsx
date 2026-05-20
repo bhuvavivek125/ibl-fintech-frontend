@@ -1,10 +1,6 @@
-// material-ui
 import { Theme } from '@mui/material/styles';
 
-// project imports
 import { withAlpha } from 'utils/colorUtils';
-
-// ==============================|| OVERRIDES - LIST ITEM BUTTON ||============================== //
 
 export default function ListItemButton(theme: Theme) {
   return {

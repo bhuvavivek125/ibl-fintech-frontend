@@ -1,14 +1,12 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-// material-ui
 import { Theme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// project imports
 import AuthWrapper1 from './AuthWrapper1';
 import AuthCardWrapper from './AuthCardWrapper';
 import ViewOnlyAlert from './ViewOnlyAlert';

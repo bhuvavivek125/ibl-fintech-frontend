@@ -1,18 +1,14 @@
-// material-ui
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 
-// third party
 import { useDropzone } from 'react-dropzone';
 
-// project imports
 import RejectionFiles from './RejectionFile';
 import PlaceholderContent from './PlaceHolderContent';
 
-// types
 import { CustomFile, UploadProps } from 'types/dropzone';
 
 const DropzoneWrapper = styled('div')(({ theme }) => ({
@@ -27,7 +23,6 @@ const DropzoneWrapper = styled('div')(({ theme }) => ({
   '&:hover': { opacity: 0.72, cursor: 'pointer' }
 }));
 
-// ==============================|| UPLOAD - SINGLE FILE ||============================== //
 
 export default function SingleFileUpload({ error, file, setFieldValue, sx, ...other }: UploadProps) {
   const { getRootProps, getInputProps, isDragActive, isDragReject, fileRejections } = useDropzone({

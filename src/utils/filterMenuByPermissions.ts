@@ -1,9 +1,6 @@
 import { NavItemType } from 'types';
 
-/**
- * Normalizes user permissions to a structured matrix object format:
- * permissions: { adminDashboard: { view: true, create: false... }, ... }
- */
+// Normalizes user permissions to a structured matrix object format: permissions: { adminDashboard: { view: true, create: false... }, ... }
 export const getNormalizedPermissions = (user: any): any => {
   const defaultMatrix = {
     adminDashboard: { view: false, create: false, edit: false, delete: false },
@@ -159,9 +156,7 @@ export const getNormalizedPermissions = (user: any): any => {
   return defaultMatrix;
 };
 
-/**
- * Filter menu items based on user permissions matrix object or slugs array
- */
+// Filter menu items based on user permissions matrix object or slugs array
 export const filterMenuByPermissions = (items: NavItemType[], permissionsArg: any): NavItemType[] => {
   // Gracefully normalize permissionsArg to the matrix object
   let userPermissionsMatrix = permissionsArg;
@@ -213,9 +208,7 @@ export const filterMenuByPermissions = (items: NavItemType[], permissionsArg: an
     });
 };
 
-/**
- * Legacy support: Extract permission slugs as flat string array
- */
+// Legacy support: Extract permission slugs as flat string array
 export const extractPermissionSlugs = (user: any): string[] => {
   const matrix = getNormalizedPermissions(user);
   const slugs: string[] = [];
@@ -237,9 +230,7 @@ export const extractPermissionSlugs = (user: any): string[] => {
   return slugs;
 };
 
-/**
- * Check if user has a specific permission
- */
+// Check if user has a specific permission
 export const hasPermission = (user: any, permission: string): boolean => {
   if (!user) return false;
   const slugs = extractPermissionSlugs(user);

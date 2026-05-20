@@ -1,4 +1,3 @@
-// material-ui
 import { useColorScheme } from '@mui/material/styles';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
@@ -7,12 +6,10 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 
-// project imports
 import { ThemeMode } from 'config';
 import Avatar from 'ui-component/extended/Avatar';
 import useConfig from 'hooks/useConfig';
 
-// ==============================|| CUSTOMIZATION - INPUT FILLED ||============================== //
 
 export default function InputFilled() {
   const { colorScheme } = useColorScheme();

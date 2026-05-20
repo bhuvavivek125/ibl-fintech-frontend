@@ -1,17 +1,13 @@
-// material-ui
 import CardMedia from '@mui/material/CardMedia';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// third party
 import Slider, { Settings } from 'react-slick';
 
-// assets
 import BackgroundImag from 'assets/images/landing/bg-heand.png';
 
-// =============================|| LANDING - STARTUP PROJECT ||============================= //
 
 export default function RtlInfoSection() {
   const settings: Settings = {

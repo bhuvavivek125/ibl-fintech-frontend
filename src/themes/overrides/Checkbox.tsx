@@ -1,4 +1,3 @@
-// ==============================|| OVERRIDES - CHECKBOX ||============================== //
 
 export default function Checkbox() {
   return {

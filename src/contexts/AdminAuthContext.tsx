@@ -1,14 +1,11 @@
 import { createContext, ReactElement, useEffect, useReducer, useState } from 'react';
 
-// third party
 import { jwtDecode } from 'jwt-decode';
 
-// project imports
 import Loader from 'ui-component/Loader';
 import { adminLogin, AdminLoginResponse } from 'api/admin-auth';
 import { fetchUserPermissions } from 'api/user-permissions';
 
-// types
 import { KeyedObject } from 'types';
 import { AdminContextType, AdminInitialLoginContextProps } from 'types/admin-auth';
 
@@ -92,7 +89,6 @@ function setAdminSession(token?: string | null): void {
   }
 }
 
-// ==============================|| ADMIN AUTH CONTEXT ||============================== //
 
 const AdminAuthContext = createContext<(AdminContextType & { isLoading?: boolean; error?: string | null }) | null>(null);
 

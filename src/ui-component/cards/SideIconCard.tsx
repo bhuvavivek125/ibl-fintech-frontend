@@ -1,4 +1,3 @@
-// material-ui
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
@@ -7,7 +6,6 @@ import { SvgIconTypeMap } from '@mui/material/SvgIcon';
 import { OverridableComponent } from '@mui/material/OverridableComponent';
 import Box from '@mui/material/Box';
 
-// types
 import { GenericCardProps } from 'types';
 
 interface SideIconCardProps extends GenericCardProps {
@@ -16,7 +14,6 @@ interface SideIconCardProps extends GenericCardProps {
   bgcolor?: string;
 }
 
-// =============================|| SIDE ICON CARD ||============================= //
 
 export default function SideIconCard({ iconPrimary, primary, secondary, secondarySub, color, bgcolor }: SideIconCardProps) {
   const IconPrimary = iconPrimary;

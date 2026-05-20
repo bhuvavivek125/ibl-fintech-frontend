@@ -1,13 +1,10 @@
 import { useMemo, useEffect, useReducer, useCallback, ReactElement, createContext } from 'react';
 
-// third party
 import { createClient } from '@supabase/supabase-js';
 
-// project imports
 import accountReducer from 'store/accountReducer';
 import { LOGIN, LOGOUT } from 'store/actions';
 
-// types
 import { InitialLoginContextProps, SupabaseContextType } from 'types/auth';
 
 // supabase initialize
@@ -30,7 +27,6 @@ function setSession(serviceToken?: string | null): void {
   }
 }
 
-// ==============================|| SUPABASE CONTEXT & PROVIDER ||============================== //
 
 const SupabaseContext = createContext<SupabaseContextType | null>(null);
 

@@ -1,14 +1,11 @@
 import { Link } from 'react-router-dom';
 
-// material-ui
 import Stack from '@mui/material/Stack';
 import Button, { ButtonProps } from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import MainCard from 'ui-component/cards/MainCard';
 
-// assets
 import OpenInNewOutlinedIcon from '@mui/icons-material/OpenInNewOutlined';
 
 interface CreateBlogCardProps {
@@ -18,7 +15,6 @@ interface CreateBlogCardProps {
   buttonProps: ButtonProps;
 }
 
-// ==============================|| CREATE NEW BLOG CARD ||============================== //
 
 export default function CreateBlogCard({ title, description, learnMoreText, buttonProps }: CreateBlogCardProps) {
   return (

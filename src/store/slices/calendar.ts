@@ -1,12 +1,9 @@
-// third party
 import { createSlice } from '@reduxjs/toolkit';
 import { FormikValues } from 'formik';
 
-// project imports
 import axios from 'utils/axios';
 import { dispatch } from '../index';
 
-// types
 import { DefaultRootStateProps } from 'types';
 
 type CalendarEvent = {
@@ -28,7 +25,6 @@ const normalizeEvent = (e: any): CalendarEvent => ({
 
 const normalizeList = (list: any[] = []): CalendarEvent[] => list.map(normalizeEvent);
 
-// ==============================|| SLICE - CALENDAR ||============================== //
 
 const initialState: DefaultRootStateProps['calendar'] = {
   error: null,
@@ -67,10 +63,8 @@ const slice = createSlice({
   }
 });
 
-// Reducer
 export default slice.reducer;
 
-// ==============================|| SLICE - CALENDAR ACTIONS ||============================== //
 
 export const getEvents = () => async () => {
   try {

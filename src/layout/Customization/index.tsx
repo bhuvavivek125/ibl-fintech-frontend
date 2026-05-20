@@ -1,6 +1,5 @@
 import { Activity, ReactNode, SyntheticEvent, useState } from 'react';
 
-// material-ui
 import { useColorScheme, useTheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
@@ -15,7 +14,6 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// project imports
 import FontFamily from './FontFamily';
 import BoxContainer from './BoxContainer';
 import PresetColor from './PresetColor';
@@ -32,10 +30,8 @@ import AnimateButton from 'ui-component/extended/AnimateButton';
 import SimpleBar from 'ui-component/third-party/SimpleBar';
 import useConfig from 'hooks/useConfig';
 
-// assets
 import { IconSettings, IconPlus, IconTextSize, IconColorSwatch } from '@tabler/icons-react';
 
-// ==============================|| LIVE CUSTOMIZATION ||============================== //
 interface TabPanelProps {
   children?: ReactNode;
   index: number;

@@ -1,20 +1,15 @@
-// material-ui
 import { styled } from '@mui/material/styles';
 import CardMedia from '@mui/material/CardMedia';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-// third party
 import { useDropzone } from 'react-dropzone';
 
-// project imports
 import RejectionFiles from './RejectionFile';
 import { withAlpha } from 'utils/colorUtils';
 
-// assets
 import CameraAltOutlinedIcon from '@mui/icons-material/CameraAltOutlined';
 
-// types
 import { CustomFile, UploadProps } from 'types/dropzone';
 
 const RootWrapper = styled('div')(({ theme }) => ({
@@ -59,7 +54,6 @@ const PlaceholderWrapper = styled('div')(({ theme }) => ({
   '&:hover': { opacity: 0.85 }
 }));
 
-// ==============================|| UPLOAD - AVATAR ||============================== //
 
 export default function AvatarUpload({ error, file = [], setFieldValue, sx, ...other }: UploadProps) {
   const { getRootProps, getInputProps, isDragActive, isDragReject, fileRejections } = useDropzone({

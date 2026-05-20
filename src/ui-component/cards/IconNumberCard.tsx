@@ -1,12 +1,9 @@
-// material-ui
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import MainCard from './MainCard';
 import { GenericCardProps } from 'types';
 
-// =============================|| ICON NUMBER CARD ||============================= //
 
 interface IconNumberCardProps extends GenericCardProps {}
 

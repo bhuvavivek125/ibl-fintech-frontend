@@ -1,10 +1,8 @@
-// material-ui
 import { SvgIconTypeMap } from '@mui/material/SvgIcon';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { OverridableComponent } from '@mui/material/OverridableComponent';
 
-// project imports
 import MainCard from './MainCard';
 import { GenericCardProps } from 'types';
 
@@ -12,7 +10,6 @@ interface HoverDataCardProps extends GenericCardProps {
   iconPrimary: OverridableComponent<SvgIconTypeMap<{}, 'svg'>> & { muiName: string };
 }
 
-// ============================|| HOVER DATA CARD ||============================ //
 
 export default function HoverDataCard({ title, iconPrimary, primary, secondary, color }: HoverDataCardProps) {
   const IconPrimary = iconPrimary;

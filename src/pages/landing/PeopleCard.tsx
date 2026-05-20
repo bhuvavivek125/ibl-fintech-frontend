@@ -1,13 +1,10 @@
-// material-ui
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import Avatar from 'ui-component/extended/Avatar';
 import SubCard from 'ui-component/cards/SubCard';
 import { ImagePath, getImageUrl } from 'utils/getImageUrl';
 
-// ==============================|| PEOPLE CARD ||============================== //
 
 interface Props {
   id: number;

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -12,18 +11,15 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import { gridSpacing } from 'store/constant';
 import { FriendRequestCardProps } from 'types/user';
 import { getImageUrl, ImagePath } from 'utils/getImageUrl';
 
-// assets
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import FavoriteTwoToneIcon from '@mui/icons-material/FavoriteTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import GroupTwoToneIcon from '@mui/icons-material/GroupTwoTone';
 
-// ==============================|| SOCIAL PROFILE - FRIEND REQUEST CARD ||============================== //
 
 export default function FriendRequestCard({ avatar, name, mutual }: FriendRequestCardProps) {
   const theme = useTheme();

@@ -1,7 +1,4 @@
-// material-ui
 import { Theme } from '@mui/material/styles';
-
-// ==============================|| OVERRIDES - TIMELINE CONTENT ||============================== //
 
 export default function TimelineContent(theme: Theme) {
   return {

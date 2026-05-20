@@ -1,15 +1,11 @@
-// third party
 import { createSlice } from '@reduxjs/toolkit';
 
-// project imports
 import axios from 'utils/axios';
 import { dispatch } from '../index';
 
-// types
 import { DefaultRootStateProps } from 'types';
 import { ChatHistory } from 'types/chat';
 
-// ==============================|| SLICE - CHAT ||============================== //
 
 const initialState: DefaultRootStateProps['chat'] = {
   error: null,
@@ -44,10 +40,8 @@ const slice = createSlice({
   }
 });
 
-// Reducer
 export default slice.reducer;
 
-// ==============================|| SLICE - CHAT ACTIONS ||============================== //
 
 export function getUser(id: number) {
   return async () => {

@@ -1,18 +1,14 @@
 import { ReactNode } from 'react';
 
-// material-ui
 import { Theme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-// third party
 import Chart, { Props as ChartProps } from 'react-apexcharts';
 
-// project imports
 import MainCard from './MainCard';
 
-// =============================|| SEO CHART CARD ||============================= //
 
 interface SeoChartCardProps {
   chartData: ChartProps;

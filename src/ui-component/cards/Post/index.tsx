@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Button from '@mui/material/Button';
@@ -16,7 +15,6 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-// third party
 import * as yup from 'yup';
 import uniqueId from 'lodash/uniqueId';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
@@ -25,7 +23,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-// project imports
 import Comment from './Comment';
 import MainCard from '../MainCard';
 import useAuth from 'hooks/useAuth';
@@ -36,7 +33,6 @@ import { CommentData, PostProps, Reply } from 'types/user-profile';
 import useConfig from 'hooks/useConfig';
 import { getImageUrl, ImagePath } from 'utils/getImageUrl';
 
-// assets
 import ShareTwoToneIcon from '@mui/icons-material/ShareTwoTone';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import PeopleAltTwoToneIcon from '@mui/icons-material/PeopleAltTwoTone';
@@ -46,14 +42,12 @@ import MoreVertTwoToneIcon from '@mui/icons-material/MoreVertTwoTone';
 import ThumbUpAltTwoToneIcon from '@mui/icons-material/ThumbUpAltTwoTone';
 import ChatBubbleTwoToneIcon from '@mui/icons-material/ChatBubbleTwoTone';
 
-// types
 import { FormInputProps } from 'types';
 
 const validationSchema = yup.object().shape({
   name: yup.string().required('Comment Field is Required')
 });
 
-// ==============================|| COMMENT TEXTFIELD ||============================== //
 
 function FormInput({ bug, label, size, fullWidth = true, name, required, ...others }: FormInputProps) {
   let isError = false;
@@ -91,7 +85,6 @@ function FormInput({ bug, label, size, fullWidth = true, name, required, ...othe
   );
 }
 
-// ==============================|| SOCIAL PROFILE - POST ||============================== //
 
 export default function Post({ commentAdd, handleCommentLikes, handlePostLikes, handleReplayLikes, post, replyAdd }: PostProps) {
   const theme = useTheme();

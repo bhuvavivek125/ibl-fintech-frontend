@@ -1,7 +1,6 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-// material-ui
 import { Theme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Divider from '@mui/material/Divider';
@@ -9,7 +8,6 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// project imports
 import AuthWrapper1 from './pages/authentication/AuthWrapper1';
 import AuthCardWrapper from './pages/authentication/AuthCardWrapper';
 import LoginProvider from './pages/authentication/LoginProvider';

@@ -11,13 +11,10 @@ import Slide from '@mui/material/Slide';
 import Fade from '@mui/material/Fade';
 import Zoom from '@mui/material/Zoom';
 
-// third party
 import { enqueueSnackbar } from 'notistack';
 
-// project imports
 import SubCard from 'ui-component/cards/SubCard';
 
-// ==============================|| NOTISTACK - TRANSITIONS ||============================== //
 
 export default function TransitionBar() {
   const [value, setValue] = useState<string>('slide');

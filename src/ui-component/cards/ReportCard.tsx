@@ -1,13 +1,10 @@
-// material-ui
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import MainCard from './MainCard';
 import { GenericCardProps } from 'types';
 
-// ==============================|| REPORT CARD ||============================== //
 
 interface ReportCardProps extends GenericCardProps {}
 

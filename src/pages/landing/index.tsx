@@ -1,10 +1,8 @@
 import { useEffect } from 'react';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 
-// project imports
 import HeaderSection from './HeaderSection';
 import CardSection from './CardSection';
 import FeatureSection from './FeatureSection';
@@ -14,8 +12,6 @@ import FooterSection from './FooterSection';
 import CustomizeSection from './CustomizeSection';
 import PreBuildDashBoard from './PreBuildDashBoard';
 import StartupProjectSection from './StartupProjectSection';
-//import IncludeSection from './IncludeSection';
-//import RtlInfoSection from './RtlInfoSection';
 
 import Customization from 'layout/Customization';
 import AppBar from 'ui-component/extended/AppBar';
@@ -30,7 +26,6 @@ const prefetchRoutes = () => {
   import('views/AdminLogin');
 };
 
-// =============================|| LANDING MAIN ||============================= //
 
 export default function Landing() {
   const theme = useTheme();

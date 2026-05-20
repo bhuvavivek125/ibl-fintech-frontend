@@ -1,6 +1,5 @@
 import { memo, useMemo } from 'react';
 
-// material-ui
 import { Theme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Chip from '@mui/material/Chip';
@@ -8,7 +7,6 @@ import Drawer from '@mui/material/Drawer';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 
-// project imports
 import MenuList from '../MenuList';
 import LogoSection from '../LogoSection';
 import MiniDrawerStyled from './MiniDrawerStyled';
@@ -20,7 +18,6 @@ import SimpleBar from 'ui-component/third-party/SimpleBar';
 
 import { handlerDrawerOpen, useGetMenuMaster } from 'api/menu';
 
-// ==============================|| SIDEBAR DRAWER ||============================== //
 
 function Sidebar() {
   const downMD = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));

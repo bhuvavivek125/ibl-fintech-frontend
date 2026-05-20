@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 import AdminAuthContext from 'contexts/AdminAuthContext';
 
-// ==============================|| USE ADMIN AUTH ||============================== //
 
 export default function useAdminAuth() {
   const context = useContext(AdminAuthContext);

@@ -5,13 +5,10 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Checkbox from '@mui/material/Checkbox';
 
-// third party
 import { enqueueSnackbar } from 'notistack';
 
-// project imports
 import SubCard from 'ui-component/cards/SubCard';
 
-// ==============================|| NOTISTACK - PREVENT DUPLICATE ||============================== //
 
 export default function PreventDuplicate() {
   const [checked, setChecked] = React.useState(true);

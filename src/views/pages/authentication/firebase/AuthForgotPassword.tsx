@@ -1,17 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 
-// material-ui
 import Button from '@mui/material/Button';
 import FormHelperText from '@mui/material/FormHelperText';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Box from '@mui/material/Box';
 
-// third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 
-// project imports
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import CustomFormControl from 'ui-component/extended/Form/CustomFormControl';
 import useAuth from 'hooks/useAuth';
@@ -20,7 +17,6 @@ import useScriptRef from 'hooks/useScriptRef';
 import { useDispatch } from 'store';
 import { openSnackbar } from 'store/slices/snackbar';
 
-// ========================|| FIREBASE - FORGOT PASSWORD ||======================== //
 
 export default function AuthForgotPassword({ ...others }) {
   const scriptedRef = useScriptRef();

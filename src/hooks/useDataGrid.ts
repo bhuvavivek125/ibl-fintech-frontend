@@ -1,4 +1,3 @@
-// ==============================|| DATA GRID STYLE - HOOKS ||============================== //
 
 export default function useDataGrid() {
   const dataGridStyles = {

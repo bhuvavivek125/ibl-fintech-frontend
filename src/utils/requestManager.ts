@@ -1,17 +1,6 @@
-/**
- * Utility functions for handling API requests
- * - Prevents duplicate concurrent requests
- * - Implements debouncing for rapid updates
- * - Manages request queuing
- */
+// Utility functions for handling API requests - Prevents duplicate concurrent requests - Implements debouncing for rapid updates - Manages request queuing
 
-/**
- * Simple debounce function
- * Delays function execution and prevents multiple rapid calls
- * @param func - Function to debounce
- * @param delay - Delay in milliseconds
- * @returns Debounced function
- */
+// Simple debounce function Delays function execution and prevents multiple rapid calls
 export function debounce<T extends (...args: any[]) => any>(
   func: T,
   delay: number
@@ -26,19 +15,11 @@ export function debounce<T extends (...args: any[]) => any>(
   };
 }
 
-/**
- * Request manager to prevent concurrent duplicate requests
- * Useful for preventing multiple API calls for the same resource
- */
+// Request manager to prevent concurrent duplicate requests Useful for preventing multiple API calls for the same resource
 export class RequestManager {
   private pendingRequests = new Map<string, Promise<any>>();
 
-  /**
-   * Execute a request only if one with the same key isn't already pending
-   * @param key - Unique identifier for this request
-   * @param requestFn - Async function that makes the API call
-   * @returns Promise that resolves when request completes
-   */
+  // Execute a request only if one with the same key isn't already pending
   async executeOnce<T>(
     key: string,
     requestFn: () => Promise<T>
@@ -66,41 +47,28 @@ export class RequestManager {
     return requestPromise;
   }
 
-  /**
-   * Cancel a pending request
-   */
+  // Cancel a pending request
   cancel(key: string): void {
     this.pendingRequests.delete(key);
   }
 
-  /**
-   * Clear all pending requests
-   */
+  // Clear all pending requests
   clearAll(): void {
     this.pendingRequests.clear();
   }
 
-  /**
-   * Get count of pending requests
-   */
+  // Get count of pending requests
   getPendingCount(): number {
     return this.pendingRequests.size;
   }
 }
 
-/**
- * Creates a request queue that executes requests sequentially
- * Prevents race conditions when multiple requests need to happen one after another
- */
+// Creates a request queue that executes requests sequentially Prevents race conditions when multiple requests need to happen one after another
 export class RequestQueue {
   private queue: (() => Promise<any>)[] = [];
   private isProcessing = false;
 
-  /**
-   * Add a request to the queue
-   * @param requestFn - Async function to execute
-   * @returns Promise that resolves when this request completes
-   */
+  // Add a request to the queue
   async add<T>(requestFn: () => Promise<T>): Promise<T> {
     return new Promise((resolve, reject) => {
       this.queue.push(() =>
@@ -115,9 +83,7 @@ export class RequestQueue {
     });
   }
 
-  /**
-   * Process queue items sequentially
-   */
+  // Process queue items sequentially
   private async process(): Promise<void> {
     if (this.isProcessing || this.queue.length === 0) {
       return;
@@ -139,28 +105,19 @@ export class RequestQueue {
     this.isProcessing = false;
   }
 
-  /**
-   * Get current queue length
-   */
+  // Get current queue length
   getQueueLength(): number {
     return this.queue.length;
   }
 
-  /**
-   * Clear all pending requests in queue
-   */
+  // Clear all pending requests in queue
   clear(): void {
     this.queue = [];
     this.isProcessing = false;
   }
 }
 
-/**
- * Throttle function - execute at most once per specified time period
- * @param func - Function to throttle
- * @param limit - Time limit in milliseconds
- * @returns Throttled function
- */
+// Throttle function - execute at most once per specified time period
 export function throttle<T extends (...args: any[]) => any>(
   func: T,
   limit: number

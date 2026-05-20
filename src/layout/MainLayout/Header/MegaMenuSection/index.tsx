@@ -1,7 +1,6 @@
 import React, { Activity, ReactNode, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import Avatar, { AvatarProps } from '@mui/material/Avatar';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
@@ -15,14 +14,12 @@ import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import { ThemeDirection } from 'config';
 import MainCard from 'ui-component/cards/MainCard';
 import Transitions from 'ui-component/extended/Transitions';
 import { drawerWidth, gridSpacing } from 'store/constant';
 import useConfig from 'hooks/useConfig';
 
-// assets
 import Banner from './Banner';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import { IconAccessPoint } from '@tabler/icons-react';
@@ -146,7 +143,6 @@ const linkList = [
   }
 ];
 
-// ==============================|| SEARCH INPUT - MEGA MENu||============================== //
 
 export default function MegaMenuSection() {
   const theme = useTheme();

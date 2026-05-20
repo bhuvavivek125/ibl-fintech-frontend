@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useMemo, Activity } from 'react';
 
-// third party
 import { IntlProvider, MessageFormatElement } from 'react-intl';
 import useConfig from 'hooks/useConfig';
 
-// types
 import { I18n } from 'types/config';
 
 // load locales files
@@ -21,7 +19,6 @@ function loadLocaleData(i18n: I18n) {
   }
 }
 
-// ==============================|| LOCALIZATION ||============================== //
 
 interface LocalsProps {
   children: React.ReactNode;

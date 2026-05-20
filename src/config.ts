@@ -1,4 +1,3 @@
-// types
 import { ConfigStates } from 'types/config';
 
 export const DASHBOARD_PATH = '/dashboard/admin';

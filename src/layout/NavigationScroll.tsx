@@ -1,7 +1,5 @@
 import { useEffect, ReactElement } from 'react';
 
-// ==============================|| NAVIGATION SCROLL TO TOP ||============================== //
-
 export default function NavigationScroll({ children }: { children: ReactElement | null }) {
   useEffect(() => {
     window.scrollTo({

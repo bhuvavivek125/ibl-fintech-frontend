@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import {
   Box,
@@ -16,15 +15,12 @@ import {
   styled
 } from '@mui/material';
 
-// third-party
 import { motion } from 'framer-motion';
 
-// project imports
 import MainCard from 'ui-component/cards/MainCard';
 import dashboardService from 'services/dashboard.service';
 import useAuth from 'hooks/useAuth';
 
-// assets
 import { IconActivity, IconClock } from '@tabler/icons-react';
 
 // styled components
@@ -38,8 +34,6 @@ const IconWrapper = styled(Box)(({ color }: { color: string }) => ({
   background: `${color}15`,
   color: color
 }));
-
-// ==============================|| ACTIVITY LOGS PAGE ||============================== //
 
 const ActivityLogs: React.FC = () => {
   const theme = useTheme();

@@ -2,7 +2,6 @@
 import { LOGIN, LOGOUT, REGISTER } from './actions';
 import { InitialLoginContextProps } from 'types/auth';
 
-// ==============================|| ACCOUNT REDUCER ||============================== //
 
 interface AccountReducerActionProps {
   type: string;

@@ -1,16 +1,13 @@
 import { ReactElement, createContext, useEffect, useReducer } from 'react';
 
-// third party
 import { CognitoUser, CognitoUserPool, CognitoUserSession, CognitoUserAttribute, AuthenticationDetails } from 'amazon-cognito-identity-js';
 
 // reducer - state management
 import accountReducer from 'store/accountReducer';
 import { LOGIN, LOGOUT } from 'store/actions';
 
-// project imports
 import Loader from 'ui-component/Loader';
 
-// types
 import { AWSCognitoContextType, InitialLoginContextProps } from 'types/auth';
 
 const initialState: InitialLoginContextProps = {
@@ -33,7 +30,6 @@ function setSession(serviceToken?: string | null) {
   }
 }
 
-// ==============================|| AWS Cognito CONTEXT & PROVIDER ||============================== //
 
 const AWSCognitoContext = createContext<AWSCognitoContextType | null>(null);
 

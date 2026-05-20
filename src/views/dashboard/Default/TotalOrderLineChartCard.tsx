@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -9,15 +8,12 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// third party
 import Chart from 'react-apexcharts';
 
-// project imports
 import chartOptions from './chart-data/total-order-line-chart';
 import MainCard from 'ui-component/cards/MainCard';
 import SkeletonTotalOrderCard from 'ui-component/cards/Skeleton/EarningCard';
 
-// assets
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
@@ -25,7 +21,6 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 const monthlyData = [{ data: [45, 66, 41, 89, 25, 44, 9, 54] }];
 const yearlyData = [{ data: [35, 44, 9, 54, 45, 66, 41, 69] }];
 
-// ==============================|| DASHBOARD - TOTAL ORDER LINE CHART CARD ||============================== //
 
 interface TotalOrderLineChartCardProps {
   isLoading: boolean;

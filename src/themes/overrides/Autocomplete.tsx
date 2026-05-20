@@ -1,10 +1,6 @@
-// material-ui
 import { Theme } from '@mui/material/styles';
 
-// project imports
 import { withAlpha } from 'utils/colorUtils';
-
-// ==============================|| OVERRIDES - AUTOCOMPLETE ||============================== //
 
 export default function Autocomplete(theme: Theme, borderRadius: number) {
   return {

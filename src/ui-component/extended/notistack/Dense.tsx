@@ -5,15 +5,12 @@ import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-// third party
 import { enqueueSnackbar, SnackbarProvider } from 'notistack';
 
-// project imports
 import SubCard from 'ui-component/cards/SubCard';
 import { handlerDense } from 'store/slices/snackbar';
 import { dispatch } from 'store';
 
-// ==============================|| NOTISTACK - DENSE ||============================== //
 
 export default function Dense() {
   const [checked, setChecked] = useState(false);

@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 
-// third party
 import { motion, useCycle } from 'framer-motion';
 
 interface ScaleProps {
@@ -16,7 +15,6 @@ interface AnimateButtonProps {
   scale?: ScaleProps;
 }
 
-// ==============================|| ANIMATION BUTTON ||============================== //
 
 export default function AnimateButton({
   children,

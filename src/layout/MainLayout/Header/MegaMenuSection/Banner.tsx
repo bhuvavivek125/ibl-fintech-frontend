@@ -1,8 +1,6 @@
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 
-// project imports
 import useConfig from 'hooks/useConfig';
 
 export default function MegaMenuBanner() {

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -9,20 +8,16 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import Avatar from 'ui-component/extended/Avatar';
 import { gridSpacing } from 'store/constant';
 import { getImageUrl, ImagePath } from 'utils/getImageUrl';
 
-// types
 import { UserProfile } from 'types/user-profile';
 
-// assets
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import ChatBubbleTwoToneIcon from '@mui/icons-material/ChatBubbleTwoTone';
 import PhoneTwoToneIcon from '@mui/icons-material/PhoneTwoTone';
 
-// ==============================|| USER CONTACT CARD ||============================== //
 
 interface ContactCardProps extends UserProfile {
   onActive?: () => void;

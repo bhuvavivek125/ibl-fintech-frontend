@@ -1,10 +1,8 @@
-// material-ui
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack';
 
-// ==============================|| SKELETON - EARNING CARD ||============================== //
 
 export default function EarningCard() {
   return (

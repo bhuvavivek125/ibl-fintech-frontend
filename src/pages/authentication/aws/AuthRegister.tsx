@@ -2,7 +2,6 @@ import { SyntheticEvent, useEffect, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch } from 'store';
 
-// material-ui
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
@@ -17,11 +16,9 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 
-// project imports
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import CustomFormControl from 'ui-component/extended/Form/CustomFormControl';
 import useAuth from 'hooks/useAuth';
@@ -29,14 +26,11 @@ import useScriptRef from 'hooks/useScriptRef';
 import { strengthColor, strengthIndicator } from 'utils/password-strength';
 import { openSnackbar } from 'store/slices/snackbar';
 
-// assets
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-// types
 import { StringColorProps } from 'types';
 
-// ===========================|| AWS COGNITO - REGISTER ||=========================== //
 
 export default function AWSCognitoRegister({ ...others }) {
   const navigate = useNavigate();

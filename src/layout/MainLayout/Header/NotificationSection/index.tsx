@@ -1,7 +1,6 @@
 import { Activity, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Avatar from '@mui/material/Avatar';
@@ -17,12 +16,10 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// project imports
 import MainCard from 'ui-component/cards/MainCard';
 import Transitions from 'ui-component/extended/Transitions';
 import NotificationList from './NotificationList';
 
-// assets
 import { IconBell } from '@tabler/icons-react';
 
 // notification status options
@@ -45,7 +42,6 @@ const status = [
   }
 ];
 
-// ==============================|| NOTIFICATION ||============================== //
 
 export default function NotificationSection() {
   const theme = useTheme();
@@ -54,9 +50,7 @@ export default function NotificationSection() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
 
-  /**
-   * anchorRef is used on different componets and specifying one type leads to other components throwing an error
-   * */
+  // anchorRef is used on different componets and specifying one type leads to other components throwing an error
   const anchorRef = useRef<any>(null);
 
   const handleToggle = () => {

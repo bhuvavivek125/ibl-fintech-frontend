@@ -1,6 +1,5 @@
 import { useState, MouseEvent } from 'react';
 
-// material-ui
 import Button from '@mui/material/Button';
 import Chip, { ChipProps } from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
@@ -13,10 +12,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import CardActions from '@mui/material/CardActions';
 
-// project imports
 import MainCard from 'ui-component/cards/MainCard';
 
-// assets
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import FiberManualRecordTwoToneIcon from '@mui/icons-material/FiberManualRecordTwoTone';
@@ -36,7 +33,6 @@ interface HashtagsCardProps {
   showAcceptButton: boolean;
 }
 
-// ==============================|| BLOG - HASHTAG CARD ||============================== //
 
 export default function HashtagsCard({ title, blogData, showAcceptButton }: HashtagsCardProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

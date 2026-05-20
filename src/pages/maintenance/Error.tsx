@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 
-// material-ui
 import { useColorScheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
@@ -8,12 +7,10 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// project imports
 import { ThemeMode, DASHBOARD_PATH } from 'config';
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import { gridSpacing } from 'store/constant';
 
-// assets
 import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
 
 import imageBackground from 'assets/images/maintenance/img-error-bg.svg';
@@ -22,7 +19,6 @@ import imageBlue from 'assets/images/maintenance/img-error-blue.svg';
 import imageText from 'assets/images/maintenance/img-error-text.svg';
 import imagePurple from 'assets/images/maintenance/img-error-purple.svg';
 
-// ==============================|| ERROR PAGE ||============================== //
 
 export default function Error() {
   const { colorScheme } = useColorScheme();

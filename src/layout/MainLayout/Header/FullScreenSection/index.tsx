@@ -1,15 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import Box from '@mui/material/Box';
 
-// assets
 import { IconArrowsMaximize, IconArrowsMinimize } from '@tabler/icons-react';
 
-// ==============================|| HEADER CONTENT - FULLSCREEN ||============================== //
 
 export default function FullScreen() {
   const theme = useTheme();

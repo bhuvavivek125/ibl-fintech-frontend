@@ -1,10 +1,8 @@
-// material-ui
 import Grid from '@mui/material/Grid';
 import Slider from '@mui/material/Slider';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import useConfig from 'hooks/useConfig';
 
 // concat 'px'

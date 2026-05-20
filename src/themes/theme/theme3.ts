@@ -1,7 +1,5 @@
 import { ColorProps } from 'types';
 
-// ==============================|| THEME 3 COLORS ||============================== //
-
 const theme3: ColorProps = {
   // paper & background
   paper: '#ffffff',
@@ -50,8 +48,6 @@ const theme3: ColorProps = {
   grey600: '#4b5565',
   grey700: '#364152',
   grey900: '#121926',
-
-  // ==============================|| DARK THEME VARIANTS ||============================== //
 
   // paper & background
   darkPaper: '#0a181f',

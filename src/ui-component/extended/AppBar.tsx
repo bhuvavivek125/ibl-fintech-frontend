@@ -1,7 +1,6 @@
 import { cloneElement, useState, ReactElement, CSSProperties } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
-// material-ui
 import { useColorScheme, useTheme } from '@mui/material/styles';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import MuiAppBar from '@mui/material/AppBar';
@@ -19,11 +18,9 @@ import Typography from '@mui/material/Typography';
 import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
 
-// project imports
 import { ThemeMode } from 'config';
 import Logo from 'ui-component/Logo';
 
-// assets
 import { IconBook, IconCreditCard, IconDashboard, IconHome2 } from '@tabler/icons-react';
 import MenuIcon from '@mui/icons-material/Menu';
 
@@ -52,7 +49,6 @@ function ElevationScroll({ children, window }: ElevationScrollProps) {
   });
 }
 
-// ==============================|| MINIMAL LAYOUT APP BAR ||============================== //
 
 export default function AppBar({ ...others }) {
   const [drawerToggle, setDrawerToggle] = useState<boolean>(false);

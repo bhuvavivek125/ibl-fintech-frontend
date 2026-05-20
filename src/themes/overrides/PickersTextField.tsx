@@ -1,7 +1,4 @@
-// material-ui
 import { Theme } from '@mui/material/styles';
-
-// ==============================|| OVERRIDES - PICKERS TEXT FIELD ||============================== //
 
 export default function PickersTextField(theme: Theme, borderRadius: number, outlinedFilled: boolean) {
   return {

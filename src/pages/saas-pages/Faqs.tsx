@@ -1,4 +1,3 @@
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import CardMedia from '@mui/material/CardMedia';
@@ -6,12 +5,10 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// project imports
 import MainCard from 'ui-component/cards/MainCard';
 import Accordion from 'ui-component/extended/Accordion';
 import { gridSpacing } from 'store/constant';
 
-// assets
 import mailImg from 'assets/images/landing/widget-mail.svg';
 import headerBackground from 'assets/images/landing/bg-header.jpg';
 
@@ -41,7 +38,6 @@ const basicData = [
   }
 ];
 
-// ============================|| SAAS PAGES - FAQs ||============================ //
 
 export default function Faqs() {
   const theme = useTheme();

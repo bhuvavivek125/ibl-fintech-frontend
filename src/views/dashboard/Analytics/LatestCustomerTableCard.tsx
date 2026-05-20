@@ -1,4 +1,3 @@
-// material-ui
 import Button from '@mui/material/Button';
 import CardActions from '@mui/material/CardActions';
 import CardMedia from '@mui/material/CardMedia';
@@ -10,11 +9,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
-// project imports
 import MainCard from 'ui-component/cards/MainCard';
 import SimpleBar from 'ui-component/third-party/SimpleBar';
 
-// assets
 import Flag1 from 'assets/images/widget/australia.jpg';
 import Flag2 from 'assets/images/widget/brazil.jpg';
 import Flag3 from 'assets/images/widget/germany.jpg';
@@ -38,7 +35,6 @@ const rows = [
   createData(Flag2, 'United Kingdom', 'Lori Moore', '8.65%')
 ];
 
-// =========================|| DASHBOARD ANALYTICS - LATEST CUSTOMERS TABLE CARD ||========================= //
 
 interface LatestCustomerTableCardProps {
   title?: string;

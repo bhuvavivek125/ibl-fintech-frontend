@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-// material-ui
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -15,15 +14,12 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-// third party
 import { PatternFormat } from 'react-number-format';
 
-// project imports
 import AnimateButton from 'ui-component/extended/AnimateButton';
 
 import { gridSpacing } from 'store/constant';
 
-// assets
 import mailImg from 'assets/images/landing/widget-mail.svg';
 
 // select options
@@ -57,7 +53,6 @@ const sizes = [
   }
 ];
 
-// ===========================|| CONTACT CARD - FORMS ||=========================== //
 
 export default function ContactCard() {
   const [budget, setBudget] = React.useState(1);

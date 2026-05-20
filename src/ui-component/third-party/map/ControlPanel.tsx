@@ -1,9 +1,7 @@
 import { ReactElement, ReactNode } from 'react';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 
-// project imports
 import SubCard from 'ui-component/cards/SubCard';
 import { withAlpha } from 'utils/colorUtils';
 
@@ -12,7 +10,6 @@ interface Props {
   children: ReactElement;
 }
 
-// ==============================|| MAPLIBRE - CONTROL PANEL ||============================== //
 
 export default function ControlPanel({ title, children }: Props) {
   const theme = useTheme();

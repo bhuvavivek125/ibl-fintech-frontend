@@ -1,4 +1,3 @@
-// material-ui
 import Card from '@mui/material/Card';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -6,7 +5,6 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Skeleton from '@mui/material/Skeleton';
 
-// ==============================|| SKELETON - TOTAL INCOME DARK/LIGHT CARD ||============================== //
 
 export default function TotalIncomeCard() {
   return (

@@ -1,10 +1,6 @@
-// material-ui
 import { Theme } from '@mui/material/styles';
 
-// project imports
 import { withAlpha } from 'utils/colorUtils';
-
-// ==============================|| OVERRIDES - OUTLINED INPUT ||============================== //
 
 export default function OutlinedInput(theme: Theme, borderRadius: number, outlinedFilled: boolean) {
   return {

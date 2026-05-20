@@ -1,15 +1,11 @@
-// third party
 import { createSlice } from '@reduxjs/toolkit';
 
-// project imports
 import axios from 'utils/axios';
 import { dispatch } from '../index';
 
-// types
 import { DefaultRootStateProps } from 'types';
 import { UserProfile } from 'types/user-profile';
 
-// ==============================|| SLICE - CONTACT ||============================== //
 
 const initialState: DefaultRootStateProps['contact'] = {
   error: null,
@@ -37,10 +33,8 @@ const slice = createSlice({
   }
 });
 
-// Reducer
 export default slice.reducer;
 
-// ==============================|| SLICE - CONTACT ACTIONS ||============================== //
 
 export function getContacts() {
   return async () => {

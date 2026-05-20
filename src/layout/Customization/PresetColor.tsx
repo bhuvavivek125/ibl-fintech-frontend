@@ -1,10 +1,8 @@
-// material-ui
 import { useColorScheme } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-// project imports
 import { ThemeMode } from 'config';
 import Avatar from 'ui-component/extended/Avatar';
 import useConfig from 'hooks/useConfig';
@@ -18,10 +16,8 @@ import theme4 from '../../themes/theme/theme4';
 import theme5 from '../../themes/theme/theme5';
 import theme6 from '../../themes/theme/theme6';
 
-// assets
 import { IconCheck } from '@tabler/icons-react';
 
-// types
 import { PresetColor } from 'types/config';
 
 interface PresetColorProps {

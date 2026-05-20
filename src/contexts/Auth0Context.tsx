@@ -1,12 +1,9 @@
 import { createContext, ReactElement, useEffect, useState } from 'react';
 
-// third party
 import { Auth0Provider as AuthProvider, useAuth0 } from '@auth0/auth0-react';
 
-// project imports
 import Loader from 'ui-component/Loader';
 
-// types
 import { Auth0ContextType, InitialLoginContextProps } from 'types/auth';
 
 // constant
@@ -19,7 +16,6 @@ const initialState: InitialLoginContextProps = {
 const domain: string = import.meta.env.VITE_APP_AUTH0_DOMAIN;
 const clientId: string = import.meta.env.VITE_APP_AUTH0_CLIENT_ID;
 
-// ==============================|| AUTH0 CONTEXT & PROVIDER ||============================== //
 
 const Auth0Context = createContext<Auth0ContextType | null>(null);
 

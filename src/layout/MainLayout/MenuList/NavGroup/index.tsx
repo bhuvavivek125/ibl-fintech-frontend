@@ -1,7 +1,6 @@
 import { Activity, Fragment, useEffect, useState } from 'react';
 import { matchPath, useLocation } from 'react-router-dom';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
@@ -15,10 +14,8 @@ import Popper from '@mui/material/Popper';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// third party
 import { FormattedMessage } from 'react-intl';
 
-// project imports
 import NavCollapse from '../NavCollapse';
 import NavItem from '../NavItem';
 
@@ -27,10 +24,8 @@ import useConfig from 'hooks/useConfig';
 import Transitions from 'ui-component/extended/Transitions';
 import { useGetMenuMaster } from 'api/menu';
 
-// assets
 import { IconChevronDown, IconChevronRight, IconMinusVertical } from '@tabler/icons-react';
 
-// types
 import { NavItemType } from 'types';
 
 type VirtualElement = {
@@ -47,7 +42,6 @@ interface NavGroupProps {
   selectedID: string | undefined;
 }
 
-// ==============================|| SIDEBAR MENU LIST GROUP ||============================== //
 
 export default function NavGroup({ item, lastItem, remItems, lastItemId, selectedID, setSelectedID }: NavGroupProps) {
   const theme = useTheme();
