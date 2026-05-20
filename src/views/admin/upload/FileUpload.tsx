@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { Box, Typography, Stack, Paper, IconButton, LinearProgress, List, ListItem, ListItemText, ListItemIcon, Grid, Card, Tab, Tabs } from '@mui/material';
 import {
   CloudUpload as CloudUploadIcon,
@@ -9,9 +9,12 @@ import {
   FolderSpecial as FolderIcon
 } from '@mui/icons-material';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
+import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
+import VisibilityTwoToneIcon from '@mui/icons-material/VisibilityTwoTone';
 import Button from 'components/Button';
 import uploadService from 'services/upload.service';
 import { useSnackbar } from 'notistack';
+import { validateFiles } from 'utils/fileValidation';
 
 const getFullFileUrl = (path?: string) => {
   if (!path) return '#';
@@ -31,16 +34,109 @@ const FileUpload: React.FC = () => {
   const [uploadedFiles, setUploadedFiles] = useState<any[]>([]);
   const [selectedLogIndex, setSelectedLogIndex] = useState<number | null>(null);
 
+  const [editFile, setEditFile] = useState<any | null>(null);
+  const hiddenFileInputRef = useRef<HTMLInputElement>(null);
+
+  const [isDragging, setIsDragging] = useState(false);
+  const [previews, setPreviews] = useState<string[]>([]);
+
+  useEffect(() => {
+    fetchMyFiles();
+  }, []);
+
+  const fetchMyFiles = async () => {
+    try {
+      const response = await uploadService.getMyFiles();
+      if (response.success && response.data) {
+        setUploadedFiles(response.data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch files', error);
+    }
+  };
+
+  const handleEditClick = (e: React.MouseEvent, file: any) => {
+    e.stopPropagation();
+    setEditFile(file);
+    if (hiddenFileInputRef.current) {
+      hiddenFileInputRef.current.click();
+    }
+  };
+
+  const handleDeleteClick = async (e: React.MouseEvent, file: any) => {
+    e.stopPropagation();
+    if (!window.confirm('Are you sure you want to delete this file?')) return;
+    try {
+      if (file._id) {
+        await uploadService.deleteFile(file._id);
+      }
+      setUploadedFiles(prev => prev.filter(f => f._id !== file._id));
+      enqueueSnackbar('File deleted successfully', { variant: 'success' });
+    } catch (error: any) {
+      enqueueSnackbar(error.response?.data?.message || 'Failed to delete file', { variant: 'error' });
+    }
+  };
+
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
     setSelectedFiles([]);
+    setPreviews([]);
+  };
+
+  const generatePreviews = (files: File[]) => {
+    const newPreviews = files.map(file => {
+      if (file.type.startsWith('image/')) {
+        return URL.createObjectURL(file);
+      }
+      return '';
+    });
+    setPreviews(newPreviews);
+  };
+
+  const handleFiles = (files: File[]) => {
+    const isImageOnly = tabValue === 0;
+    const validation = validateFiles(files, isImageOnly);
+    
+    if (!validation.isValid) {
+      enqueueSnackbar(validation.error, { variant: 'error' });
+      return;
+    }
+
+    if (tabValue !== 2 && files.length > 1) {
+      files = [files[0]];
+    }
+
+    setSelectedFiles(files);
+    generatePreviews(files);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setSelectedFiles(Array.from(e.target.files));
+      handleFiles(Array.from(e.target.files));
     }
   };
+
+  const handleDragEnter = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  }, []);
+
+  const handleDragLeave = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  }, []);
+
+  const handleDrop = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+    
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      handleFiles(Array.from(e.dataTransfer.files));
+    }
+  }, [tabValue]);
 
   const handleUpload = async () => {
     if (selectedFiles.length === 0) return;
@@ -49,27 +145,31 @@ const FileUpload: React.FC = () => {
     setProgress(30);
 
     try {
+      const onUploadProgress = (progressEvent: any) => {
+        const percentCompleted = Math.round((progressEvent.loaded * 100) / (progressEvent.total || 1));
+        setProgress(percentCompleted);
+      };
+
       let response;
       if (tabValue === 0) {
-        response = await uploadService.uploadProfileImage(selectedFiles[0]);
+        response = await uploadService.uploadProfileImage(selectedFiles[0], onUploadProgress);
       } else if (tabValue === 1) {
-        response = await uploadService.uploadDocument(selectedFiles[0]);
+        response = await uploadService.uploadDocument(selectedFiles[0], onUploadProgress);
       } else {
-        response = await uploadService.uploadMultipleDocuments(selectedFiles);
+        response = await uploadService.uploadMultipleDocuments(selectedFiles, onUploadProgress);
       }
 
       if (response.success) {
         setProgress(100);
-        const newFiles = Array.isArray(response.data) ? response.data : [response.data];
-
-        setUploadedFiles([...newFiles, ...uploadedFiles]);
+        await fetchMyFiles(); // Refetch all files to ensure consistency
         setSelectedLogIndex(0); // Select newly uploaded file
         setSelectedFiles([]);
+        setPreviews([]);
         enqueueSnackbar('Asset synchronized successfully!', { variant: 'success' });
       }
     } catch (error: any) {
       console.error('Upload failed:', error);
-      enqueueSnackbar(error.message || 'Transmission failed. Verify connectivity.', { variant: 'error' });
+      enqueueSnackbar(error.response?.data?.message || error.message || 'Transmission failed. Verify connectivity.', { variant: 'error' });
     } finally {
       setUploading(false);
       setTimeout(() => setProgress(0), 1000);
@@ -80,6 +180,10 @@ const FileUpload: React.FC = () => {
     const newFiles = [...selectedFiles];
     newFiles.splice(index, 1);
     setSelectedFiles(newFiles);
+    
+    const newPreviews = [...previews];
+    newPreviews.splice(index, 1);
+    setPreviews(newPreviews);
   };
 
   return (
@@ -110,13 +214,17 @@ const FileUpload: React.FC = () => {
           <Grid container spacing={{ xs: 2, md: 4 }}>
             <Grid size={{ xs: 12, md: 7 }}>
               <Box
+                onDragEnter={handleDragEnter}
+                onDragOver={(e) => e.preventDefault()}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
                 sx={{
                   p: { xs: 3, sm: 6 },
                   textAlign: 'center',
                   border: '2px dashed',
-                  borderColor: 'rgba(33, 150, 243, 0.3)',
+                  borderColor: isDragging ? 'primary.main' : 'rgba(33, 150, 243, 0.3)',
                   borderRadius: '24px',
-                  bgcolor: 'rgba(33, 150, 243, 0.02)',
+                  bgcolor: isDragging ? 'rgba(33, 150, 243, 0.1)' : 'rgba(33, 150, 243, 0.02)',
                   transition: 'all 0.3s ease',
                   '&:hover': {
                     bgcolor: 'rgba(33, 150, 243, 0.05)',
@@ -127,7 +235,7 @@ const FileUpload: React.FC = () => {
                 <input
                   type="file"
                   multiple={tabValue === 2}
-                  accept={tabValue === 0 ? "image/*" : ".pdf,.jpg,.jpeg,.png"}
+                  accept={tabValue === 0 ? "image/jpeg,image/png,image/jpg" : ".pdf,.jpg,.jpeg,.png,.doc,.docx"}
                   onChange={handleFileChange}
                   style={{ display: 'none' }}
                   id="file-upload-input"
@@ -139,7 +247,7 @@ const FileUpload: React.FC = () => {
                 </label>
                 <Typography variant="h4" fontWeight={700} mb={1}>Deploy Digital Assets</Typography>
                 <Typography variant="body1" color="text.secondary" mb={4}>
-                  {tabValue === 0 ? 'Upload professional identity headshot' : tabValue === 1 ? 'Upload official verification document' : 'Batch upload multiple repository assets'}
+                  {tabValue === 0 ? 'Upload professional identity headshot (JPG, PNG)' : tabValue === 1 ? 'Upload official verification document (PDF, JPG, PNG, DOC)' : 'Batch upload multiple repository assets'}
                 </Typography>
 
                 {selectedFiles.length > 0 && (
@@ -152,7 +260,13 @@ const FileUpload: React.FC = () => {
                             <DeleteTwoToneIcon sx={{ fontSize: '1.3rem' }} />
                           </IconButton>
                         } sx={{ borderBottom: index < selectedFiles.length - 1 ? '1px solid' : 'none', borderColor: 'divider', py: 1.5 }}>
-                          <ListItemIcon><FileIcon color="primary" /></ListItemIcon>
+                          <ListItemIcon>
+                            {previews[index] ? (
+                              <Box component="img" src={previews[index]} alt={file.name} sx={{ width: 40, height: 40, borderRadius: 1, objectFit: 'cover' }} />
+                            ) : (
+                              <FileIcon color="primary" />
+                            )}
+                          </ListItemIcon>
                           <ListItemText
                             primary={file.name}
                             primaryTypographyProps={{ fontWeight: 600, variant: 'body2' }}
@@ -225,22 +339,55 @@ const FileUpload: React.FC = () => {
                           }}
                         >
                           <Stack direction="row" spacing={2} alignItems="center">
-                            <CheckCircleIcon color="success" />
-                            <Box sx={{ flexGrow: 1, minWidth: 0 }}>
-                              <Typography variant="subtitle2" fontWeight={700} noWrap>{file.originalName || file.fileName || file.name || `Asset-${index + 1}`}</Typography>
-                              <Typography variant="caption" color="text.secondary">Provisioned {new Date().toLocaleDateString()}</Typography>
+                            <Box sx={{ flexGrow: 1, minWidth: 0, display: 'flex', alignItems: 'center' }}>
+                              {(file.fileUrl || file.url) && (file.fileUrl?.match(/\.(jpeg|jpg|gif|png)$/i) || file.url?.match(/\.(jpeg|jpg|gif|png)$/i)) ? (
+                                <Box 
+                                  component="img" 
+                                  src={getFullFileUrl(file.fileUrl || file.url)} 
+                                  alt={file.originalName || file.fileName || 'asset'} 
+                                  sx={{ maxHeight: 80, maxWidth: '100%', borderRadius: 2, objectFit: 'contain' }} 
+                                  onError={(e: any) => { 
+                                    e.target.style.display = 'none'; 
+                                    if (e.target.nextSibling) e.target.nextSibling.style.display = 'flex'; 
+                                  }} 
+                                />
+                              ) : null}
+                              
+                              <Box 
+                                sx={{ 
+                                  display: (file.fileUrl || file.url) && (file.fileUrl?.match(/\.(jpeg|jpg|gif|png)$/i) || file.url?.match(/\.(jpeg|jpg|gif|png)$/i)) ? 'none' : 'flex',
+                                  alignItems: 'center',
+                                  gap: 2
+                                }}
+                              >
+                                <CheckCircleIcon color="success" />
+                                <Box>
+                                  <Typography variant="subtitle2" fontWeight={700} noWrap>{file.originalName || file.fileName || file.name || `Asset-${index + 1}`}</Typography>
+                                  <Typography variant="caption" color="text.secondary" display="block">Provisioned {new Date(file.uploadedAt || Date.now()).toLocaleDateString()}</Typography>
+                                </Box>
+                              </Box>
                             </Box>
-                            <Button
-                              size="small"
-                              variant={isSelected ? "contained" : "text"}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                window.open(getFullFileUrl(file.fileUrl || file.url), '_blank');
-                              }}
-                              sx={{ minWidth: 'auto', fontWeight: 800, borderRadius: '8px', px: isSelected ? 2 : 1.5, py: 0.8 }}
-                            >
-                              View
-                            </Button>
+                            
+                            <Stack direction="row" spacing={1} alignItems="center">
+                              <IconButton size="small" onClick={(e) => handleEditClick(e, file)} sx={{ color: 'primary.main', bgcolor: 'rgba(33, 150, 243, 0.1)', '&:hover': { bgcolor: 'rgba(33, 150, 243, 0.2)' } }}>
+                                <EditTwoToneIcon fontSize="small" />
+                              </IconButton>
+                              
+                              <IconButton size="small" onClick={(e) => handleDeleteClick(e, file)} sx={{ color: 'error.main', bgcolor: 'rgba(244, 67, 54, 0.1)', '&:hover': { bgcolor: 'rgba(244, 67, 54, 0.2)' } }}>
+                                <DeleteTwoToneIcon fontSize="small" />
+                              </IconButton>
+
+                              <IconButton 
+                                size="small" 
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  window.open(getFullFileUrl(file.fileUrl || file.url), '_blank');
+                                }} 
+                                sx={{ color: 'info.main', bgcolor: 'rgba(2, 136, 209, 0.1)', '&:hover': { bgcolor: 'rgba(2, 136, 209, 0.2)' } }}
+                              >
+                                <VisibilityTwoToneIcon fontSize="small" />
+                              </IconButton>
+                            </Stack>
                           </Stack>
                         </Card>
                       );
@@ -256,6 +403,30 @@ const FileUpload: React.FC = () => {
           </Grid>
         </Box>
       </Card>
+
+      <input
+        type="file"
+        ref={hiddenFileInputRef}
+        style={{ display: 'none' }}
+        onChange={async (e) => {
+          if (e.target.files && e.target.files.length > 0 && editFile) {
+            const newFile = e.target.files[0];
+            try {
+              const response = await uploadService.updateFile(editFile._id, newFile, newFile.name);
+              if (response.success) {
+                await fetchMyFiles();
+                enqueueSnackbar('Asset updated successfully', { variant: 'success' });
+              }
+            } catch (error: any) {
+              const errorMsg = error.message || (typeof error === 'string' ? error : JSON.stringify(error));
+              enqueueSnackbar(errorMsg || 'Failed to update asset', { variant: 'error' });
+            } finally {
+              setEditFile(null);
+              if (hiddenFileInputRef.current) hiddenFileInputRef.current.value = '';
+            }
+          }
+        }}
+      />
     </Box>
   );
 };
