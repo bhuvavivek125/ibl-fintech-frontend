@@ -33,11 +33,11 @@ const getEmptyPermissionsObject = () => ({
 
 const convertPermissionsArrayToObject = (permissionIds: string[], allPermissions: any[]) => {
   const permsObj = getEmptyPermissionsObject();
-  
+
   Object.keys(MODULE_KEYS).forEach((moduleKey) => {
     const backendModuleName = MODULE_KEYS[moduleKey as keyof typeof MODULE_KEYS];
     const modulePerms = allPermissions.filter(p => p.module === backendModuleName);
-    
+
     const viewPerm = modulePerms.find(p => /view|read|get|list|overview|history/i.test(p.slug));
     const createPerm = modulePerms.find(p => /create|add|upload|post|insert|new/i.test(p.slug));
     const editPerm = modulePerms.find(p => /update|edit|modify|put|patch|setting|config/i.test(p.slug));
@@ -325,7 +325,7 @@ const UserList: React.FC = () => {
         const roleLower = roleText?.toLowerCase() || '';
         let chipColor = '#6366f1';
         let chipBg = 'rgba(99, 102, 241, 0.08)';
-        
+
         if (roleLower === 'super_admin') {
           chipColor = '#f59e0b';
           chipBg = 'rgba(245, 158, 11, 0.08)';
@@ -336,7 +336,7 @@ const UserList: React.FC = () => {
           chipColor = '#3b82f6';
           chipBg = 'rgba(59, 130, 246, 0.08)';
         }
-        
+
         return (
           <Chip
             label={roleText?.toUpperCase() || ''}
@@ -426,7 +426,7 @@ const UserList: React.FC = () => {
   ];
 
   return (
-    <Box p={{ xs: 2, sm: 4 }} sx={{ width: '100%', minWidth: 0, maxWidth: '100%', overflow: 'hidden' }}>
+    <Box p={{ xs: 1, sm: 4 }} sx={{ width: '100%', minWidth: 0, maxWidth: '100%', overflow: 'hidden' }}>
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="space-between" alignItems={{ xs: 'flex-start', sm: 'center' }} mb={{ xs: 3, sm: 5 }}>
         <Box>
           <Typography variant="h2" fontWeight={800} className="gradient-text" sx={{ letterSpacing: '-0.5px', mb: 0.5 }}>
@@ -702,7 +702,7 @@ const UserList: React.FC = () => {
               <TableBody>
                 {Object.entries(MODULE_KEYS).map(([moduleKey, moduleName]) => {
                   const state = selectedUserPermissions[moduleKey as keyof typeof MODULE_KEYS] || { view: false, create: false, edit: false, delete: false };
-                  
+
                   const handleCheckboxChange = (action: 'view' | 'create' | 'edit' | 'delete') => {
                     const newPermissions = {
                       ...selectedUserPermissions,

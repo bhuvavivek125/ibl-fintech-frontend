@@ -52,18 +52,19 @@ const MainContentStyled = styled('main', {
     }
   }),
   [theme.breakpoints.down('md')]: {
-    marginLeft: 20,
-    marginRight: 20,
-    padding: 16,
-    marginTop: 88,
-    width: 'calc(100% - 40px)'
-  },
-  [theme.breakpoints.down('sm')]: {
     marginLeft: 10,
     marginRight: 10,
-    padding: 16,
+    padding: 12,
     marginTop: 88,
     width: 'calc(100% - 20px)'
+  },
+  [theme.breakpoints.down('sm')]: {
+    marginLeft: 0,
+    marginRight: 0,
+    padding: 8,
+    marginTop: 88,
+    borderRadius: 0,
+    width: '100%'
   }
 }));
 
