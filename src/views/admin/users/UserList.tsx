@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, Stack, Chip, IconButton, Tooltip, Card, Grid, FormControl, InputLabel, Select, MenuItem, TextField, TableContainer, Table as MuiTable, TableHead, TableRow, TableCell, TableBody, Checkbox, Paper } from '@mui/material';
-import { Edit as EditIcon, Delete as DeleteIcon, Add as AddIcon, Refresh as RefreshIcon, Search as SearchIcon, Security as SecurityIcon } from '@mui/icons-material';
+import { Add as AddIcon, Refresh as RefreshIcon, Search as SearchIcon, Security as SecurityIcon } from '@mui/icons-material';
+import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
+import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import Table, { Column } from 'components/Table';
 import Button from 'components/Button';
 import Input from 'components/Input';
@@ -398,20 +400,10 @@ const UserList: React.FC = () => {
             <Tooltip title="Modify Access">
               <IconButton
                 onClick={() => { setSelectedUser(row); setIsModalOpen(true); }}
-                sx={{
-                  color: 'primary.main',
-                  bgcolor: 'primary.light',
-                  borderRadius: '10px',
-                  transition: 'all 0.2s ease',
-                  '&:hover': {
-                    bgcolor: 'primary.light',
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 4px 10px rgba(33, 150, 243, 0.15)'
-                  }
-                }}
+                color="secondary"
                 size="small"
               >
-                <EditIcon fontSize="small" />
+                <EditTwoToneIcon sx={{ fontSize: '1.3rem' }} />
               </IconButton>
             </Tooltip>
           )}
@@ -419,20 +411,10 @@ const UserList: React.FC = () => {
             <Tooltip title="Revoke Permissions">
               <IconButton
                 onClick={() => handleDelete(row._id)}
-                sx={{
-                  color: 'error.main',
-                  bgcolor: 'error.light',
-                  borderRadius: '10px',
-                  transition: 'all 0.2s ease',
-                  '&:hover': {
-                    bgcolor: 'error.light',
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 4px 10px rgba(244, 67, 54, 0.15)'
-                  }
-                }}
+                color="error"
                 size="small"
               >
-                <DeleteIcon fontSize="small" />
+                <DeleteTwoToneIcon sx={{ fontSize: '1.3rem' }} />
               </IconButton>
             </Tooltip>
           )}

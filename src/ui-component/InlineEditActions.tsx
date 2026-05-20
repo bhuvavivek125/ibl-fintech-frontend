@@ -4,7 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import CircularProgress from '@mui/material/CircularProgress';
 import SaveOutlined from '@mui/icons-material/SaveOutlined';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
-import EditOutlined from '@mui/icons-material/EditOutlined';
+import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import { iconButtonBlueSx, iconButtonGreenSx, iconButtonRedSx } from 'styles';
 
 interface InlineEditActionsProps {
@@ -40,7 +40,7 @@ export function InlineEditActions({ editing, saving, disabled = false, onEdit, o
   return (
     <Tooltip title="Edit value">
       <IconButton size="small" onClick={onEdit} disabled={disabled} sx={iconButtonBlueSx}>
-        <EditOutlined sx={{ fontSize: 15 }} />
+        <EditTwoToneIcon sx={{ fontSize: '1.3rem' }} />
       </IconButton>
     </Tooltip>
   );

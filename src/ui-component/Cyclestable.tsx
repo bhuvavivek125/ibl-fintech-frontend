@@ -12,8 +12,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import AddOutlined from '@mui/icons-material/AddOutlined';
 import CycloneOutlined from '@mui/icons-material/CycloneOutlined';
-import EditOutlined from '@mui/icons-material/EditOutlined';
-import DeleteOutlined from '@mui/icons-material/DeleteOutlined';
+import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
+import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import { LoanExposureCycle } from 'types/bre-rule';
 import { deleteLoanExposureCycle } from 'api/bre-rule';
 import {
@@ -165,8 +165,8 @@ export function CyclesTable({ cycles, onRefresh }: CyclesTableProps) {
               {/* Edit and Delete actions */}
               <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 0.5 }}>
                 <Tooltip title="Edit cycle" arrow>
-                  <IconButton size="small" onClick={() => openEdit(cycle)} sx={{ ...iconButtonBlueSx, width: 30, height: 30 }}>
-                    <EditOutlined sx={{ fontSize: 15 }} />
+                  <IconButton size="small" onClick={() => openEdit(cycle)} color="secondary">
+                    <EditTwoToneIcon sx={{ fontSize: '1.3rem' }} />
                   </IconButton>
                 </Tooltip>
                 {idx === cycles.length - 1 && cycles.length > 1 && (
@@ -174,9 +174,9 @@ export function CyclesTable({ cycles, onRefresh }: CyclesTableProps) {
                     <IconButton
                       size="small"
                       onClick={() => openDelete(cycle)}
-                      sx={{ ...iconButtonBlueSx, width: 30, height: 30, color: '#EF4444 !important' }}
+                      color="error"
                     >
-                      <DeleteOutlined sx={{ fontSize: 15 }} />
+                      <DeleteTwoToneIcon sx={{ fontSize: '1.3rem' }} />
                     </IconButton>
                   </Tooltip>
                 )}

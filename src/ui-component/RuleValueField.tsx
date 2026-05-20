@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import EditOutlined from '@mui/icons-material/EditOutlined';
+import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import { RuleValue, BRERule } from 'types/bre-rule';
 import { MonoPill } from './BreSharedUI';
 import { monoFont, thinFieldSx } from 'styles';
@@ -49,7 +49,7 @@ export function RuleValueDisplay({ value, rule, onEditVariable }: RuleValueDispl
               {onEditVariable && (
                 <Tooltip title="Edit current" arrow>
                   <IconButton size="small" onClick={() => onEditVariable('current')} sx={{ width: 24, height: 24, color: '#3B82F6' }}>
-                    <EditOutlined sx={{ fontSize: 13 }} />
+                    <EditTwoToneIcon sx={{ fontSize: '1.3rem' }} />
                   </IconButton>
                 </Tooltip>
               )}
@@ -65,7 +65,7 @@ export function RuleValueDisplay({ value, rule, onEditVariable }: RuleValueDispl
               {onEditVariable && (
                 <Tooltip title={`Edit ${key}`} arrow>
                   <IconButton size="small" onClick={() => onEditVariable(key)} sx={{ width: 24, height: 24, color: '#3B82F6' }}>
-                    <EditOutlined sx={{ fontSize: 13 }} />
+                    <EditTwoToneIcon sx={{ fontSize: '1.3rem' }} />
                   </IconButton>
                 </Tooltip>
               )}
@@ -125,7 +125,7 @@ export function RuleValueDisplay({ value, rule, onEditVariable }: RuleValueDispl
           {onEditVariable && (
             <Tooltip title="Edit range" arrow>
               <IconButton size="small" onClick={() => onEditVariable('range')} sx={{ width: 24, height: 24, color: '#3B82F6' }}>
-                <EditOutlined sx={{ fontSize: 13 }} />
+                <EditTwoToneIcon sx={{ fontSize: '1.3rem' }} />
               </IconButton>
             </Tooltip>
           )}
@@ -145,7 +145,7 @@ export function RuleValueDisplay({ value, rule, onEditVariable }: RuleValueDispl
           {onEditVariable && (
             <Tooltip title="Edit value" arrow>
               <IconButton size="small" onClick={() => onEditVariable('current')} sx={{ width: 24, height: 24, color: '#3B82F6' }}>
-                <EditOutlined sx={{ fontSize: 13 }} />
+                <EditTwoToneIcon sx={{ fontSize: '1.3rem' }} />
               </IconButton>
             </Tooltip>
           )}
@@ -164,7 +164,7 @@ export function RuleValueDisplay({ value, rule, onEditVariable }: RuleValueDispl
         {onEditVariable && (
           <Tooltip title="Edit value" arrow>
             <IconButton size="small" onClick={() => onEditVariable('current')} sx={{ width: 24, height: 24, color: '#3B82F6' }}>
-              <EditOutlined sx={{ fontSize: 13 }} />
+              <EditTwoToneIcon sx={{ fontSize: '1.3rem' }} />
             </IconButton>
           </Tooltip>
         )}

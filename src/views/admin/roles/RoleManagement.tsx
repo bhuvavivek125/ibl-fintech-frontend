@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, Stack, Tab, Tabs, Chip, IconButton, Tooltip, Card, Grid, FormControl, InputLabel, Select, MenuItem, TextField, TableContainer, Table as MuiTable, TableHead, TableRow, TableCell, TableBody, Checkbox, Paper } from '@mui/material';
-import { Edit as EditIcon, Delete as DeleteIcon, Add as AddIcon, Refresh as RefreshIcon, Security as SecurityIcon, Menu as MenuIcon } from '@mui/icons-material';
+import { Add as AddIcon, Refresh as RefreshIcon, Security as SecurityIcon, Menu as MenuIcon } from '@mui/icons-material';
+import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
+import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import Table, { Column } from 'components/Table';
 import Button from 'components/Button';
 import Input from 'components/Input';
@@ -189,14 +191,10 @@ const RoleManagement: React.FC = () => {
                       setIsRoleModalOpen(true); 
                     }} 
                     disabled={isSuperAdmin}
-                    sx={{ 
-                      color: 'primary.main', 
-                      bgcolor: 'primary.light',
-                      ...(isSuperAdmin && { opacity: 0.4, cursor: 'not-allowed' })
-                    }} 
+                    color="secondary"
                     size="small"
                   >
-                    <EditIcon fontSize="small" />
+                    <EditTwoToneIcon sx={{ fontSize: '1.3rem', ...(isSuperAdmin && { opacity: 0.4 }) }} />
                   </IconButton>
                 </span>
               </Tooltip>

@@ -3,12 +3,12 @@ import { Box, Typography, Stack, Paper, IconButton, LinearProgress, List, ListIt
 import {
   CloudUpload as CloudUploadIcon,
   InsertDriveFile as FileIcon,
-  Delete as DeleteIcon,
   CheckCircle as CheckCircleIcon,
   AccountCircle as AccountCircleIcon,
   Assignment as AssignmentIcon,
   FolderSpecial as FolderIcon
 } from '@mui/icons-material';
+import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import Button from 'components/Button';
 import uploadService from 'services/upload.service';
 import { useSnackbar } from 'notistack';
@@ -149,7 +149,7 @@ const FileUpload: React.FC = () => {
                       {selectedFiles.map((file, index) => (
                         <ListItem key={index} secondaryAction={
                           <IconButton edge="end" onClick={() => removeSelectedFile(index)} size="small" color="error">
-                            <DeleteIcon fontSize="small" />
+                            <DeleteTwoToneIcon sx={{ fontSize: '1.3rem' }} />
                           </IconButton>
                         } sx={{ borderBottom: index < selectedFiles.length - 1 ? '1px solid' : 'none', borderColor: 'divider', py: 1.5 }}>
                           <ListItemIcon><FileIcon color="primary" /></ListItemIcon>
