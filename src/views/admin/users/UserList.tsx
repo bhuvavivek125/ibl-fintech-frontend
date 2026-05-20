@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Box, Typography, Stack, Chip, IconButton, Tooltip, Card, Grid, FormControl, InputLabel, Select, MenuItem, TextField, TableContainer, Table as MuiTable, TableHead, TableRow, TableCell, TableBody, Checkbox, Paper } from '@mui/material';
 import { Add as AddIcon, Refresh as RefreshIcon, Search as SearchIcon, Security as SecurityIcon } from '@mui/icons-material';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
@@ -76,6 +77,7 @@ const convertPermissionsObjectToArray = (permsObj: any, allPermissions: any[]) =
 const UserList: React.FC = () => {
   const { enqueueSnackbar } = useSnackbar();
   const { canCreate, canEdit, canDelete } = useRBAC();
+  const [searchParams] = useSearchParams();
   const [users, setUsers] = useState<any[]>([]);
   const [roles, setRoles] = useState<any[]>([]);
   const [totalCount, setTotalCount] = useState(0);
@@ -86,7 +88,7 @@ const UserList: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<any>(null);
   const [filterRole, setFilterRole] = useState('');
-  const [filterStatus, setFilterStatus] = useState('');
+  const [filterStatus, setFilterStatus] = useState(searchParams.get('status') || '');
   const [sortBy, setSortBy] = useState('desc');
 
   // User Permissions state

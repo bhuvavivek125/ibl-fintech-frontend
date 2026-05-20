@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useTheme, styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
@@ -57,6 +58,7 @@ const IconWrapper = styled(Box)(({ color }: { color: string }) => ({
 
 const AdminDashboard: React.FC = () => {
   const theme = useTheme();
+  const navigate = useNavigate();
   const [stats, setStats] = useState<any>(null);
   const [chartData, setChartData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -196,10 +198,10 @@ const AdminDashboard: React.FC = () => {
 
       <Grid container spacing={{ xs: 2, sm: 4 }} mb={6}>
         {[
-          { title: 'Identity Registry', value: stats?.totalUsers, icon: IconUsers, color: theme.palette.primary.main, trend: '+12%' },
-          { title: 'Verified Assets', value: stats?.activeUsers, icon: IconUserCheck, color: theme.palette.success.main, trend: 'Optimal' },
-          { title: 'Security Actions', value: stats?.inactiveUsers, icon: IconUserExclamation, color: theme.palette.warning.main, trend: '2 Pending' },
-          { title: 'Growth Velocity', value: '98.4%', icon: IconTrendingUp, color: theme.palette.secondary.main, trend: '+2.4%' }
+          { title: 'Identity Registry', value: stats?.totalUsers, icon: IconUsers, color: theme.palette.primary.main, trend: '+12%', route: '/users' },
+          { title: 'Verified Assets', value: stats?.activeUsers, icon: IconUserCheck, color: theme.palette.success.main, trend: 'Optimal', route: '/users?status=Active' },
+          { title: 'Security Actions', value: stats?.inactiveUsers, icon: IconUserExclamation, color: theme.palette.warning.main, trend: '2 Pending', route: '/users?status=Inactive' },
+          { title: 'Growth Velocity', value: '98.4%', icon: IconTrendingUp, color: theme.palette.secondary.main, trend: '+2.4%', route: '/activity-logs' }
         ].map((item, index) => (
           <Grid size={{ xs: 12, sm: 6, md: 3 }} key={index}>
             <motion.div
@@ -207,7 +209,10 @@ const AdminDashboard: React.FC = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.1 }}
             >
-              <GlassCard>
+              <GlassCard
+                onClick={() => navigate(item.route)}
+                sx={{ cursor: 'pointer', '&:active': { transform: 'scale(0.98)' } }}
+              >
                 <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
                   <IconWrapper color={item.color}>
                     <item.icon size={24} />
